@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interface Bancaire</title>
+    <!-- Bootstrap JS Bundle (inclut Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.card-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 14px;
+}
+
+/* Image Placeholder */
+img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 10px;
+}
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row row-cols-2 g-4">
+            <!-- SE CONNECTER -->
+            <div class="col">
+                <div class="card h-100 bg-primary text-white">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="card-title">SE CONNECTER</h3>
+                            <p class="card-text">Connectez-vous ou créez un compte ECCP</p>
+                        </div>
+                        <img src="https://via.placeholder.com/200x200?text=Phone+Icon" alt="Phone Icon" class="float-end">
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXTRAIT DE COMPTE -->
+            <div class="col">
+                <div class="card h-100 bg-info text-white">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="card-title">EXTRAIT DE COMPTE</h3>
+                            <p class="card-text">Consultez votre solde CCP en temps réel</p>
+                        </div>
+                        <img src="https://via.placeholder.com/200x200?text=Clock+Icon" alt="Clock Icon" class="float-end">
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOTIFICATION SMS -->
+            <div class="col">
+                <div class="card h-100 bg-light text-dark">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="card-title">NOTIFICATION SMS</h3>
+                            <p class="card-text">Recevez une notification SMS pour chaque opération de versement, virement, retrait...</p>
+                        </div>
+                        <img src="https://via.placeholder.com/200x200?text=SMS+Icon" alt="SMS Icon" class="float-end">
+                    </div>
+                </div>
+            </div>
+
+            <!-- RELEVE DE COMPTE -->
+            <div class="col">
+                <div class="card h-100 bg-success text-white">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="card-title">RELEVÉ DE COMPTE</h3>
+                            <p class="card-text">Relevé détaillé de vos opérations CCP</p>
+                        </div>
+                        <img src="https://via.placeholder.com/200x200?text=Document+Icon" alt="Document Icon" class="float-end">
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARTE EDAHABIA -->
+            <div class="col">
+                <div class="card h-100 bg-secondary text-white">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="card-title">CARTE EDAHABIA</h3>
+                            <p class="card-text">Commandez ou suivez votre carte ED AHABIA</p>
+                        </div>
+                        <img src="https://via.placeholder.com/200x200?text=Card+Icon" alt="Card Icon" class="float-end">
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARNET DE CHEQUES -->
+            <div class="col">
+                <div class="card h-100 bg-warning text-dark">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="card-title">CARNET DE CHÈQUES</h3>
+                            <p class="card-text">Commandez et suivez vos carnets de chèques</p>
+                        </div>
+                        <img src="https://via.placeholder.com/200x200?text=Cheque+Icon" alt="Cheque Icon" class="float-end">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
