@@ -30,11 +30,12 @@ body {
 }
 /* Card Styles */
  .content {
-    padding: 50px 30px;
-    min-height: 100vh;
+    padding: 30px 30px;
+   
     align-items: center;
     justify-content: center;
     text-align: center;
+    display: flex;
 }
 
 .card {
@@ -392,13 +393,14 @@ img {
         Votre tranquillité d'esprit est au coeur de nos préoccupation :</br>
         faites-nous confiance pour transformer vos ambitions en réalité, sans compromis.
     </p>
-    
+
+
 <!-- nimation -->
 <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 <dotlottie-player src="https://lottie.host/693df874-655c-4449-891d-ba4f59872018/OBMcLhewqQ.lottie" background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
 
-
 </div>
+
 
 <!-- principal -->
     <div class="content">
@@ -409,9 +411,9 @@ img {
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div>
                             <h3 class="card-title">KRIDI EL-TAHADI</h3>
-                            <p class="card-text">Connectez-vous ou créez un compte ECCP</p>
+                            <p class="card-text">Investissez dans l’avenir de votre ferme avec Kridi El Tahadi – Le défi qui transforme vos idées en réussite !</p>
                         </div>
-                        <img src="https://via.placeholder.com/200x200?text=Phone+Icon" alt="Phone Icon" class="float-end">
+                       
                     </div>
                 </div>
             </div>
@@ -422,9 +424,9 @@ img {
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div>
                             <h3 class="card-title">KRIDI RAFAHIYATI</h3>
-                            <p class="card-text">Consultez votre solde CCP en temps réel</p>
+                            <p class="card-text">Équipez votre maison en toute facilité avec Kridi Rafahiyati.</p>
                         </div>
-                        <img src="https://via.placeholder.com/200x200?text=Clock+Icon" alt="Clock Icon" class="float-end">
+  
                     </div>
                 </div>
             </div>
@@ -434,10 +436,10 @@ img {
                 <div class="card h-100 bg-light text-dark">
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div>
-                            <h3 class="card-title">KRIDI EL-TAHADI</h3>
-                            <p class="card-text">Recevez une notification SMS pour chaque opération de versement, virement, retrait...</p>
+                            <h3 class="card-title">KRIDI SAYARATI</h3>
+                            <p class="card-text">Montez à bord de votre nouvelle voiture grâce à Kridi Sayarati.</p>
                         </div>
-                        <img src="https://via.placeholder.com/200x200?text=SMS+Icon" alt="SMS Icon" class="float-end">
+           
                     </div>
                 </div>
             </div>
@@ -447,9 +449,9 @@ img {
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div>
                             <h3 class="card-title">KRIDI MAZRAATY</h3>
-                            <p class="card-text">Relevé détaillé de vos opérations CCP</p>
+                            <p class="card-text">Kridi Mazraaty, cultivez vos projets en toute sérénité.</p>
                         </div>
-                        <img src="https://via.placeholder.com/200x200?text=Document+Icon" alt="Document Icon" class="float-end">
+                        
                     </div>
                 </div>
             </div>
@@ -459,10 +461,10 @@ img {
                 <div class="card h-100 bg-secondary text-white">
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div>
-                            <h3 class="card-title">CARTE EDAHABIA</h3>
-                            <p class="card-text">Commandez ou suivez votre carte ED AHABIA</p>
+                            <h3 class="card-title">KRIDI BEYTI</h3>
+                            <p class="card-text">Le crédit qui construit plus qu’une maison : une vie.</p>
                         </div>
-                        <img src="https://via.placeholder.com/200x200?text=Card+Icon" alt="Card Icon" class="float-end">
+                
                     </div>
                 </div>
             </div>
@@ -472,10 +474,10 @@ img {
                 <div class="card h-100 bg-warning text-dark">
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div>
-                            <h3 class="card-title">CARNET DE CHÈQUES</h3>
-                            <p class="card-text">Commandez et suivez vos carnets de chèques</p>
+                            <h3 class="card-title"> Kridi Sehi</h3>
+                            <p class="card-text">Prenez soin de vous sans stress avec Kridi Sehi.</p>
                         </div>
-                        <img src="https://via.placeholder.com/200x200?text=Cheque+Icon" alt="Cheque Icon" class="float-end">
+                       
                     </div>
                 </div>
             </div>
