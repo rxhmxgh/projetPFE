@@ -158,14 +158,13 @@
   </style>
 </head>
 <body>
-
 <div class="container my-5">
   <h2 class="text-center mb-4">SIMULATION CRÉDIT À LA CONSOMMATION</h2>
 
   <form onsubmit="event.preventDefault(); calculer();" class="row g-3">
     <div class="col-md-6">
       <label for="age" class="form-label">Âge du souscripteur: <span id="ageValue">30</span> ans</label>
-      <input type="range" class="form-range" id="age" min="18" max="70" value="30" oninput="ageValue.innerText = this.value">
+      <input type="range" class="form-range" id="age" min="18" max="100" value="30" oninput="ageValue.innerText = this.value">
     </div>
 
     <div class="col-md-6">
@@ -181,6 +180,11 @@
     <div class="col-md-6">
       <label for="cout" class="form-label">Coût du bien (DA)</label>
       <input type="number" class="form-control" id="cout" value="350000" required>
+    </div>
+
+    <div class="col-md-6">
+      <label for="montantCredit" class="form-label">Montant souhaité en crédit (DA)</label>
+      <input type="number" class="form-control" id="montantCredit" value="200000" required>
     </div>
 
     <div class="col-md-4">
@@ -235,18 +239,49 @@
   function calculer() {
     const revenu = parseFloat(document.getElementById("revenu").value);
     const cout = parseFloat(document.getElementById("cout").value);
+    const montantCredit = parseFloat(document.getElementById("montantCredit").value);
+    const age = parseInt(document.getElementById("age").value);
     const duree = parseInt(document.getElementById("duree").value);
 
-    if (isNaN(revenu) || isNaN(cout) || isNaN(duree)) {
-      document.getElementById("resultat").innerText = "Veuillez remplir tous les champs.";
+    const tauxInteretBase = 0.05; // 5% d'intérêt de base
+    let tauxInteret = tauxInteretBase; // Par défaut, taux à 5%
+    let periode = 60; // Période par défaut (60 mois)
+
+    if (age > 80) {
+      // Si l'âge est supérieur à 80, le taux peut augmenter ou la durée se raccourcir
+      tauxInteret = 0.07; // 7% d'intérêt pour les plus de 80 ans
+      periode = 48; // Limitation à 48 mois
+    }
+
+    // Validation de la condition de revenu : ici, on suppose qu'il faut que le revenu soit supérieur à un certain seuil
+    if (revenu < 50000) {
+      document.getElementById("resultat").innerText = "Le revenu mensuel est insuffisant pour accorder un crédit.";
       return;
     }
 
-    const montantMensuel = (cout / duree).toFixed(2);
+    // Si le client a un co-débiteur, réduire l'intérêt
+    if (document.getElementById("codebiteur").checked) {
+      tauxInteret -= 0.02; // Réduction de 2% sur le taux d'intérêt
+    }
+
+    // Si le client est un employé d'une entreprise conventionnée, on réduit également l'intérêt
+    if (document.getElementById("clients").checked) {
+      tauxInteret -= 0.01; // Réduction de 1% sur le taux d'intérêt
+    }
+
+    // Apport personnel pourrait également réduire le taux d'intérêt
+    if (document.getElementById("apport").checked) {
+      tauxInteret -= 0.02; // Réduction de 2% sur le taux d'intérêt
+    }
+
+    // Calcul de la mensualité selon la formule donnée
+    const mensualite = ((montantCredit * tauxInteret) / periode).toFixed(2);
+
     document.getElementById("resultat").innerText =
-      `Montant mensuel estimé : ${montantMensuel} DA sur ${duree} mois.`;
+      `Montant mensuel estimé : ${mensualite} DA (pour un crédit de ${montantCredit} DA, taux ${tauxInteret * 100}%, durée de ${periode} mois).`;
   }
 </script>
+
 
 
 
