@@ -385,7 +385,7 @@ body {
             <a class="nav-link" href="simulateur.php" onclick="loadPage('simulateur')">Simulation des crédits</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="produitbancaire.php" onclick="loadPage('produits')">Produits bancaires</a>
+            <a class="nav-link" href="produit.php" onclick="loadPage('produits')">Produits bancaires</a>
           </li>
           
           <li class="nav-item">

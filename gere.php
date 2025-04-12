@@ -244,7 +244,6 @@ input[type="number"]:focus {
 </style>
 </head>
 <body>
-
 <!-- partie menu  -->
 
 <nav class="navbar navbar-dark bg-dark fixed-top">
@@ -261,30 +260,30 @@ input[type="number"]:focus {
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="acceuil.php">accueil</a>
+            <a class="nav-link active" aria-current="page" href="acceuil.php">Accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" onclick="loadPage('simulateur')">Simulation des crédits</a>
+            <a class="nav-link" href="simulateur.php" onclick="loadPage('simulateur')">Simulation des crédits</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" onclick="loadPage('produits')">Produits bancaires</a>
+            <a class="nav-link" href="produit.php" onclick="loadPage('produits')">Produits bancaires</a>
           </li>
-
+          
           <li class="nav-item">
-            <a class="nav-link" href="gerer.php">Relever</a>
+            <a class="nav-link" href="gere.php">Relever</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="gerer.php">Historique</a>
+            <a class="nav-link" href="historique.php">Historique</a>
           </li>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="services.php">Les services bancaire</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" onclick="loadPage('map')">Map</a>
-          </li> 
-                   <li class="nav-item">
-            <a class="nav-link" href="#" onclick="loadPage('compte')">Mon compte</a>
+            <a class="nav-link" href="map.php" onclick="loadPage('map')">Map</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="moncompte.php" onclick="loadPage('compte')">Mon compte</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Se déconnecter</a>
@@ -294,6 +293,7 @@ input[type="number"]:focus {
     </div>
   </div>
 </nav>
+
 
 <!-- le contenu -->
     <section class="balance-section">

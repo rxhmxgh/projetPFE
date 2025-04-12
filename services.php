@@ -12,12 +12,26 @@
   <style>
     /* Style global */
     body {
-        font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     position: relative;
-    background-color: #f4f4f4;
     overflow-x: hidden;
+}
+
+/* Pseudo-élément pour le fond flou */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("tahadi.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px); /* Niveau de flou */
+    z-index: -1; /* Pour le placer derrière le contenu */
 }
 .content {
     padding: 50px 30px;
@@ -28,19 +42,17 @@
     justify-content: center;
     text-align: center;
 }
-    .services-container {
-      display:flex;
-      flex-wrap: wrap; 
-      justify-content: center;
-      gap:20px;
-      width:100%; /* Largeur fixe pour les cartes */
-      padding: 20px;  
-    }
-
+.services-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+    gap: 20px; /* espacement entre les cartes */
+    padding: 20px;
+    justify-items: center; /* centre les cartes horizontalement */
+}
 /* Carte de service */
 .service-card {
     background: white;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     padding: 20px;
@@ -55,6 +67,7 @@
 
     .service-card:hover {
       transform: scale(1.05);
+      background-color: beige;
     }
 
 
@@ -85,7 +98,7 @@
     background-color:#f0a500;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     text-align: center;
     transition: background-color 0.3s;
 }
@@ -461,13 +474,15 @@
             <a class="nav-link" href="simulateur.php" onclick="loadPage('simulateur')">Simulation des crédits</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="produitbancaire.php" onclick="loadPage('produits')">Produits bancaires</a>
+            <a class="nav-link" href="produit.php" onclick="loadPage('produits')">Produits bancaires</a>
           </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="gere.php">Relever</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="historique.php">Historique</a>
+          </li>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="services.php">Les services bancaire</a>
@@ -487,8 +502,11 @@
   </div>
 </nav>
 
+
   <!-- Contenu principal -->
   <div class="content" >
+    <h1>Les services bancaire EL-BADR</h1>
+    <p>Chez EL-BADR, nos services bancaires sont pensés pour vous simplifier la vie, en toute sécurité et avec proximité.</p>
    <div class="services-container">
 
     <div class="service-card">
