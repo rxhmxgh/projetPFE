@@ -48,10 +48,6 @@
     padding: 1rem;
 }
 
-
-
-
-
 /* header */
         header {
             display: flex;
