@@ -332,7 +332,7 @@ input[type="file"] {
     <h2>Télécharger le Formulaire PDF</h2>
     <p>Veuillez télécharger, remplir, puis joindre ce formulaire à votre demande si nécessaire :</p>
     
-    <a href="uploads/formaulaire.pdf" download class="download-btn">📄 Télécharger le formulaire</a>
+    <a href="formaulaire.pdf" download class="download-btn">📄 Télécharger le formulaire</a>
 
    
 </div>
