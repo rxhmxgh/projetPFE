@@ -13,13 +13,14 @@
 
     <!-- Style personnalisé -->
     <style>
-body {
+    body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     position: relative;
     overflow-x: hidden;
 }
+
 .background {
     position: fixed;
     top: 0;
@@ -29,8 +30,8 @@ body {
     background-image: url('background_simu.jpg');
     background-size: cover;
     background-position: center;
-    filter: blur(5px); /* ajuste le niveau de flou ici */
-    z-index: -1; /* pour que ce soit derrière le contenu */
+    filter: blur(6px); /* ajuste le niveau de flou ici */
+    z-index: -7; /* pour que ce soit derrière le contenu */
 }
 
 
@@ -151,7 +152,7 @@ body {
         }
 
 
-        /* Contenu principal */
+        /* Contenu principal 
         .content {
     padding: 50px 30px;
     min-height: 100vh;
@@ -201,7 +202,7 @@ body {
     padding: 1px 1px;
     border-radius: 5px;
     transition: background 0.3s;
-    width: 80%; /* ou 200px si tu veux une taille exacte */
+    width: 80%; 
     max-width: 220px;
     margin-top: 15px;
 }
@@ -219,7 +220,82 @@ body {
             text-align: center;
         }
 
+*/
+/* From Uiverse.io by Thomasfadi */ 
+.content {
+    padding: 50px 30px;
+    min-height: 40vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+}
+.text{
+    padding: 30px;
+    min-height: 10vh;
+    text-align: center;
+}
+.cards {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cards .card {
+    height: 300px;
+      width: 300px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: white;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+.cards .red {
+  background-color: #d4d859;
+ 
+}
 
+.cards .blue {
+  background-color: #94ad07;
+}
+
+.cards .green {
+  background-color:#3b5006;
+}
+
+
+.cards .card p.tip {
+    font-size: 1.8em;
+      font-weight: bold;
+      margin-bottom: 15px;
+}
+
+.cards .card p.second-text {
+  font-size: .7em;
+}
+
+.cards .card:hover {
+  transform: scale(1.2, 1.2);
+}
+
+.cards:hover > .card:not(:hover) {
+    filter: blur(5px);
+  transform: scale(0.95);
+  opacity: 0.7;
+}
+.btn-custom {
+    border: none;
+    padding: 1px 1px;
+    border-radius: 5px;
+    transition: background 0.3s;
+    width: 80%; 
+}
 /* partie de chatbot  */
 /* partie de chatbot  */
        /* Icône du chatbot */
@@ -415,7 +491,7 @@ body {
   </div>
 </nav>
 
-    <!-- Contenu principal -->
+    <!-- Contenu principal 
     <div class="content" id="simulateur">
         <h1>Simulateur des Crédits</h1>
         <h3>Crédit Classique</h3>
@@ -438,10 +514,32 @@ body {
                 <button class="btn btn-custom mt-2">   <a href="simulation.php" class="btn">Faire une Simulation</a></button>
             </div>
         </div>
-
+    -->
 <!-- background image -->
 <div class="background"></div>
 
+<!-- From Uiverse.io by Thomasfadi --> 
+<div class="content" id="simulateur">
+    <div class="text"></div>
+        <h1>Simulateur des Crédits</h1>
+        <h3>Crédit Classique</h3>
+        <p>Financez vos projets en toute simplicité grâce à notre crédit classique : une solution fiable, rapide et adaptée à votre budget.</p>
+        </div>
+</div>
+<div class="cards">
+    <div class="card red">
+        <p class="tip">Crédit Immobilier</p>
+        <button class="btn btn-custom mt-2">   <a href="simulation.php" class="btn">Faire une Simulation</a></button>
+    </div>
+    <div class="card blue">
+        <p class="tip">Crédit Auto</p>
+        <button class="btn btn-custom mt-2">   <a href="simulation.php" class="btn">Faire une Simulation</a></button>
+    </div>
+    <div class="card green">
+        <p class="tip">Crédit Travaux</p>
+        <button class="btn btn-custom mt-2">   <a href="simulation.php" class="btn">Faire une Simulation</a></button>
+    </div>
+</div>
 
 <!-- partie chatbot -->
  <!-- Message d'accueil -->
