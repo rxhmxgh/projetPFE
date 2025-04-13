@@ -18,6 +18,41 @@
             background: #f3e8d3;
             font-family: 'Poppins', sans-serif;
         }
+/* Smartphones */
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+    }
+    .menu {
+        flex-direction: column;
+    }
+}
+
+/* Tablettes */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .container {
+        padding: 2rem;
+    }
+}
+ 
+@media (max-width: 768px) {
+    .container {
+        padding: 0.5rem;
+    }
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem;
+}
+
+
+
+
+
+/* header */
         header {
             display: flex;
             justify-content: space-between;
@@ -834,17 +869,51 @@ Grâce à des technologies de pointe, nous vous offrons des services sécurisés
 
 <script>
     // Initialisation de la carte centrée sur Mostaganem
-    var map = L.map('map').setView([35.9312, 0.0895], 13);
+    var map = L.map('map').setView([35.95, 0.25], 10);
 
     // Ajout du fond de carte OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+// les agences a proximité
+const agences = [
+        { nom: "Mostaganem", coords: [35.9312, 0.0895], description: "Agence Mostaganem Centre" },
+        { nom: "Sidi Lakhdar", coords: [36.1056, 0.2790], description: "Agence Sidi Lakhdar" },
+        { nom: "Mesra", coords: [35.8833, 0.2000], description: "Agence Mesra" },
+        { nom: "Aïn Tédelès", coords: [35.9761, 0.2392], description: "Agence Aïn Tédelès" },
+        { nom: "Bouguirat", coords: [35.7403, 0.2432], description: "Agence Bouguirat" },
+        { nom: "Achaacha", coords: [36.1956, 0.3953], description: "Agence Achaacha" }
+    ];
 
     // Ajout d'un marqueur sur Mostaganem
-    L.marker([35.9312, 0.0895]).addTo(map)
-        .bindPopup('<b>Banque</b><br>Mostaganem, Algérie')
-        .openPopup();
+    agences.forEach(agence => {
+        //sidi lakhdar
+    L.marker([36.1056, 0.2790]).addTo(map)
+        .bindPopup('<b>Agence</b><br>Sidi Lakhdar, Mostaganem')
+        .openPopup(); 
+        
+
+    //Mesra 
+    L.marker([35.8833, 0.2000]).addTo(map)
+        .bindPopup('<b>Agence</b><br>Mesra,Mostaganem')
+        .openPopup(); 
+    //ain tedles 
+    L.marker([35.9761, 0.2392]).addTo(map)
+        .bindPopup('<b>Agence</b><br>Aïn Tédelès, Mostaganem')
+        .openPopup(); 
+     //Bouguirat
+     L.marker([35.7403, 0.2432]).addTo(map)
+        .bindPopup('<b>Agence</b><br>Bouguirat, Mostaganem')
+        .openPopup(); 
+     //Achaacha 
+     L.marker([36.1956, 0.3953]).addTo(map)
+        .bindPopup('<b>Agence</b><br>Achaacha, Mostaganem')
+        .openPopup(); 
+        });
+    // Ouvrir seulement celle de Mostaganem au début
+L.marker([35.9312, 0.0895]).addTo(map)
+    .bindPopup('<b>Mostaganem</b><br>Agence principale , Algérie')
+    .openPopup();
 </script>
 
  
