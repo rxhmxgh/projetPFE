@@ -251,22 +251,25 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      color: white;
+      color:black;
       cursor: pointer;
       transition: all 0.4s ease;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
+.card:hover{
+    color: orange;
+}
 .cards .red {
-  background-color: #d4d859;
+  background-color:rgb(219, 219, 231);
  
 }
 
 .cards .blue {
-  background-color: #94ad07;
+  background-color:rgb(219, 219, 231);
 }
 
 .cards .green {
-  background-color:#3b5006;
+  background-color:rgb(219, 219, 231);
 }
 
 

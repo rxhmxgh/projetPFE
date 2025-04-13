@@ -95,7 +95,7 @@ body::before {
 .service-card .btn {
     margin-top: auto;  /* Le bouton se place en bas */
     padding: 10px 20px;
-    background-color:#f0a500;
+    background-color:#daddd8;
     color: white;
     border: none;
     border-radius: 8px;
@@ -225,15 +225,15 @@ body::before {
             font-weight: bold;
         }
         .btn-primary {
-            background-color: #f0a500;
+            background-color: #E7E7E7;
             border: none;
         }
         .btn-primary:hover {
-            background-color: #d98e00;
+            background-color: #E7E7E7;
 
         }
         .btn-clicked {
-            background-color: #28a745 !important; /* Vert */
+            
             color: white;
         }
         .row {
@@ -276,14 +276,8 @@ body::before {
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .card img {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 10px;
-        }
-
         .btn-custom {
-    background-color: #ffa500;
+    background-color: #E7E7E7;
     color: white;
     border: none;
     padding: 1px 1px;
@@ -299,7 +293,7 @@ body::before {
 }
 
         .btn-custom:hover {
-            background-color: #ff8700;
+            background-color: #E7E7E7;
         }
 
         h1, h3 {

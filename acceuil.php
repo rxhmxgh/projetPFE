@@ -704,7 +704,7 @@ footer {
             <center><p>Nous sommes votre partenaire financier de confiance.<br/>
              Nous mettons à votre disposition des services bancaires modernes et accessibles pour accompagner vos projets et faciliter votre gestion financière.<br/>
              Découvrez nos solutions adaptées à vos besoins et profitez d’une expérience bancaire simplifiée et sécurisée.</p></center>
-            <a href="seconnecter.php" class="btn">Se connecter →</a>
+            <a href="connex.php" class="btn">Se connecter →</a>
         </div>
     </section>
 
