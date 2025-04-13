@@ -543,7 +543,7 @@ body::before {
     <div class="service-card">
   <h3>Offres Spéciales </h3>
   <p>Bénéficiez de crédits adaptés et d’offres exclusives toute l’année.</p>
-  <a href="offres.php" class="btn btn-primary mt-2">Voir plus</a>
+  <a href="produit.php" class="btn btn-primary mt-2">Voir plus</a>
 </div>
 
 

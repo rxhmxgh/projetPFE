@@ -172,8 +172,11 @@ body {
         }
 
         .card {
+            display: flex;
+    flex-direction: column;
+    align-items: center;
             width: 300px;
-            background: white;
+            background: #ddd;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
             padding: 20px;
@@ -187,14 +190,13 @@ body {
         }
 
         .card img {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 10px;
-        }
+    display: inline-block;
+    max-width: 50%;
+    height: auto;
+}
 
         .btn-custom {
     background-color: #ffa500;
-    color: white;
     border: none;
     padding: 1px 1px;
     border-radius: 5px;
@@ -421,23 +423,24 @@ body {
         <div class="card-container">
             <div class="card">
                 <h4>Financement Immobilier</h4>
+                <img src="immobilier.png">
              <button class="btn btn-custom mt-2">   <a href="simulation.php" class="btn">Faire une Simulation</a></button>
             </div>
             <div class="card">
                 <h4>Crédit Auto</h4>
+                <img src="economie.png">
                 <button class="btn btn-custom mt-2">   <a href="simulation.php" class="btn">Faire une Simulation</a></button>
+                
             </div>
             <div class="card">
                 <h4>Crédit Travaux</h4>
+                <img src="taux-dinteret.png">
                 <button class="btn btn-custom mt-2">   <a href="simulation.php" class="btn">Faire une Simulation</a></button>
             </div>
         </div>
 
 <!-- background image -->
 <div class="background"></div>
-
-
-
 
 
 <!-- partie chatbot -->

@@ -7,7 +7,7 @@
 
   <style>
      body {
-        font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     position: relative;
@@ -255,7 +255,7 @@
     }
 
     // Validation de la condition de revenu : ici, on suppose qu'il faut que le revenu soit supérieur à un certain seuil
-    if (revenu < 50000) {
+    if (revenu < 5000000) {
       document.getElementById("resultat").innerText = "Le revenu mensuel est insuffisant pour accorder un crédit.";
       return;
     }
