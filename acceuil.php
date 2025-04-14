@@ -292,7 +292,7 @@ button:hover {
 .bloc-inscription {
     background-color:#adbc9f; 
     padding: 40px;
-    width: %;
+    width: 30%;
     margin: 50px auto;
     border-radius: 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
