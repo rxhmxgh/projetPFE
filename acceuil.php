@@ -692,7 +692,7 @@ footer {
         <div class="logo">El-Badr<span>Banque</span></div>
         <nav>
             <ul>
-                <li><a href="#">S'inscrire</a></li>   
+                <li><a href="inscription.php">S'inscrire</a></li>   
                 <li><a href="#about">Plus infos</a></li>
                 <li><a href="#contacte">Contacte</a></li>
             </ul>
