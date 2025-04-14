@@ -288,7 +288,7 @@ legend {
           </div>
         </fieldset>
 
-        <p class="text-center">Vous avez déjà un compte ? <a href="seconnecter.php">Connectez-vous ici</a></p>
+        <p class="text-center">Vous avez déjà un compte ? <a href="connex.php">Connectez-vous ici</a></p>
         <div class="d-grid">
           <button type="submit" name="register" class="btn btn-success">S'inscrire</button>
         </div>

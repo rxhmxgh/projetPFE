@@ -275,7 +275,7 @@
   </div>
 
   <button class="submit" type="submit">Se connecter</button>
-  <div class="signup-link">Pas encore de compte ? <a href="">Inscrivez-vous ici</a></div>
+  <div class="signup-link">Pas encore de compte ? <a href="inscription.php">Inscrivez-vous ici</a></div>
 </form>
  
     </div>
