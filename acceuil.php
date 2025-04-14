@@ -10,6 +10,7 @@
       <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
    <style>
+    
                body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -291,12 +292,13 @@ button:hover {
 .bloc-inscription {
     background-color:#adbc9f; 
     padding: 40px;
-    width: 30%;
+    width: %;
     margin: 50px auto;
     border-radius: 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     position: relative;
     font-family: 'Poppins', sans-serif;
+    m
 }
 
 .bloc-inscription::before {
@@ -518,7 +520,7 @@ button {
     padding: 10px 20px;
     font-size: 1em;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 10px;
     font-weight: bold;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }

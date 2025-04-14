@@ -77,14 +77,14 @@
 /* From Uiverse.io by rajesh_4474 */ 
 /* login form by rajesh_4474 */
 @keyframes gradientBackground {
-  0% {
-    background: linear-gradient(45deg, #ff7e5f, #feb47b);
+  4% {
+    background: linear-gradient(135deg, #222831, #393E46);
   }
   50% {
-    background: linear-gradient(45deg, #58bc82, #45a56b);
+    background: linear-gradient(135deg, #1F1F1F, #2D2D2D);
   }
   100% {
-    background: linear-gradient(45deg, #ff7e5f, #feb47b);
+    background: linear-gradient(135deg, #222831, #393E46);
   }
 }
 
@@ -92,10 +92,14 @@
   max-width: 420px;
   width: 100%;
   padding: 40px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 15px 25px rgba(240, 124, 1, 0.54), /* ombre principale plus foncée */
+    0 10px 10px rgba(50, 199, 59, 0.19); /* effet de profondeur */
   animation: fadeIn 1.5s ease-out;
+  position: relative;
+  z-index: 2;
 }
 
 .form-heading {
