@@ -468,6 +468,9 @@
           <li class="nav-item">
             <a class="nav-link" href="produit.php" onclick="loadPage('produits')">Produits bancaires</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="rendezvous.php" onclick="loadPage('rendez-vous')">Rendez-Vous</a>
+          </li>
           
           <li class="nav-item">
             <a class="nav-link" href="gere.php">Relever</a>

@@ -686,6 +686,9 @@ footer {
             justify-content: center;
             align-items: center;
         }
+
+
+
     </style>
 </head>
     <header>
@@ -826,6 +829,7 @@ Grâce à des technologies de pointe, nous vous offrons des services sécurisés
         <button class="bouton-action">Inscrivez-Vous</button>     <!-- lien directe vers formulaire d'inscription -->
     </div>
 </section>
+
 <!--partie des services bancaire-->
 <section id="services" class="services-container">
     <div class="intro">
@@ -1135,7 +1139,6 @@ populateQuestions();
 
       }
     </script>
-
 
 
 <footer>

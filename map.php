@@ -323,57 +323,58 @@
     </style>
 </head>
 <body>
-    
 <!-- partie menu  -->
 
 <nav class="navbar navbar-dark bg-dark fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">EL-BADR Banque</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">MENU</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="acceuil.php">Accueil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="simulateur.php" onclick="loadPage('simulateur')">Simulation des crédits</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="produit.php" onclick="loadPage('produits')">Produits bancaires</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link" href="gere.php">Relever</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="historique.php">Historique</a>
-            </li>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="services.php">Les services bancaire</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="map.php" onclick="loadPage('map')">Map</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="moncompte.php" onclick="loadPage('compte')">Mon compte</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Se déconnecter</a>
-            </li>
-               
-        </div>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">EL-BADR Banque</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">MENU</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="acceuil.php">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="simulateur.php" onclick="loadPage('simulateur')">Simulation des crédits</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="produit.php" onclick="loadPage('produits')">Produits bancaires</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="rendezvous.php" onclick="loadPage('rendez-vous')">Rendez-Vous</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="gere.php">Relever</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="historique.php">Historique</a>
+          </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="services.php">Les services bancaire</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="map.php" onclick="loadPage('map')">Map</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="moncompte.php" onclick="loadPage('compte')">Mon compte</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Se déconnecter</a>
+          </li>
+             
       </div>
     </div>
-  </nav>
- 
+  </div>
+</nav>
 
 <!-- Section de la localisation -->
  <div class="contenu">
