@@ -826,7 +826,7 @@ Grâce à des technologies de pointe, nous vous offrons des services sécurisés
             <li class="avantage">✓ Satisfaction client</li>
         </ul>
         
-        <button class="bouton-action">Inscrivez-Vous</button>     <!-- lien directe vers formulaire d'inscription -->
+        <button onclick="location.href='inscription.php'"  class="bouton-action">Inscrivez-Vous</button>   <!-- lien directe vers formulaire d'inscription -->
     </div>
 </section>
 
