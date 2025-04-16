@@ -254,24 +254,12 @@
 <form class="login-form">
   <div class="form-heading">CONNEXION</div>
   <div class="input-group">
-    <label class="label" for="email">Numéro</label>
-    <input
-      required=""
-      placeholder="Entrer votre numéro"
-      name="email"
-      id="email"
-      type="email"
-    />
+  <label class="label" for="numero">Numéro CCP</label>
+  <input type="text" id="ccp" name="ccp" placeholder="Votre numéro CCP" required>
   </div>
   <div class="input-group">
     <label class="label" for="password">Mot de passe</label>
-    <input
-      required=""
-      placeholder="Entrer votre mot de passe"
-      name="password"
-      id="password"
-      type="password"
-    />
+    <input type="password" id="password" name="password" placeholder="Votre mot de passe" required>
   </div>
 
   <button class="submit" type="submit">Se connecter</button>
@@ -309,7 +297,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["user_id"] = $user["id"];
         $_SESSION["nom"] = $user["nom"];
         $_SESSION["prenom"] = $user["prenom"];
-        header("Location: bonjour.php"); // Changer vers la page dashboard
+        header("Location: moncompte.php"); // Changer vers la page dashboard
         exit;
     } else {
         echo "⚠️ Numéro CCP ou mot de passe incorrect.";
