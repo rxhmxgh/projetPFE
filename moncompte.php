@@ -451,6 +451,58 @@ legend {
             </fieldset>
         </form>
     </section>
+<!-- partie php --> 
+<?php
+// Sécurité : Vérifier si l'utilisateur est connecté
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: connex.php');
+    exit();
+}
+
+// Connexion à la base de données
+$host = "localhost";
+$dbname = "BanqueModerne";
+$username = "root";
+$password = "";
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Récupération des informations de l'utilisateur connecté
+    $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE id = :id");
+    $stmt->bindParam(':id', $_SESSION['user_id']);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user) {
+        echo "Erreur : utilisateur non trouvé.";
+        exit();
+    }
+} catch (PDOException $e) {
+    die("Erreur de connexion à la base de données : " . $e->getMessage());
+}
+?> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- partie chatbot -->
  <!-- Message d'accueil -->
@@ -606,41 +658,7 @@ function fetchResponse(question) {
 }
 
 populateQuestions();
-</script>
-
-<!-- partie php --> 
-<?php
-// Sécurité : Vérifier si l'utilisateur est connecté
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header('Location: connex.php');
-    exit();
-}
-
-// Connexion à la base de données
-$host = "localhost";
-$dbname = "BanqueModerne";
-$username = "root";
-$password = "";
-
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Récupération des informations de l'utilisateur connecté
-    $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE id = :id");
-    $stmt->bindParam(':id', $_SESSION['user_id']);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$user) {
-        echo "Erreur : utilisateur non trouvé.";
-        exit();
-    }
-} catch (PDOException $e) {
-    die("Erreur de connexion à la base de données : " . $e->getMessage());
-}
-?>  
+</script> 
 
 </body>
 </html>

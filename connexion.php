@@ -87,13 +87,7 @@ button:hover {
     text-decoration: underline;
 }
 
-.footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #004080;
-    color: white;
-    margin-top: 50px;
-}
+
 
     </style>
 </head>
@@ -159,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["user_id"] = $user["id"];
         $_SESSION["nom"] = $user["nom"];
         $_SESSION["prenom"] = $user["prenom"];
-        header("Location: bonjour.php"); // Changer vers la page dashboard
+        header("Location: moncompte.php"); // Changer vers la page dashboard
         exit;
     } else {
         echo "⚠️ Numéro CCP ou mot de passe incorrect.";
