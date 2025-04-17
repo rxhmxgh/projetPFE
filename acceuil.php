@@ -765,7 +765,7 @@ footer {
                 <div class="overlay"></div>
                 <div class="contenu">
                     <p>Nos services</p>
-                    <button onclick="location.href='services.php'">En Savoir Plus</button>
+                    <button onclick="location.href='#services'">En Savoir Plus</button>
                 </div>
             </div>
             <div class="carte">
