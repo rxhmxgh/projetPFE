@@ -1,276 +1,9 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Bootstrap JS Bundle (inclut Popper.js) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<?php
+// Affichage des erreurs
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-    <title>Banque EL-BADR - Connexion</title>
-   <style>
-   body {
-    font-family: 'Poppins', sans-serif;
-    height: 100%;
-    position: relative;
-    overflow-x: hidden;
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Smartphones */
-@media (max-width: 600px) {
-    .container {
-        padding: 1rem;
-    }
-    .menu {
-        flex-direction: column;
-    }
-}
-
-/* Tablettes */
-@media (min-width: 601px) and (max-width: 1024px) {
-    .container {
-        padding: 2rem;
-    }
-}
- 
-@media (max-width: 768px) {
-    .container {
-        padding: 0.5rem;
-    }
-}
-
-
-/* navbar style */
-.navbar {
-    background-color: #0f2d0f !important; /* Vert foncé */
-    padding: 10px 20px;
-    position: fixed;
-    top: 0;
-}
-
-.navbar-brand {
-    color: white !important;
-    font-weight: bold;
-    font-size: 1.5rem;
-}
-
-.navbar-nav .nav-link {
-    color: white !important;
-    font-size: 1rem;
-    margin-right: 15px;
-}
-
-.navbar-nav .nav-link:hover {
-    text-decoration: underline;
-    transform: scale(1.1);
-}
-
-
-
-/* partie login */
-/* From Uiverse.io by rajesh_4474 */ 
-/* login form by rajesh_4474 */
-@keyframes gradientBackground {
-  4% {
-    background: linear-gradient(135deg, #222831, #393E46);
-  }
-  50% {
-    background: linear-gradient(135deg, #1F1F1F, #2D2D2D);
-  }
-  100% {
-    background: linear-gradient(135deg, #222831, #393E46);
-  }
-}
-
-.login-form {
-  max-width: 420px;
-  width: 100%;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 12px;
-  box-shadow:
-    0 15px 25px rgba(240, 124, 1, 0.54), /* ombre principale plus foncée */
-    0 10px 10px rgba(50, 199, 59, 0.19); /* effet de profondeur */
-  animation: fadeIn 1.5s ease-out;
-  position: relative;
-  z-index: 2;
-}
-
-.form-heading {
-  text-align: center;
-  color: #333;
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 25px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.input-group {
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.input-group .label {
-  position: absolute;
-  top: -16px;
-  left: 12px;
-  font-size: 12px;
-  color: #58bc82;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  opacity: 0.7;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 15px 20px;
-  font-size: 1rem;
-  color: #333;
-  background-color: #f5f5f5;
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-.input-group input:focus {
-  border-color: #58bc82;
-  box-shadow: 0 0 10px rgba(88, 188, 130, 0.4);
-}
-
-.input-group input:focus + .label {
-  top: -20px;
-  font-size: 11px;
-  color: #58bc82;
-  opacity: 1;
-}
-
-.forgot-password {
-  text-align: right;
-  margin-bottom: 20px;
-}
-
-.forgot-password a {
-  font-size: 14px;
-  color: #58bc82;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.forgot-password a:hover {
-  color: #45a56b;
-}
-
-.submit {
-  width: 100%;
-  padding: 15px;
-  background-color: #58bc82;
-  color: #fff;
-  border: none;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.submit:hover {
-  background-color: #45a56b;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(88, 188, 130, 0.3);
-}
-
-.signup-link {
-  text-align: center;
-  font-size: 14px;
-  color: #333;
-}
-
-.signup-link a {
-  color: #58bc82;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.signup-link a:hover {
-  color: #45a56b;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@media (max-width: 480px) {
-  .login-form {
-    padding: 30px;
-    width: 90%;
-  }
-}
-
-
-
-.content {
-    padding: 50px 30px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-.main-content {
-  flex: 1;
-}
-
-</style>
-</head>
-<body>
-
-<!-- partie menu  -->
-
-<nav class="navbar navbar-dark bg-dark fixed-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="acceuil.php">EL-BADR Banque</a>
-</div>
-</nav>
-
-<div class="content ">
-  <!-- From Uiverse.io by rajesh_4474 --> 
-<form class="login-form">
-  <div class="form-heading">CONNEXION</div>
-  <div class="input-group">
-  <label class="label" for="numero">Numéro CCP</label>
-  <input type="text" id="ccp" name="ccp" placeholder="Votre numéro CCP" required>
-  </div>
-  <div class="input-group">
-    <label class="label" for="password">Mot de passe</label>
-    <input type="password" id="password" name="password" placeholder="Votre mot de passe" required>
-  </div>
-
-  <button class="submit" type="submit">Se connecter</button>
-  <div class="signup-link">Pas encore de compte ? <a href="inscription.php">Inscrivez-vous ici</a></div>
-</form>
- 
-    </div>
-
-  
-  <!-- php -->
-  <?php
 session_start();
 
 // Connexion à la base de données
@@ -287,7 +20,8 @@ try {
 }
 
 // Vérifier si le formulaire est soumis
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$erreur = '';
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
     $ccp = htmlspecialchars($_POST["ccp"]);
     $password = $_POST["password"];
 
@@ -299,12 +33,128 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["user_id"] = $user["id"];
         $_SESSION["nom"] = $user["nom"];
         $_SESSION["prenom"] = $user["prenom"];
-        header("Location: moncompte.php"); // Changer vers la page dashboard
+        header("Location: moncompte.php");
         exit;
     } else {
-        echo "⚠️ Numéro CCP ou mot de passe incorrect.";
+        $erreur = "⚠️ Numéro CCP ou mot de passe incorrect.";
     }
 }
 ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connexion - Banque EL-BADR</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding-top: 70px;
+      background: #f2f2f2;
+    }
+    .navbar {
+      background-color: #0f2d0f !important;
+    }
+    .navbar-brand {
+      color: white !important;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    .content {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+    .login-form {
+      max-width: 420px;
+      width: 100%;
+      padding: 40px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 15px 25px rgba(240, 124, 1, 0.54),
+                  0 10px 10px rgba(50, 199, 59, 0.19);
+    }
+    .form-heading {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      color: #333;
+    }
+    .input-group {
+      margin-bottom: 20px;
+    }
+    .input-group label {
+      font-weight: 600;
+      color: #58bc82;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .submit {
+      width: 100%;
+      padding: 12px;
+      background-color: #58bc82;
+      border: none;
+      color: white;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .submit:hover {
+      background-color: #45a56b;
+    }
+    .signup-link {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .signup-link a {
+      color: #58bc82;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .error-msg {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar fixed-top navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">EL-BADR Banque</a>
+    </div>
+  </nav>
+
+  <div class="content">
+    <form class="login-form" method="POST" action="">
+      <div class="form-heading">Connexion</div>
+      <?php if ($erreur): ?>
+        <div class="error-msg"><?= $erreur ?></div>
+      <?php endif; ?>
+      <div class="input-group">
+        <label for="ccp">Numéro CCP</label>
+        <input type="text" id="ccp" name="ccp" required />
+      </div>
+      <div class="input-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+      <button type="submit" class="submit" name="login">Se connecter</button>
+      <div class="signup-link">Pas encore de compte ? <a href="inscription.php">Inscrivez-vous</a></div>
+    </form>
+  </div>
 </body>
 </html>
