@@ -473,7 +473,7 @@
           </li>
           
           <li class="nav-item">
-            <a class="nav-link" href="gere.php">Relever</a>
+            <a class="nav-link" href="relev.php">Relever</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="historique.php">Historique</a>
@@ -489,14 +489,13 @@
             <a class="nav-link" href="moncompte.php" onclick="loadPage('compte')">Mon compte</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Se déconnecter</a>
+            <a class="nav-link" href="logout.php">Se déconnecter</a>
           </li>
              
       </div>
     </div>
   </div>
 </nav>
-
     <!-- Contenu principal 
     <div class="content" id="simulateur">
         <h1>Simulateur des Crédits</h1>

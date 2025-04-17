@@ -1,25 +1,48 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: connex.php');
+    exit();
+}
+
+$host = "localhost";
+$dbname = "BanqueModerne";
+$username = "root";
+$password = "";
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE id = :id");
+    $stmt->bindParam(':id', $_SESSION['user_id']);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user) {
+        echo "Erreur : utilisateur non trouvé.";
+        exit();
+    }
+} catch (PDOException $e) {
+    die("Erreur de connexion à la base de données : " . $e->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Compte - Banque El Badr</title>
-     <!-- Bootstrap JS Bundle (inclut Popper.js) -->
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-   body {
-    font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: white;
-            background: #f3e8d3;
+    <title>Mon Compte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
             font-family: 'Poppins', sans-serif;
         }
-
-
+        .container-fluid {
+            padding-top: 20px;
+        }
+ 
 /* navbar style */
 .navbar {
     background-color: #0f2d0f !important; /* Vert foncé */
@@ -136,94 +159,41 @@
             margin-top: 30px;
         }
 
-/* partie contenu */
-/* Styles généraux */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
-}
 
-/* Header */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #004080;
-    color: white;
-}
+                /*la maps */ 
+  /* Style de la section */
+  .location-section {
+            text-align: center;
+            padding: 50px;
+            background:rgb(212, 221, 201);
+            border-radius: 20px;
+        }
 
-.header .logo img {
-    height: 50px;
-}
+        .location-section h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
 
-.nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 16px;
-}
+        .location-section p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
 
-.nav a:hover {
-    text-decoration: underline;
-}
+        /* Conteneur de la carte */
+        .map-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-/* Section Compte */
-.account-section {
-    text-align: center;
-    padding: 50px 20px;
-    background-color: white;
-    max-width: 800px;
-    margin: 50px auto;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-}
+        #map {
+            width: 600px;
+            height: 400px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
 
-.account-section h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #004080;
-}
-
-.account-info {
-    text-align: left;
-}
-
-fieldset {
-    border: 2px solid #004080;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 20px;
-}
-
-legend {
-    font-weight: bold;
-    color: #004080;
-    padding: 0 10px;
-}
-
-.account-info p {
-    font-size: 16px;
-    margin: 5px 0;
-    color: #333;
-}
-
-.btn-deconnexion {
-    background-color: #dc3545;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.btn-deconnexion:hover {
-    background-color: #c82333;
-}
 /* partie de chatbot  */
 /* partie de chatbot  */
        /* Icône du chatbot */
@@ -365,14 +335,10 @@ legend {
             justify-content: center;
             align-items: center;
         }
-
-
-  </style>
+    </style>
 </head>
 <body>
-    
 
-    
 <!-- partie menu  -->
 
 <nav class="navbar navbar-dark bg-dark fixed-top">
@@ -402,7 +368,7 @@ legend {
           </li>
           
           <li class="nav-item">
-            <a class="nav-link" href="gere.php">Relever</a>
+            <a class="nav-link" href="relev.php">Relever</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="historique.php">Historique</a>
@@ -418,7 +384,7 @@ legend {
             <a class="nav-link" href="moncompte.php" onclick="loadPage('compte')">Mon compte</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="acceuil.php">Se déconnecter</a>
+            <a class="nav-link" href="logout.php">Se déconnecter</a>
           </li>
              
       </div>
@@ -426,83 +392,20 @@ legend {
   </div>
 </nav>
 
-    <!-- Section Compte -->
-    <section class="account-section">
-        <h2>Bienvenue, <?= htmlspecialchars($user['prenom']) . " " . htmlspecialchars($user['nom']); ?> !</h2>
-
-        <form class="account-info">
-            <fieldset>
-                <legend>Informations Personnelles</legend>
-                <p><strong>Nom :</strong> <?= htmlspecialchars($user['nom']); ?></p>
-                <p><strong>Prénom :</strong> <?= htmlspecialchars($user['prenom']); ?></p>
-                <p><strong>Adresse :</strong> <?= htmlspecialchars($user['adresse']); ?></p>
-            </fieldset>
-
-            <fieldset>
-                <legend>Informations Bancaires</legend>
-                <p><strong>Numéro CCP :</strong> <?= htmlspecialchars($user['ccp']); ?></p>
-                <p><strong>Clé CCP :</strong> <?= htmlspecialchars($user['cle_ccp']); ?></p>
-            </fieldset>
-
-            <fieldset>
-                <legend>Coordonnées</legend>
-                <p><strong>Téléphone :</strong> <?= htmlspecialchars($user['telephone']); ?></p>
-                <p><strong>Email :</strong> <?= htmlspecialchars($user['email']); ?></p>
-            </fieldset>
-        </form>
-    </section>
-<!-- partie php --> 
-<?php
-// Sécurité : Vérifier si l'utilisateur est connecté
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header('Location: connex.php');
-    exit();
-}
-
-// Connexion à la base de données
-$host = "localhost";
-$dbname = "BanqueModerne";
-$username = "root";
-$password = "";
-
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Récupération des informations de l'utilisateur connecté
-    $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE id = :id");
-    $stmt->bindParam(':id', $_SESSION['user_id']);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$user) {
-        echo "Erreur : utilisateur non trouvé.";
-        exit();
-    }
-} catch (PDOException $e) {
-    die("Erreur de connexion à la base de données : " . $e->getMessage());
-}
-?> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- Contenu principal -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Bienvenue sur votre compte, <?= htmlspecialchars($user['nom']) ?> !</h2>
+    <div class="card shadow">
+        <div class="card-body">
+            <h5 class="card-title">Informations du compte</h5>
+            <p><strong>Nom :</strong> <?= htmlspecialchars($user['nom']) ?></p>
+            <p><strong>Email :</strong> <?= htmlspecialchars($user['email']) ?></p>
+            <p><strong>Téléphone :</strong> <?= htmlspecialchars($user['telephone']) ?></p>
+            <p><strong>Adresse :</strong> <?= htmlspecialchars($user['adresse']) ?></p>
+        </div>
+    </div>
+</div>
+ 
 
 <!-- partie chatbot -->
  <!-- Message d'accueil -->
@@ -658,7 +561,8 @@ function fetchResponse(question) {
 }
 
 populateQuestions();
-</script> 
+</script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
