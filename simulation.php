@@ -165,7 +165,7 @@
   <form onsubmit="event.preventDefault(); calculer();" class="row g-3">
     <div class="col-md-6">
       <label for="age" class="form-label">Âge du souscripteur: <span id="ageValue">30</span> ans</label>
-      <input type="range" class="form-range" id="age" min="18" max="100" value="30" oninput="ageValue.innerText = this.value">
+      <input type="range" class="form-range" id="age" min="18" max="100" value="30" oninput="document.getElementById('ageValue').innerText = this.value">
     </div>
 
     <div class="col-md-6">
@@ -246,19 +246,23 @@
 
     const tauxInteretBase = 0.05; // 5% d'intérêt de base
     let tauxInteret = tauxInteretBase; // Par défaut, taux à 5%
-    let periode = 60; // Période par défaut (60 mois)
-
-    if (age > 80) {
-      // Si l'âge est supérieur à 80, le taux peut augmenter ou la durée se raccourcir
-      tauxInteret = 0.07; // 7% d'intérêt pour les plus de 80 ans
-      periode = 48; // Limitation à 48 mois
-    }
+    let periode = duree; // Période par défaut (60 mois)
+    periode = 48;
+    if (age > 80 && duree > 48) {
+  document.getElementById("resultat").innerText = "Pour un souscripteur de plus de 80 ans, la durée maximale est limitée à 48 mois.";
+  return;
+}
 
     // Validation de la condition de revenu : ici, on suppose qu'il faut que le revenu soit supérieur à un certain seuil
-    if (revenu < 5000000) {
+    if (revenu < 20000){
       document.getElementById("resultat").innerText = "Le revenu mensuel est insuffisant pour accorder un crédit.";
       return;
     }
+
+    if (montantCredit > cout) {
+  document.getElementById("resultat").innerText = "Le montant du crédit ne peut pas dépasser le coût du bien.";
+  return;
+}
 
     // Si le client a un co-débiteur, réduire l'intérêt
     if (document.getElementById("codebiteur").checked) {
@@ -276,7 +280,7 @@
     }
 
     // Calcul de la mensualité selon la formule donnée
-    const mensualite = ((montantCredit * tauxInteret) / periode).toFixed(2);
+    const mensualite = (montantCredit * tauxInteret) / (1 - Math.pow(1 + tauxInteret, -periode));
 
     document.getElementById("resultat").innerText =
       `Montant mensuel estimé : ${mensualite} DA (pour un crédit de ${montantCredit} DA, taux ${tauxInteret * 100}%, durée de ${periode} mois).`;
