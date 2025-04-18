@@ -507,8 +507,8 @@ body::before {
 
     <div class="service-card">
    
-    <h3>Demande de carte </h3>
-    <p>Demandez votre carte en ligne en quelques clics, sans vous déplacer.</p>
+    <h3>Demande de carte et chéque</h3>
+    <p>Demandez votre carte ou chéque en ligne en quelques clics, sans vous déplacer.</p>
     <a href="carte.php" class="btn btn-primary mt-2">Voir plus</a>
     </div>
 
@@ -628,7 +628,7 @@ const qaData = {
     "Comment payer les factures ?": "Les factures peuvent être payées via votre espace client en ligne, par prélèvement automatique ou directement en agence.",
     "Comment récupérer le code de ma carte ?": "Si vous avez oublié le code de votre carte, demandez un renouvellement du code en agence ou via votre espace client.",
     "Carte perdue : que dois-je faire ?": "En cas de perte, bloquez immédiatement votre carte via l'application ou en contactant le service client, puis demandez une nouvelle carte.",
-    "Quelles sont les procédures pour demander un chèque ?": "Pour obtenir un chéquier, faites une demande en agence ou via votre espace client, sous réserve d'éligibilité.",
+    "Quelles sont les procédures pour demander un chèque ou carte ?": "Pour obtenir une carte et un chéquier, 1). Connectez-vous à votre espace personnel. 2).Accédez à Demande de carte et chèque. 3). Remplissez et validez le formulaire.",
     "Comment créer un compte épargne ?": "Rendez-vous en agence avec une pièce d'identité et un justificatif de domicile pour ouvrir un compte épargne.",
     "Quels sont les autres types de comptes et leurs procédures d'ouverture ?": "Nous proposons des comptes courants, épargne et professionnels. Chaque type a des conditions spécifiques, consultez notre site ou une agence."
 };

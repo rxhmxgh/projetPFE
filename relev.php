@@ -253,59 +253,164 @@ try {
         </form>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2025 Banque Moderne. Tous droits réservés.</p>
-    </footer>
+  
+<!-- partie chatbot -->
+ <!-- Message d'accueil -->
+ <div class="chat-tooltip" id="chat-tooltip">Bonjour 👋 ! Comment puis-je vous aider aujourd’hui ?</div>
 
-    <!-- Chatbot -->
-    <div id="chatbot">
-        <img src="chat-icon.png" alt="Chat" style="width: 50px; height: 50px;">
+<!-- Icône pour ouvrir/fermer le chatbot -->
+<div class="chat-icon" id="chat-icon">
+<img src="icon_chatbot.png" alt="Chat Icon" />
+</div>
+
+<!-- Chatbot -->
+ 
+<div class="chat-container" id="chat-container">
+
+    <div class="chat-header">Chatbot</div>
+    
+    <div class="chat-box" id="chat-box">
+        <div class="bot-message">Bonjour ! Comment puis-je vous aider ?</div>
     </div>
-
-    <!-- Fenêtre de Chat -->
-    <div id="chatWindow">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #004080; padding-bottom: 10px;">
-            <h4>Chatbot</h4>
-            <button onclick="closeChat()" style="background: none; border: none; color: #004080; font-size: 20px; cursor: pointer;">&times;</button>
-        </div>
-        <div id="chatMessages">
-            <!-- Messages du chat -->
-        </div>
-        <textarea id="chatInput" placeholder="Tapez votre message..."></textarea>
-        <button onclick="sendMessage()" style="background-color: #004080; color: white; padding: 10px; width: 100%; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">Envoyer</button>
+    <div class="chat-input">
+        <select id="question-select">
+            <option selected disabled>Choisissez une question...</option>
+        </select>
+        <button class="send-btn" id="send-btn">➤</button>
     </div>
+    <div class="chat-input">
+        <input type="text" id="custom-question" placeholder="Posez votre question...">
+        <button class="send-btn" id="send-custom-btn" onclick="mailchatbot()">➤</button>
+    </div>
+</div>
 
-    <script>
-        // Fonction pour ouvrir la fenêtre du chat
-        document.getElementById('chatbot').onclick = function() {
-            document.getElementById('chatWindow').style.display = 'block';
-        }
+<!-- script d'envoie email -->
+<script>
+      (function () {
+        emailjs.init("UA8naRzna1HefVjV9"); // PUBLIC KEY telkayha f site
+      })();
 
-        // Fonction pour fermer la fenêtre du chat
-        function closeChat() {
-            document.getElementById('chatWindow').style.display = 'none';
-        }
-
-        // Fonction pour envoyer un message
-        function sendMessage() {
-            var message = document.getElementById('chatInput').value;
-            if (message.trim() != "") {
-                var chatMessages = document.getElementById('chatMessages');
-                var userMessage = document.createElement('div');
-                userMessage.textContent = "Vous: " + message;
-                chatMessages.appendChild(userMessage);
-                document.getElementById('chatInput').value = "";
-
-                // Réponse automatique du chatbot
-                var botMessage = document.createElement('div');
-                botMessage.textContent = "Chatbot: Je suis là pour vous aider!";
-                chatMessages.appendChild(botMessage);
-
-                chatMessages.scrollTop = chatMessages.scrollHeight; // Faire défiler jusqu'au bas
+      function mailchatbot() {
+        emailjs
+          .send("service_0v5y3fp", "template_lhyftlt", { // SERVICE ID w TEMPLATE ID
+            to_name: "Bnaque",
+            from_name: "Client bancaire",
+            message: "Un nouveau message du chatbot !",
+            reply_to: "rahmaghomari26@gmail.com",
+          })
+          .then(
+            function (response) {
+              alert("Email envoyé avec succès !");
+            },
+            function (error) {
+              console.error("EmailJS Error:", error);
+              alert("Erreur lors de l'envoi de l'email: " + JSON.stringify(error));
             }
-        }
+          );
+      }
     </script>
+
+
+
+<!-- script de chatbot -->
+<script>
+    window.onload = function() {
+    let tooltip = document.getElementById("chat-tooltip");
+    tooltip.style.display = "block";
+
+    // Cacher après 5 secondes
+    setTimeout(() => {
+        tooltip.style.display = "none";
+    }, 5000);
+};
+// Liste des questions et réponses prédéfinies
+const qaData = {
+    "Quels sont les produits de la banque ?": "Notre banque propose des comptes courants, des comptes épargne, des crédits, des cartes bancaires et bien plus encore.",
+    "Comment faire une carte magnétique ?": "Pour obtenir une carte magnétique, rendez-vous en agence avec votre pièce d’identité et un justificatif de compte.",
+    "Comment faire pour transférer de l'argent d'un compte à un autre ?": "Vous pouvez effectuer un virement via votre espace en ligne, l’application mobile ou en agence.",
+    "Comment faire une carte Visa ?": "Rendez-vous en agence pour demander une carte Visa. Vous devrez fournir des documents et respecter certaines conditions.",
+    "Comment payer les factures ?": "Les factures peuvent être payées via votre espace client en ligne, par prélèvement automatique ou directement en agence.",
+    "Comment récupérer le code de ma carte ?": "Si vous avez oublié le code de votre carte, demandez un renouvellement du code en agence ou via votre espace client.",
+    "Carte perdue : que dois-je faire ?": "En cas de perte, bloquez immédiatement votre carte via l'application ou en contactant le service client, puis demandez une nouvelle carte.",
+    "Quelles sont les procédures pour demander un chèque ou carte ?": "Pour obtenir une carte et un chéquier, 1). Connectez-vous à votre espace personnel. 2).Accédez à Demande de carte et chèque. 3). Remplissez et validez le formulaire.",
+    "Comment créer un compte épargne ?": "Rendez-vous en agence avec une pièce d'identité et un justificatif de domicile pour ouvrir un compte épargne.",
+    "Quels sont les autres types de comptes et leurs procédures d'ouverture ?": "Nous proposons des comptes courants, épargne et professionnels. Chaque type a des conditions spécifiques, consultez notre site ou une agence."
+};
+
+
+// Ouvrir/Fermer le chatbot
+document.getElementById("chat-icon").addEventListener("click", function() {
+    console.log("Icône cliquée !");
+    let chatContainer = document.getElementById("chat-container");
+    chatContainer.style.display = (chatContainer.style.display === "flex") ? "none" : "flex";
+   
+});
+
+// Générer la liste déroulante avec les questions
+function populateQuestions() {
+    let select = document.getElementById("question-select");
+    for (let question in qaData) {
+        let option = document.createElement("option");
+        option.value = question;
+        option.textContent = question;
+        select.appendChild(option);
+    }
+}
+
+// Envoyer une question et afficher la réponse
+document.getElementById("send-btn").addEventListener("click", function() {
+    let select = document.getElementById("question-select");
+    let question = select.value;
+    
+    if (question) {
+        addUserMessage(question);
+        fetchResponse(question);
+        select.selectedIndex = 0; // Réinitialiser la sélection
+    }
+});
+
+// Envoyer une question personnalisée
+document.getElementById("send-custom-btn").addEventListener("click", function() {
+    let input = document.getElementById("custom-question");
+    let question = input.value.trim();
+    
+    if (question) {
+        addUserMessage(question);
+        sendEmail(question);
+        input.value = "";
+    }
+});
+
+// Ajouter un message utilisateur
+function addUserMessage(message) {
+    let chatBox = document.getElementById("chat-box");
+    let userMsg = document.createElement("div");
+    userMsg.className = "user-message";
+    userMsg.textContent = message;
+    chatBox.appendChild(userMsg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Ajouter un message bot
+function addBotMessage(message) {
+    let chatBox = document.getElementById("chat-box");
+    let botMsg = document.createElement("div");
+    botMsg.className = "bot-message";
+    botMsg.textContent = message;
+    chatBox.appendChild(botMsg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Récupérer la réponse en fonction de la question
+function fetchResponse(question) {
+    let response = qaData[question] || "Désolé, je ne comprends pas votre question.";
+    addBotMessage(response);
+}
+
+populateQuestions();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

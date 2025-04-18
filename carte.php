@@ -17,6 +17,7 @@
     padding: 0;
     position: relative;
     overflow-x: hidden;
+    background: linear-gradient(135deg, #eef2f3, #d9dde0);
 }
 .contenu {
   display: flex;
@@ -26,7 +27,174 @@
   flex-wrap: wrap;
   gap: 40px;
 }
+/* partie principal */
 
+
+.container {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: auto;
+}
+
+
+.landing-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px;
+  max-width: 1200px;
+  margin: auto;
+  gap: 40px;
+}
+
+.text-side {
+  flex: 1;
+}
+
+.text-side h1 {
+  font-size: 36px;
+  color:rgb(31, 33, 35);
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color:rgb(27, 83, 10);;
+}
+
+.text-side p {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #555;
+}
+
+.features {
+  margin-top: 20px;
+  list-style: none;
+  padding-left: 0;
+}
+
+.features li {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.cta-buttons {
+  margin-top: 30px;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s ease;
+  display: inline-block;
+}
+
+
+.btn-secondary {
+  background-color: rgba(255, 255, 255, 0.6);;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.6);;
+}
+
+/* Photo de profil */
+.photo-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-img {
+  width: 400px;
+  height: 400px;
+  border-radius: 40%;
+  object-fit: cover;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .landing-container {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px;
+  }
+
+  .photo-side {
+    margin-top: 30px;
+  }
+}
+
+/* demande css */
+.form-container {
+  background: #ffffffcc;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 600px;
+  margin: 60px auto;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.form-container h2 {
+  text-align: center;
+  color: #1d3557;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color:  #f89b29;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  background-color: #f89b29;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color:rgb(193, 151, 0);
+}
 
 /* navbar style */
 .navbar {
@@ -511,7 +679,7 @@
     <!-- From Uiverse.io by Praashoo7 --> 
      <div class="contenu">
      <div class="bloc-gauche">
-     <h2 class="titre-avec-trait">CARTE BANCAIRE EL-BADR</h2>
+     <h2 class="titre-avec-trait">DEMANDE DE CARTE ET CHEQUE</h2>
      <div class="trait-horizontal"></div>
      </div>
 <div class="flip-card">
@@ -585,12 +753,61 @@
 </div>
 </div>
 <!-- contenu principal -->
+<div class="landing-container">
+  <div class="text-side">
+    <h1>Allez plus loin avec <span class="highlight">EL-BADR Banque</span></h1>
+    <p>Découvrez nos solutions modernes pour gérer votre argent plus facilement : carte bancaire, chéquier, et services à distance adaptés à vos besoins.</p>
+    <ul class="features">
+      <li>✔️ Commande facile en ligne</li>
+      <li>✔️ Suivi de traitement en temps réel</li>
+      <li>✔️ Sécurité et confidentialité garanties</li>
+    </ul>
+    <div class="cta-buttons">
+    <h2> Étapes pour faire une demande</h2>
+      <ol>
+        <li>Connectez-vous à votre espace personnel.</li>
+        <li>Accédez à <strong>"Demande de carte et chèque"</strong>.</li>
+        <li>Remplissez et validez le formulaire.</li>
+        <li>Un conseiller traitera votre demande.</li>
+        <li>Vous serez notifié dès disponibilité.</li>
+      </ol>
+    </div>
+  </div>
 
 
+  <div class="photo-side">
+    <img src="demandecarte.jpg" alt="Photo de profil" class="profile-img">
+  </div>
+</div>
+</div>
 
 
+<!-- demande-->
+<div class="form-container">
+  <h2>📋 Formulaire de Demande</h2>
+  <form action="traitement_demande.php" method="POST">
+    <div class="form-group">
+      <label for="nom">Nom complet</label>
+      <input type="text" id="nom" name="nom" required>
+    </div>
 
+    <div class="form-group">
+      <label for="email">Adresse e-mail</label>
+      <input type="email" id="email" name="email" required>
+    </div>
 
+    <div class="form-group">
+      <label for="type">Type de demande</label>
+      <select id="type" name="type" required>
+        <option value="">-- Sélectionnez --</option>
+        <option value="carte">Carte Bancaire</option>
+        <option value="chequier">Chéquier</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary"> Envoyer la demande</button>
+  </form>
+</div>
 
 
 
@@ -672,14 +889,14 @@
 };
 // Liste des questions et réponses prédéfinies
 const qaData = {
-    "Quels sont les produits de la banque ?": "Notre banque propose des comptes courants, des comptes épargne, des crédits, des cartes bancaires et bien plus encore.",
+  "Quels sont les produits de la banque ?": "Notre banque propose des comptes courants, des comptes épargne, des crédits, des cartes bancaires et bien plus encore.",
     "Comment faire une carte magnétique ?": "Pour obtenir une carte magnétique, rendez-vous en agence avec votre pièce d’identité et un justificatif de compte.",
     "Comment faire pour transférer de l'argent d'un compte à un autre ?": "Vous pouvez effectuer un virement via votre espace en ligne, l’application mobile ou en agence.",
     "Comment faire une carte Visa ?": "Rendez-vous en agence pour demander une carte Visa. Vous devrez fournir des documents et respecter certaines conditions.",
     "Comment payer les factures ?": "Les factures peuvent être payées via votre espace client en ligne, par prélèvement automatique ou directement en agence.",
     "Comment récupérer le code de ma carte ?": "Si vous avez oublié le code de votre carte, demandez un renouvellement du code en agence ou via votre espace client.",
     "Carte perdue : que dois-je faire ?": "En cas de perte, bloquez immédiatement votre carte via l'application ou en contactant le service client, puis demandez une nouvelle carte.",
-    "Quelles sont les procédures pour demander un chèque ?": "Pour obtenir un chéquier, faites une demande en agence ou via votre espace client, sous réserve d'éligibilité.",
+    "Quelles sont les procédures pour demander un chèque ou carte ?": "Pour obtenir une carte et un chéquier, 1). Connectez-vous à votre espace personnel. 2).Accédez à Demande de carte et chèque. 3). Remplissez et validez le formulaire.",
     "Comment créer un compte épargne ?": "Rendez-vous en agence avec une pièce d'identité et un justificatif de domicile pour ouvrir un compte épargne.",
     "Quels sont les autres types de comptes et leurs procédures d'ouverture ?": "Nous proposons des comptes courants, épargne et professionnels. Chaque type a des conditions spécifiques, consultez notre site ou une agence."
 };

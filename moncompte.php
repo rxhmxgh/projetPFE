@@ -33,12 +33,18 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Mon Compte</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
+     <!-- Bootstrap JS Bundle (inclut Popper.js) -->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+ <style>
+  body {
+  background: linear-gradient(145deg, #e0e0e0,rgb(245, 245, 245));
+  min-height: 100vh;
+  padding: 40px 0;
+  font-family: 'Poppins', sans-serif;
+}
         .container-fluid {
             padding-top: 20px;
         }
@@ -68,7 +74,7 @@ h2 {
 }
 
 .card {
-    
+
   border: none;
   border-radius: 20px;
   background-color: #ffffff;
@@ -85,7 +91,20 @@ h2 {
 .card-body {
   padding: 30px;
 }
+.card-glass {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  color: #2c3e50;
+  transition: all 0.3s ease-in-out;
+}
 
+.card-glass:hover {
+  transform: scale(1.01);
+}
 .card-title {
   font-size: 1.4rem;
   color: #164A41;
@@ -93,6 +112,14 @@ h2 {
   margin-bottom: 20px;
   border-left: 4px solid #16a085;
   padding-left: 10px;
+}
+.profile-img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 20%;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 p {
@@ -494,33 +521,46 @@ strong {
 </nav>
 
 <!-- Contenu principal -->
- <div class="content">
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Bienvenue sur votre compte, <?= htmlspecialchars($user['nom']) ?> !</h2>
-    <div class="card shadow">
-        <div class="card-body">
-            <h5 class="card-title">Informations du compte</h5>
-            <p><strong>Nom :</strong> <?= htmlspecialchars($user['nom']) ?></p>
-            <p><strong>Email :</strong> <?= htmlspecialchars($user['email']) ?></p>
-            <p><strong>Téléphone :</strong> <?= htmlspecialchars($user['telephone']) ?></p>
-            <p><strong>Adresse :</strong> <?= htmlspecialchars($user['adresse']) ?></p>
-        </div>
-    </div>
-    <hr class="my-4">
+<div class="content" style="background: linear-gradient(145deg, #e0e0e0, #f5f5f5); min-height: 100vh; padding: 50px 0;">
+  <div class="container mt-5">
+    <h2 class="text-center mb-5 text-dark fw-bold">
+      Bienvenue sur votre compte, <?= htmlspecialchars($user['nom']) ?> !
+    </h2>
 
-<div class="d-flex flex-wrap justify-content-center gap-3">
-    <a href="transfer.php" class="btn btn-success px-4 py-2">
-        💸 Faire un virement
-    </a>
-    <a href="historique.php" class="btn btn-outline-primary px-4 py-2">
-        📜 Historique des transactions
-    </a>
-    <a href="modifier_profil.php" class="btn btn-outline-dark px-4 py-2">
-        🛠️ Modifier mon profil
-    </a>
+    <div class="card shadow card-glass mx-auto" style="max-width: 700px;">
+      <div class="card-body">
+      <div class="row align-items-center">
+          <!-- Partie photo -->
+          <div class="col-md-4 text-center mb-4 mb-md-0">
+            <img src="user.jpg" alt="Photo de profil" class="profile-img">
+          </div>
+             <!-- Partie infos -->
+             <div class="col-md-8">
+        <h5 class="card-title mb-4">Informations du compte</h5>
+
+        <p><strong>Nom :</strong> <?= htmlspecialchars($user['nom']) ?></p>
+        <p><strong>Email :</strong> <?= htmlspecialchars($user['email']) ?></p>
+        <p><strong>Téléphone :</strong> <?= htmlspecialchars($user['telephone']) ?></p>
+        <p><strong>Adresse :</strong> <?= htmlspecialchars($user['adresse']) ?></p>
+
+        <hr class="my-4">
+
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href="transfer.php" class="btn btn-success px-4 py-2 rounded-pill">
+            💸 Faire un virement
+          </a>
+          <a href="historique.php" class="btn btn-outline-primary px-4 py-2 rounded-pill">
+            📜 Historique des transactions
+          </a>
+          <a href="modifierprofil.php" class="btn btn-outline-dark px-4 py-2 rounded-pill">
+            🛠️ Modifier mon profil
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-</div> 
+
 
 <!-- partie chatbot -->
  <!-- Message d'accueil -->
@@ -600,7 +640,7 @@ const qaData = {
     "Comment payer les factures ?": "Les factures peuvent être payées via votre espace client en ligne, par prélèvement automatique ou directement en agence.",
     "Comment récupérer le code de ma carte ?": "Si vous avez oublié le code de votre carte, demandez un renouvellement du code en agence ou via votre espace client.",
     "Carte perdue : que dois-je faire ?": "En cas de perte, bloquez immédiatement votre carte via l'application ou en contactant le service client, puis demandez une nouvelle carte.",
-    "Quelles sont les procédures pour demander un chèque ?": "Pour obtenir un chéquier, faites une demande en agence ou via votre espace client, sous réserve d'éligibilité.",
+    "Quelles sont les procédures pour demander un chèque ou carte ?": "Pour obtenir une carte et un chéquier, 1). Connectez-vous à votre espace personnel. 2).Accédez à Demande de carte et chèque. 3). Remplissez et validez le formulaire.",
     "Comment créer un compte épargne ?": "Rendez-vous en agence avec une pièce d'identité et un justificatif de domicile pour ouvrir un compte épargne.",
     "Quels sont les autres types de comptes et leurs procédures d'ouverture ?": "Nous proposons des comptes courants, épargne et professionnels. Chaque type a des conditions spécifiques, consultez notre site ou une agence."
 };
