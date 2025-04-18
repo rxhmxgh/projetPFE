@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
 <body>
   <nav class="navbar fixed-top navbar-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">EL-BADR Banque</a>
+      <a class="navbar-brand" href="acceuil.php">EL-BADR Banque</a>
     </div>
   </nav>
 

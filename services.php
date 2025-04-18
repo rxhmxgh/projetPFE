@@ -447,7 +447,6 @@ body::before {
 </head>
 <body>
 <!-- partie menu  -->
-
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">EL-BADR Banque</a>
@@ -470,9 +469,12 @@ body::before {
           <li class="nav-item">
             <a class="nav-link" href="produit.php" onclick="loadPage('produits')">Produits bancaires</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="rendezvous.php" onclick="loadPage('rendez-vous')">Rendez-Vous</a>
+          </li>
           
           <li class="nav-item">
-            <a class="nav-link" href="gere.php">Relever</a>
+            <a class="nav-link" href="relev.php">Relever</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="historique.php">Historique</a>
@@ -488,7 +490,7 @@ body::before {
             <a class="nav-link" href="moncompte.php" onclick="loadPage('compte')">Mon compte</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Se déconnecter</a>
+            <a class="nav-link" href="logout.php">Se déconnecter</a>
           </li>
              
       </div>

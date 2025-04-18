@@ -43,6 +43,107 @@ try {
             padding-top: 20px;
         }
  
+        .content {
+    padding: 50px 20px;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+/* partie principal */ 
+
+.container {
+  max-width: 700px;
+  margin: auto;
+}
+
+h2 {
+    font-family: 'Poppins' ,sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  color: #1b3d2f;
+  padding: 20PX;
+}
+
+.card {
+    
+  border: none;
+  border-radius: 20px;
+  background-color: #ffffff;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  
+}
+
+.card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.card-body {
+  padding: 30px;
+}
+
+.card-title {
+  font-size: 1.4rem;
+  color: #164A41;
+  font-weight: 600;
+  margin-bottom: 20px;
+  border-left: 4px solid #16a085;
+  padding-left: 10px;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+strong {
+  color: #0b5345;
+}
+
+
+.btn {
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-success {
+  background-color: #1abc9c;
+  border: none;
+}
+
+.btn-outline-primary {
+  border-color: #3498db;
+  color: #3498db;
+}
+
+.btn-outline-primary:hover {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.btn-outline-dark {
+  border-color: #2c3e50;
+  color: #2c3e50;
+}
+
+.btn-outline-dark:hover {
+  background-color: #2c3e50;
+  color: #fff;
+}
+
 /* navbar style */
 .navbar {
     background-color: #0f2d0f !important; /* Vert foncé */
@@ -393,6 +494,7 @@ try {
 </nav>
 
 <!-- Contenu principal -->
+ <div class="content">
 <div class="container mt-5">
     <h2 class="text-center mb-4">Bienvenue sur votre compte, <?= htmlspecialchars($user['nom']) ?> !</h2>
     <div class="card shadow">
@@ -404,8 +506,21 @@ try {
             <p><strong>Adresse :</strong> <?= htmlspecialchars($user['adresse']) ?></p>
         </div>
     </div>
+    <hr class="my-4">
+
+<div class="d-flex flex-wrap justify-content-center gap-3">
+    <a href="transfer.php" class="btn btn-success px-4 py-2">
+        💸 Faire un virement
+    </a>
+    <a href="historique.php" class="btn btn-outline-primary px-4 py-2">
+        📜 Historique des transactions
+    </a>
+    <a href="modifier_profil.php" class="btn btn-outline-dark px-4 py-2">
+        🛠️ Modifier mon profil
+    </a>
 </div>
- 
+</div>
+</div> 
 
 <!-- partie chatbot -->
  <!-- Message d'accueil -->
