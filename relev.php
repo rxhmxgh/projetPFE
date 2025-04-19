@@ -33,210 +33,472 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Bootstrap JS Bundle (inclut Popper.js) -->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <title>Relevé de Compte - Banque Moderne</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
+         body {
+  background: linear-gradient(145deg, #e0e0e0,rgb(245, 245, 245));
+  min-height: 100vh;
+  padding: 40px 0;
+  font-family: 'Poppins', sans-serif;
+}
+        .container-fluid {
+            padding-top: 20px;
         }
-
+        .content {
+            background-color: rgba(255, 248, 248, 0.46);;
+    padding: 50px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
         /* Header et Menu */
-        .header {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background-color: #004080;
-            color: white;
-        }
+ 
+/* navbar style */
+.navbar {
+    background-color: #0f2d0f !important; /* Vert foncé */
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+}
 
-        .logo img {
-            height: 50px;
-        }
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
 
-        .nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
+.navbar-nav .nav-link {
+    color: white !important;
+    font-size: 1rem;
+    margin-right: 15px;
+}
 
-        .nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            padding: 8px 12px;
-            transition: background 0.3s ease, color 0.3s ease;
-            border-radius: 4px;
-        }
+.navbar-nav .nav-link:hover {
+    text-decoration: underline;
+    transform: scale(1.1);
+}
 
-        .nav a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: #ffdd57;
-        }
+/* Animation du menu latéral (offcanvas) */
+.offcanvas {
+    background-color: #0f2d0f !important;
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-in-out;
+}
 
-        .btn-deconnexion {
-            background-color: #dc3545;
-            padding: 8px 15px;
+.offcanvas.show {
+    transform: translateX(0);
+}
+
+/* Styles des éléments du menu latéral */
+.offcanvas-body .nav-item {
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.offcanvas-body .nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+/* Éléments actifs */
+.offcanvas-body .nav-item.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+/* Menu déroulant */
+.dropdown-menu {
+    background-color: #0c1f0c;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.dropdown-menu .dropdown-item {
+    color: white;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #1a3d1a;
+}
+
+
+/* Animation de fondu */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Effet sur le bouton de fermeture */
+
+.btn-close-white {
+    filter: invert(1);
+}
+
+.btn-close-white:hover {
+    transform: rotate(180deg);
+}
+.banner {
+            padding: 60px;
+            text-align: center;
+            margin: 30px;
+        }
+        .banner h2 {
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #E7E7E7;
             border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
         }
+        .btn-primary:hover {
+            background-color: #E7E7E7;
 
-        .btn-deconnexion:hover {
-            background-color: #c82333;
+        }
+        .btn-clicked {
+            
             color: white;
         }
-
-        /* Section Relevé */
-        .releve-section {
-            text-align: center;
-            padding: 50px 20px;
-            background-color: white;
-            max-width: 600px;
-            margin: 50px auto;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        .row {
+            margin-top: 30px;
         }
 
-        .releve-section h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #004080;
-        }
 
-        .releve-info {
-            text-align: left;
-        }
+        /* Contenu principal */
 
-        fieldset {
-            border: 2px solid #004080;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
+        .releve-wrapper {
+    max-width: 1000px;
+    margin: 80px auto;
+    padding: 40px;
+    background:rgba(255, 248, 248, 0.46);
+    border-radius: 25px;
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    font-family: 'Segoe UI', sans-serif;
+}
 
-        legend {
-            font-weight: bold;
-            color: #004080;
-            padding: 0 10px;
-        }
 
-        .releve-info p {
-            font-size: 18px;
-            margin: 10px 0;
-            color: #333;
-        }
+.releve-section {
+    flex: 2;
+    text-align: left;
+}
 
-        .btn-virement, .btn-historique {
-            display: inline-block;
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            font-size: 16px;
-            border-radius: 5px;
-            transition: 0.3s;
-            margin-top: 15px;
-        }
+.releve-section h2 {
+    font-size: 28px;
+    color:rgb(13, 14, 14);
+    margin-bottom: 20px;
+}
 
-        .btn-virement:hover,
-        .btn-historique:hover {
-            background-color: #0056b3;
-        }
+fieldset {
+    border: 2px solid 1a3d1argb(57, 120, 28);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color:rgba(220, 224, 228, 0.31);
+}
 
-        .footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #004080;
-            color: white;
-            margin-top: 50px;
-        }
+legend {
+    font-weight: bold;
+    color:rgb(23, 71, 8);
+    font-size: 18px;
+    padding: 0 12px;
+}
 
-        /* Chatbot */
-        #chatbot {
+.releve-info p {
+    font-size: 20px;
+    color: #333;
+    margin: 10px 0;
+    padding-left: 10px;
+}
+
+/* Boutons modernes */
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  display: inline-block;
+  margin: 5px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-success {
+  background-color:rgba(170, 239, 170, 0.59);
+  color: black;
+  border: none;
+}
+
+.btn-outline-primary {
+  border: 2px solidrgb(43, 45, 45);
+  color:rgb(21, 21, 20);
+  background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+  background-color: #2c3e50
+  color: #fff;
+}
+
+.btn-outline-dark {
+  border: 2px solidrgb(148, 167, 145);
+  color:rgb(44, 75, 80);
+  background-color: transparent;
+}
+
+.btn-outline-dark:hover {
+  background-color:rgb(14, 18, 21);
+  color: #fff;
+}
+@media (max-width: 768px) {
+    .releve-wrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .releve-image {
+        margin-bottom: 20px;
+    }
+
+    .releve-section {
+        text-align: center;
+    }
+}
+
+
+/* partie de chatbot  */
+/* partie de chatbot  */
+       /* Icône du chatbot */
+      /* Style du message */
+      .chat-tooltip {
+    position: fixed;
+    bottom: 80px; /* Position au-dessus de l'icône */
+    right: 20px;
+    background-color: #4a4a4a;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    white-space: nowrap;
+    display: none; /* Caché par défaut */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 101;
+}
+/* Ajoute une petite flèche en dessous du message */
+.chat-tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #4a4a4a transparent transparent transparent;
+}
+
+       .chat-icon {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #004080;
+            background: #ff9800;
             color: white;
-            padding: 10px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border-radius: 50%;
             cursor: pointer;
+            font-size: 24px;
+            z-index: 100;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         }
+        .chat-icon img {
+    width: 50px; /* Ajuste la taille selon ton besoin */
+    height: 50px;
+    border-radius: 50%; /* Pour garder un effet arrondi */
+    cursor: pointer;
 
-        #chatWindow {
+}
+
+        /* Conteneur du chatbot */
+        .chat-container {
             display: none;
             position: fixed;
             bottom: 80px;
             right: 20px;
-            background-color: #ffffff;
-            color: black;
-            padding: 15px;
-            width: 300px;
-            height: 400px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            width: 350px;
+            background: white;
+            border-radius:20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
         }
-
-        #chatMessages {
-            overflow-y: auto;
-            height: 300px;
-            margin-bottom: 10px;
-        }
-
-        #chatInput {
-            width: 100%;
+        /* En-tête du chatbot */
+        .chat-header {
+            background:#4CAF50;
+            color: white;
             padding: 10px;
-            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        /* Zone des messages */
+        .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #fff;
+        }
+        /* Messages bot et utilisateur */
+        .bot-message, .user-message {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 0px 30px;
+            max-width: 80%;
+        }
+        .bot-message {
+            background: #ddd;
+            text-align: left;
+        }
+        .user-message {
+            background:rgb(147, 209, 179);
+    text-align: left;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 0px 30px;
+    max-width: 80%;
+    word-wrap: break-word; /* Permet de couper les mots longs */
+    white-space: normal; /* Permet aux textes longs de passer à la ligne */
+        }
+        /* Barre de saisie et sélection */
+        .chat-input {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: #eee;
+            border-top: 1px solid #ccc; /* Ajoute une séparation */
+            gap: 5px; /* Ajout d'un espacement entre les éléments */
+        }
+        /* Liste déroulante */
+        select {
+        
+            flex: 1;
+            padding: 8px;
             border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            max-width: calc(100% - 50px); /* Empêche la liste de prendre trop d'espace */
+            overflow: hidden;
+            text-overflow: ellipsis; /* Ajoute "..." si le texte est trop long */
+            white-space: nowrap; /* Empêche le retour à la ligne */
+        }
+        /* Bouton d'envoi */
+        .send-btn {
+            background: green;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin-left: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            min-width: 40px; /* Force un minimum pour qu'il soit visible */
+            flex-shrink: 0; /* Empêche le bouton d'être écrasé */
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .nav {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .nav a,
-            .btn-deconnexion {
-                width: 100%;
-                text-align: center;
-            }
-        }
     </style>
 </head>
-<body>
+<div>
 
-    <!-- Header avec menu -->
-    <header class="header">
-        <div class="logo">
-            <img src="img/logo.webp" alt="Logo Banque Moderne">
-        </div>
-        <nav class="nav">
-            <a href="accueil.php">Accueil</a>
-            <a href="bonjour.php">Mon Compte</a>
-            <a href="relever.php">Relevé</a>
-            <a href="virement.php">Virement</a>
-            <a href="rdv.php">Rendez-vous</a>
-            <a href="simulateur.php">Simulation Crédit</a>
-            <a href="chat.php">Chat</a>
-            <a href="logout.php" class="btn-deconnexion">Déconnexion</a>
-        </nav>
-    </header>
+ <!-- partie menu  -->
+<nav class="navbar navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">EL-BADR Banque</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">MENU</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="acceuil.php">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="simulateur.php" onclick="loadPage('simulateur')">Simulation des crédits</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="produit.php" onclick="loadPage('produits')">Produits bancaires</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="rendezvous.php" onclick="loadPage('rendez-vous')">Rendez-Vous</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="relev.php">Relever</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="historique.php">Historique</a>
+          </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="services.php">Les services bancaire</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="map.php" onclick="loadPage('map')">Map</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="moncompte.php" onclick="loadPage('compte')">Mon compte</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="logout.php">Se déconnecter</a>
+          </li>
+             
+      </div>
+    </div>
+  </div>
+</nav>
 
-    <!-- Section Relevé -->
+    <!-- Section Relevé --> 
+    <div class="content" style="background: linear-gradient(145deg, #e0e0e0, #f5f5f5); min-height: 100vh; padding: 50px 0;">
+  <div class="container mt-5">
+    <h2 class="text-center mb-5 text-dark fw-bold">
+      Relevé de votre compte 
+    </h2>
+
+    <div class="releve-wrapper ">
+
     <section class="releve-section">
-        <h2>Relevé de Compte</h2>
+       
         <div class="releve-info">
             <fieldset>
                 <legend>Informations du Compte</legend>
@@ -246,13 +508,17 @@ try {
                 <p><strong>Solde :</strong> <?= number_format($user['solde'], 2, ',', ' '); ?> DA</p>
             </fieldset>
         </div>
-        <a href="virement.php" class="btn-virement">Effectuer un Virement</a>
-        <form action="historique.php" method="post" style="margin-top: 15px;">
-            <input type="hidden" name="id" value="<?= $_SESSION['user_id']; ?>">
-            <button type="submit" class="btn-historique">Voir l'Historique (10 DA)</button>
-        </form>
-    </section>
+       <!-- Bouton Virement -->
+       <a href="virement.php" class="btn btn-success">Effectuer un Virement</a>
 
+<!-- Bouton Historique -->
+<form action="historique.php" method="post" style="display: inline;">
+    <input type="hidden" name="id" value="<?= $_SESSION['user_id']; ?>">
+    <button type="submit" class="btn btn-outline-primary">Voir l'Historique (10 DA)</button>
+</form>
+    </section>
+</div>
+</div> 
   
 <!-- partie chatbot -->
  <!-- Message d'accueil -->

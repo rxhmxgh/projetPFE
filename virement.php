@@ -1,10 +1,8 @@
 <?php
+// Démarrer la session
 session_start();
-if (!isset($_SESSION['user_id'])) {
-    header('Location: connex.php');
-    exit();
-}
 
+// Connexion à la base de données
 $host = "localhost";
 $dbname = "BanqueModerne";
 $username = "root";
@@ -13,18 +11,75 @@ $password = "";
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE id = :id");
-    $stmt->bindParam(':id', $_SESSION['user_id']);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$user) {
-        echo "Erreur : utilisateur non trouvé.";
-        exit();
-    }
 } catch (PDOException $e) {
-    die("Erreur de connexion à la base de données : " . $e->getMessage());
+    die("Erreur de connexion : " . $e->getMessage());
+}
+
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['user_id'])) {
+    header('Location: seconnecter.php');
+    exit();
+}
+
+// Récupérer le CCP de l'utilisateur connecté
+$stmt = $pdo->prepare("SELECT ccp FROM utilisateurs WHERE id = :id");
+$stmt->execute(["id" => $_SESSION['user_id']]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$ccpSource = $user ? $user["ccp"] : "";
+
+
+// Traitement du formulaire de virement
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["virement"])) {
+    $ccpDest = htmlspecialchars($_POST["ccp_dest"]);
+    $montant = floatval($_POST["montant"]);
+
+    if ($montant > 0) {
+        try {
+            $pdo->beginTransaction();
+
+            // Vérifier l'existence des comptes
+            $stmtSrc = $pdo->prepare("SELECT id, solde FROM utilisateurs WHERE ccp = :ccp");
+            $stmtSrc->execute(["ccp" => $ccpSource]);
+            $source = $stmtSrc->fetch(PDO::FETCH_ASSOC);
+
+            $stmtDest = $pdo->prepare("SELECT id, solde FROM utilisateurs WHERE ccp = :ccp");
+            $stmtDest->execute(["ccp" => $ccpDest]);
+            $dest = $stmtDest->fetch(PDO::FETCH_ASSOC);
+
+            if ($source && $dest) {
+                if ($source["solde"] >= $montant) {
+                    // Effectuer le virement
+                    $newSoldeSource = $source["solde"] - $montant;
+                    $newSoldeDest = $dest["solde"] + $montant;
+
+                    $updateSrc = $pdo->prepare("UPDATE utilisateurs SET solde = :solde WHERE id = :id");
+                    $updateSrc->execute(["solde" => $newSoldeSource, "id" => $source["id"]]);
+
+                    $updateDest = $pdo->prepare("UPDATE utilisateurs SET solde = :solde WHERE id = :id");
+                    $updateDest->execute(["solde" => $newSoldeDest, "id" => $dest["id"]]);
+
+                    // Enregistrer la transaction
+                    $transactionStmt = $pdo->prepare("INSERT INTO transactions (utilisateur_id, type, montant) VALUES (:utilisateur_id, 'virement_envoye', :montant)");
+                    $transactionStmt->execute(["utilisateur_id" => $source["id"], "montant" => $montant]);
+
+                    $transactionStmt = $pdo->prepare("INSERT INTO transactions (utilisateur_id, type, montant) VALUES (:utilisateur_id, 'virement_recu', :montant)");
+                    $transactionStmt->execute(["utilisateur_id" => $dest["id"], "montant" => $montant]);
+
+                    $pdo->commit();
+                    echo "✅ Virement effectué avec succès.";
+                } else {
+                    echo "❌ Solde insuffisant.";
+                }
+            } else {
+                echo "❌ Numéro CCP introuvable.";
+            }
+        } catch (PDOException $e) {
+            $pdo->rollBack();
+            echo "❌ Erreur : " . $e->getMessage();
+        }
+    } else {
+        echo "⚠️ Le montant doit être supérieur à zéro.";
+    }
 }
 ?>
 
@@ -32,145 +87,31 @@ try {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Mon Compte</title>
-     <!-- Bootstrap JS Bundle (inclut Popper.js) -->
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <!-- Bootstrap JS Bundle (inclut Popper.js) -->
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
- <style>
-  body {
+    <title>Virement - Banque Moderne</title>
+  <style>
+    /* Styles généraux */
+    body {
   background: linear-gradient(145deg, #e0e0e0,rgb(245, 245, 245));
   min-height: 100vh;
   padding: 40px 0;
   font-family: 'Poppins', sans-serif;
 }
-        .container-fluid {
-            padding-top: 20px;
-        }
- 
-        .content {
+.content {
+            background-color: rgba(255, 248, 248, 0.46);;
     padding: 50px 20px;
-    min-height: 80vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
 }
-/* partie principal */ 
-
-.container {
-  max-width: 700px;
-  margin: auto;
-}
-
-h2 {
-    font-family: 'Poppins' ,sans-serif;
-  font-weight: 600;
-  font-size: 30px;
-  color: #1b3d2f;
-  padding: 20PX;
-}
-
-.card {
-
-  border: none;
-  border-radius: 20px;
-  background-color: #ffffff;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  
-}
-
-.card:hover {
-  transform: scale(1.01);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-}
-
-.card-body {
-  padding: 30px;
-}
-.card-glass {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  color: #2c3e50;
-  transition: all 0.3s ease-in-out;
-}
-
-.card-glass:hover {
-  transform: scale(1.01);
-}
-.card-title {
-  font-size: 1.4rem;
-  color: #164A41;
-  font-weight: 600;
-  margin-bottom: 20px;
-  border-left: 4px solid #16a085;
-  padding-left: 10px;
-}
-.profile-img {
-  width: 130px;
-  height: 130px;
-  object-fit: cover;
-  border-radius: 20%;
-  border: 3px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-p {
-    font-family: 'Poppins', sans-serif;
-  font-size: 20px;
-  margin-bottom: 20px;
-  color: #2c3e50;
-}
-
-strong {
-  color: #0b5345;
-}
-
-
-.btn {
-  border-radius: 12px;
-  font-weight: 500;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-.btn-success {
-  background-color: #1abc9c;
-  border: none;
-}
-
-.btn-outline-primary {
-  border-color: #3498db;
-  color: #3498db;
-}
-
-.btn-outline-primary:hover {
-  background-color: #3498db;
-  color: #fff;
-}
-
-.btn-outline-dark {
-  border-color: #2c3e50;
-  color: #2c3e50;
-}
-
-.btn-outline-dark:hover {
-  background-color: #2c3e50;
-  color: #fff;
-}
-
 /* navbar style */
 .navbar {
     background-color: #0f2d0f !important; /* Vert foncé */
@@ -272,55 +213,96 @@ strong {
             font-weight: bold;
         }
         .btn-primary {
-            background-color: #f0a500;
+            background-color: #E7E7E7;
             border: none;
         }
         .btn-primary:hover {
-            background-color: #d98e00;
+            background-color: #E7E7E7;
 
         }
         .btn-clicked {
-            background-color: #28a745 !important; /* Vert */
+            
             color: white;
         }
         .row {
             margin-top: 30px;
         }
 
+/* Conteneur principal pour centrer */
+.transfer-section {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 25px;
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto; /* ⬅️ CENTRAGE HORIZONTAL */
+    text-align: center;
+}
 
-                /*la maps */ 
-  /* Style de la section */
-  .location-section {
-            text-align: center;
-            padding: 50px;
-            background:rgb(212, 221, 201);
-            border-radius: 20px;
-        }
+/* Les champs et labels */
+label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    color: #555;
+}
 
-        .location-section h2 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
 
-        .location-section p {
-            color: #555;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
+input[readonly] {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
 
-        /* Conteneur de la carte */
-        .map-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+/* Boutons */
+.btn-transfer {
+    width: 100%;
+    background-color:rgba(170, 239, 170, 0.68);
+    color: black;
+    border: none;
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
 
-        #map {
-            width: 600px;
-            height: 400px;
-            border-radius: 8px;
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-        }
+.btn-transfer:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    background-color:rgba(170, 239, 170, 0.68);
+}
+
+.btn-back {
+    display: inline-block;
+    margin-top: 15px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.btn-back:hover {
+    transform: translateY(-2px);
+    background-color: #0056b3;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
 
 /* partie de chatbot  */
 /* partie de chatbot  */
@@ -463,12 +445,12 @@ strong {
             justify-content: center;
             align-items: center;
         }
-    </style>
+
+  </style>
 </head>
 <body>
-
-<!-- partie menu  -->
-
+    
+ <!-- partie menu  -->
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">EL-BADR Banque</a>
@@ -520,46 +502,30 @@ strong {
   </div>
 </nav>
 
-<!-- Contenu principal -->
 <div class="content" style="background: linear-gradient(145deg, #e0e0e0, #f5f5f5); min-height: 100vh; padding: 50px 0;">
   <div class="container mt-5">
     <h2 class="text-center mb-5 text-dark fw-bold">
-      Bienvenue sur votre compte, <?= htmlspecialchars($user['nom']) ?> !
+    Effecturer un virement
     </h2>
+    <section class="transfer-section">
+      
+        <form method="post" action="">
+            <label>Numéro CCP Source :</label>
+            <input type="text" name="ccp_source" value="<?= htmlspecialchars($ccpSource); ?>" readonly>
 
-    <div class="card shadow card-glass mx-auto" style="max-width: 700px;">
-      <div class="card-body">
-      <div class="row align-items-center">
-          <!-- Partie photo -->
-          <div class="col-md-4 text-center mb-4 mb-md-0">
-            <img src="user.jpg" alt="Photo de profil" class="profile-img">
-          </div>
-             <!-- Partie infos -->
-             <div class="col-md-8">
-        <h5 class="card-title mb-4">Informations du compte</h5>
+            <label>Numéro CCP Destinataire :</label>
+            <input type="text" name="ccp_dest" required>
 
-        <p><strong>Nom :</strong> <?= htmlspecialchars($user['nom']) ?></p>
-        <p><strong>Email :</strong> <?= htmlspecialchars($user['email']) ?></p>
-        <p><strong>Téléphone :</strong> <?= htmlspecialchars($user['telephone']) ?></p>
-        <p><strong>Adresse :</strong> <?= htmlspecialchars($user['adresse']) ?></p>
+            <label>Montant :</label>
+            <input type="number" name="montant" step="0.01" required>
 
-        <hr class="my-4">
+            <button type="submit" name="virement" class="btn-transfer">Effectuer le Virement</button>
+        </form>
 
-        <div class="d-flex flex-wrap justify-content-center gap-3">
-         
-          <a href="relev.php" class="btn btn-outline-primary px-4 py-2 rounded-pill">
-            📜 Relevé de compte
-          </a>
-          <a href="modifierprofil.php" class="btn btn-outline-dark px-4 py-2 rounded-pill">
-            🛠️ Modifier mon profil
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
+        <!-- Bouton pour retourner au relevé de compte -->
+        <a href="relev.php" class="btn-back">🔙 Retour au Relevé de Compte</a>
+    </section>
+  
 <!-- partie chatbot -->
  <!-- Message d'accueil -->
  <div class="chat-tooltip" id="chat-tooltip">Bonjour 👋 ! Comment puis-je vous aider aujourd’hui ?</div>
@@ -717,5 +683,6 @@ populateQuestions();
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
