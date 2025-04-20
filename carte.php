@@ -147,8 +147,9 @@
 
 .form-container h2 {
   text-align: center;
-  color: #1d3557;
+  color: black;
   margin-bottom: 30px;
+  font-family: 'Poppins' , sans-serif;
 }
 
 .form-group {
@@ -183,7 +184,7 @@
 button[type="submit"] {
   width: 100%;
   padding: 14px;
-  background-color: #f89b29;
+  background-color:rgb(195, 228, 178);
   color: white;
   border: none;
   border-radius: 30px;
@@ -193,7 +194,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color:rgb(193, 151, 0);
+  background-color:rgb(195, 228, 178);
 }
 
 /* navbar style */
@@ -784,7 +785,7 @@ button[type="submit"]:hover {
 
 <!-- demande-->
 <div class="form-container">
-  <h2>📋 Formulaire de Demande</h2>
+  <h2>Formulaire de Demande</h2>
   <form action="traitement_demande.php" method="POST">
     <div class="form-group">
       <label for="nom">Nom complet</label>

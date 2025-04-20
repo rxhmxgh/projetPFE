@@ -1084,7 +1084,7 @@ populateQuestions();
             <p><strong>+213 552013748</strong></p>
             <p>badrbanque-dz@gmail.com</p>
         </div>
-        <div class="contact-form">
+        <div class="contact-form" >
         <form id="contact-form">
                 <div class="form-group">
                     <label for="name">Nom</label>
@@ -1096,7 +1096,7 @@ populateQuestions();
                     <label for="message">Message</label>
                     <textarea id="message" name="message" rows="4"  required></textarea>
                 </div>
-                <button onclick="sendEmail()">Envoyer </button>
+               <button type="submit">Envoyer</button>
                 </form> 
         </div>
     </div>
@@ -1109,7 +1109,6 @@ populateQuestions();
       })();
 
       function sendEmail() {
-
 
         emailjs
           .send("service_0v5y3fp", "template_x0rfy3m", { // SERVICE ID / TEMPLATE ID
