@@ -449,7 +449,7 @@ body::before {
 <!-- partie menu  -->
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">EL-BADR Banque</a>
+    <a class="navbar-brand" href="#">MYBANK Banque</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -501,8 +501,8 @@ body::before {
 
   <!-- Contenu principal -->
   <div class="content" >
-    <h1>Les services bancaire EL-BADR</h1>
-    <p>Chez EL-BADR, nos services bancaires sont pensés pour vous simplifier la vie, en toute sécurité et avec proximité.</p>
+    <h1>Les services bancaire MYBANK</h1>
+    <p>Chez MYBANK, nos services bancaires sont pensés pour vous simplifier la vie, en toute sécurité et avec proximité.</p>
    <div class="services-container">
 
     <div class="service-card">

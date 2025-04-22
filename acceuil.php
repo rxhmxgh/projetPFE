@@ -298,7 +298,7 @@ button:hover {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     position: relative;
     font-family: 'Poppins', sans-serif;
-    m
+    
 }
 
 .bloc-inscription::before {
@@ -692,7 +692,7 @@ footer {
     </style>
 </head>
     <header>
-        <div class="logo">El-Badr<span>Banque</span></div>
+        <div class="logo">MYBANK<span>Banque</span></div>
         <nav>
             <ul>
                 <li><a href="inscription.php">S'inscrire</a></li>   
@@ -704,7 +704,7 @@ footer {
     
     <section class="hero">
         <div class="hero-content">
-            <h1><strong>Bienvenue chez banque El-Badr.</strong></h1>
+            <h1><strong>Bienvenue chez banque MYBANK.</strong></h1>
             
             <center><p>Nous sommes votre partenaire financier de confiance.<br/>
              Nous mettons à votre disposition des services bancaires modernes et accessibles pour accompagner vos projets et faciliter votre gestion financière.<br/>
@@ -742,7 +742,7 @@ footer {
 <img src="ouverturecompte.jpg" alt="Image 3" style="width: 100%; ; height: 100% ;  object-fit: cover;">
   <div class="card__content">
     <p class="card__title">Ouverture de compte.
-    </p><p class="card__description">Ouvrez un compte sur El-Badr en quelques étapes simples et profitez de nos services adaptés à vos besoins.</p>
+    </p><p class="card__description">Ouvrez un compte sur MYBANK en quelques étapes simples et profitez de nos services adaptés à vos besoins.</p>
   </div>
 </div>
  </div> <!-- fin de div of card -->
@@ -783,14 +783,14 @@ footer {
     <!--barrre des infos -->
     <div class="section" id="about">
       <h2><strong>À propos de nous</strong></h2>
-      <p>Bienvenue sur El-Badr, votre plateforme bancaire interactive conçue pour simplifier et enrichir votre expérience financière.
+      <p>Bienvenue sur MYBANK, votre plateforme bancaire interactive conçue pour simplifier et enrichir votre expérience financière.
 
         Notre mission est de vous offrir un accès fluide, sécurisé et intuitif aux services bancaires, où que vous soyez. Grâce à une interface moderne et des outils intelligents, nous mettons à votre disposition : <br/>
         <strong>Consultation des services bancaires :</strong> Découvrez nos offres de comptes, crédits et solutions d’épargne adaptées à vos besoins. <br/>
        <strong>Chatbot intelligent :</strong>  Obtenez des réponses instantanées à vos questions et une assistance personnalisée en temps réel.<br/>
         <strong>Simulateur de prêt :</strong> Évaluez vos options de financement en quelques clics. <br/>
         <strong>Localisation des agences et GAB :</strong> Trouvez rapidement une agence ou un guichet automatique à proximité.<br/>
-        Chez El-Badr, nous nous engageons à innover pour vous offrir des services bancaires modernes, accessibles et sécurisés. Rejoignez-nous dès aujourd’hui et découvrez une nouvelle façon de gérer vos finances en toute simplicité !
+        Chez MYBANK, nous nous engageons à innover pour vous offrir des services bancaires modernes, accessibles et sécurisés. Rejoignez-nous dès aujourd’hui et découvrez une nouvelle façon de gérer vos finances en toute simplicité !
       </p>
   </div>
 
@@ -840,7 +840,7 @@ Grâce à des technologies de pointe, nous vous offrons des services sécurisés
         <div class="service">
 
             <h3>Ouverture de compte</h3>
-            <p>Créez un compte sur EL-BADR rapidement et commencez à gérer vos finances en toute simplicité.</p>
+            <p>Créez un compte sur MYBANK rapidement et commencez à gérer vos finances en toute simplicité.</p>
         </div>
         <div class="service">
       
@@ -1141,7 +1141,7 @@ populateQuestions();
 
 
 <footer>
-    <p>&copy; 2025 Banque El-Badr. Tous droits réservés.</p>
+    <p>&copy; 2025 Banque MYBANK. Tous droits réservés.</p>
 </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

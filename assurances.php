@@ -388,7 +388,7 @@ h1 {
 
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">EL-BADR Banque</a>
+    <a class="navbar-brand" href="#">MYBANK Banque</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -441,7 +441,7 @@ h1 {
   <section class="container">
     <div class="content">
       <p class="section-title">ASSURANCES DES PERSONNES</p>
-      <h1>Protégez votre avenir avec les produits d'assurance EL-BADR-SAA</h1>
+      <h1>Protégez votre avenir avec les produits d'assurance MYBANK-SAA</h1>
       <p class="description">
         La bancassurance est un marché qui repose sur la volonté de se diversifier et d’élargir les gammes de produits proposés à la clientèle. À cet effet, la Banque de l’Agriculture et du Développement Rural BADR s’est engagée dans deux partenariats pour la commercialisation des produits d’assurance, au bénéfice de notre clientèle et du large public, via notre réseau d’agences. Le premier partenariat a été conclu avec la Société Nationale des Assurances (SAA). Une convention portant sur les modalités de distribution des produits d’assurances dommages et d’assurances agricoles a été signée entre les deux parties.
       </p>

@@ -205,7 +205,7 @@
     <div class="col-md-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" id="personnel">
-        <label class="form-check-label" for="personnel">Personnel BADR/autres banques</label>
+        <label class="form-check-label" for="personnel">Personnel mybank/autres banques</label>
       </div>
     </div>
 
