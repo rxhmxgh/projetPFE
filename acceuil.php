@@ -1076,13 +1076,14 @@ function fetchResponse(question) {
 populateQuestions();
 </script>
    
+   
 <section id="contacte" class="contact-section">
     <div class="contact-container">
         <div class="contact-info">
             <h1>Contactez-Nous</h1>
             <p>Nous sommes là pour répondre à vos questions !</p>
-            <p><strong>+213 552013748</strong></p>
-            <p>badrbanque-dz@gmail.com</p>
+            <p><strong>+213 (0)21 989 323</strong></p>
+            <p>badrlinebanque-dz@gmail.com</p>
         </div>
         <div class="contact-form" >
         <form id="contact-form">
@@ -1092,14 +1093,12 @@ populateQuestions();
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required>
                 </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="4"  required></textarea>
-                </div>
-               <button type="submit">Envoyer</button>
+
+               <button type="submit">Contactez-Nous</button>
                 </form> 
         </div>
     </div>
+   
 </section>
 
 
@@ -1113,7 +1112,7 @@ populateQuestions();
         emailjs
           .send("service_0v5y3fp", "template_x0rfy3m", { // SERVICE ID / TEMPLATE ID
             to_name: "Banque",
-            from_name: "Bnaque el Badr",
+            from_name: "BadrLine",
             message: "Un nouveau email !",
             reply_to: "rahmaghomari26@gmail.com",
           })
@@ -1129,15 +1128,15 @@ populateQuestions();
           );
           const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
-        const message = document.getElementById("message").value;
 
-        if (!name || !email || !message) {
+        if (!name || !email ) {
             alert("Veuillez remplir tous les champs.");
             return;
         }
 
       }
     </script>
+
 
 
 <footer>

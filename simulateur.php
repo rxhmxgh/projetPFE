@@ -475,9 +475,7 @@
           <li class="nav-item">
             <a class="nav-link" href="relev.php">Relever</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="historique.php">Historique</a>
-          </li>
+         
           </li>
           <li class="nav-item">
             <a class="nav-link" href="services.php">Les services bancaire</a>

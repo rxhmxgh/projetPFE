@@ -1,25 +1,72 @@
+<?php
+session_start();
+$pdo = new PDO("mysql:host=localhost;dbname=BanqueModerne;charset=utf8", "root", "");
+
+// Vérifier si un ID est passé
+if (!isset($_POST["id"])) {
+    die("Erreur : utilisateur non spécifié.");
+}
+
+$userId = intval($_POST["id"]);
+
+// Débiter 10 DA avant d'afficher l'historique
+$pdo->beginTransaction();
+
+try {
+    // Vérifier le solde
+    $stmt = $pdo->prepare("SELECT solde FROM utilisateurs WHERE id = :id");
+    $stmt->execute(["id" => $userId]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user || $user["solde"] < 10) {
+        echo "⚠️ Solde insuffisant pour voir l'historique.";
+        exit();
+    }
+
+    // Débiter 10 DA
+    $newSolde = $user["solde"] - 10;
+    $updateStmt = $pdo->prepare("UPDATE utilisateurs SET solde = :solde WHERE id = :id");
+    $updateStmt->execute(["solde" => $newSolde, "id" => $userId]);
+
+    // Enregistrer la transaction
+    $transactionStmt = $pdo->prepare("INSERT INTO transactions (utilisateur_id, type, montant) VALUES (:utilisateur_id, 'debit', 10)");
+    $transactionStmt->execute(["utilisateur_id" => $userId]);
+
+    // Valider la transaction
+    $pdo->commit();
+
+} catch (PDOException $e) {
+    $pdo->rollBack();
+    die("❌ Erreur : " . $e->getMessage());
+}
+
+// Récupérer les transactions
+$stmt = $pdo->prepare("SELECT * FROM transactions WHERE utilisateur_id = :id ORDER BY date DESC");
+$stmt->execute(["id" => $userId]);
+$transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-     <!-- Bootstrap JS Bundle (inclut Popper.js) -->
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Historique des Transactions</title>
+         <!-- Bootstrap JS Bundle (inclut Popper.js) -->
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <title>Map Banque BADRLINE </title>
-
     <style>
-  body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-        }
-.contenu{
-    padding:  30px;
+    /* Styles généraux */
+body {
+    font-family: 'poppins', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+.content {
+            background-color: rgba(255, 248, 248, 0.46);;
+    padding: 50px 20px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -27,7 +74,6 @@
     justify-content: center;
     text-align: center;
 }
-
 /* navbar style */
 .navbar {
     background-color: #0f2d0f !important; /* Vert foncé */
@@ -129,55 +175,122 @@
             font-weight: bold;
         }
         .btn-primary {
-            background-color: #f0a500;
+            background-color: #E7E7E7;
             border: none;
         }
         .btn-primary:hover {
-            background-color: #d98e00;
+            background-color: #E7E7E7;
 
         }
         .btn-clicked {
-            background-color: #28a745 !important; /* Vert */
+            
             color: white;
         }
         .row {
             margin-top: 30px;
         }
+/* Section principale */
+.balance-section {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
 
+.balance-section h2 {
+    color: black;
+    margin-bottom: 20px;
+    font-size: 46px;
+}
 
-                /*la maps */ 
-  /* Style de la section */
-  .location-section {
-            text-align: center;
-            padding: 50px;
-            background:rgb(212, 221, 201);
-            border-radius: 20px;
-        }
+/* Table */
+.users-table {
+    width: 100%;
+    border-radius: 20%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
 
-        .location-section h2 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
+.users-table th, .users-table td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center;
+}
 
-        .location-section p {
-            color: #555;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
+.users-table th {
+    background-color:rgb(112, 180, 91);
+    color: white;
+    font-weight: bold;
+}
 
-        /* Conteneur de la carte */
-        .map-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.users-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
 
-        #map {
-            width: 600px;
-            height: 400px;
-            border-radius: 8px;
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-        }
+.users-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Boutons */
+.btn-credit {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-credit:hover {
+    background-color: #218838;
+}
+
+.btn-debit {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-debit:hover {
+    background-color: #c82333;
+}
+
+.btn-history {
+    background-color:rgb(169, 208, 134);
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.btn-history:hover {
+    background-color:rgb(154, 225, 128);
+}
+
+/* Champs de formulaire */
+input[type="number"] {
+    padding: 8px;
+    width: 100px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color:rgb(34, 128, 0);
+    box-shadow: 0 0 5px rgba(157, 188, 77, 0.3);
+}
 
 /* partie de chatbot  */
 /* partie de chatbot  */
@@ -320,10 +433,11 @@
             justify-content: center;
             align-items: center;
         }
+
     </style>
 </head>
 <body>
-<!-- partie menu  -->
+     <!-- partie menu  -->
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">BADRLINE  Banque</a>
@@ -353,7 +467,7 @@
           <li class="nav-item">
             <a class="nav-link" href="relev.php">Relever</a>
           </li>
-          
+         
           </li>
           <li class="nav-item">
             <a class="nav-link" href="services.php">Les services bancaire</a>
@@ -372,72 +486,33 @@
     </div>
   </div>
 </nav>
-
-<!-- Section de la localisation -->
- <div class="contenu">
-<section id="carte" class="location-section">
-    <h2>Notre Agence à Mostaganem</h2>
-    <p>Retrouvez-nous facilement grâce à notre carte interactive.</p>
-
-    <!-- Conteneur de la carte -->
-    <div class="map-container">
-        <div id="map"></div>
+<!-- partie principal -->
+     <div class="content">
+    <section class="balance-section">
+        <h2>Historique des Transactions</h2>
+        <p style="text-align:center; color: red;">⚠️ Un débit de 10 DA a été appliqué pour la consultation.</p>
+        <table class="users-table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Montant (DA)</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($transactions as $transaction) {
+                    echo "<tr>
+                            <td>" . ucfirst($transaction['type']) . "</td>
+                            <td>" . htmlspecialchars($transaction['montant']) . " DA</td>
+                            <td>" . $transaction['date'] . "</td>
+                          </tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </section>
     </div>
-</section>
-
-<!-- Script Leaflet.js -->
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-
-<script>
-    // Initialisation de la carte centrée sur Mostaganem
-    var map = L.map('map').setView([35.95, 0.25], 10);
-
-    // Ajout du fond de carte OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-// les agences a proximité
-const agences = [
-        { nom: "Mostaganem", coords: [35.9312, 0.0895], description: "Agence Mostaganem Centre" },
-        { nom: "Sidi Lakhdar", coords: [36.1056, 0.2790], description: "Agence Sidi Lakhdar" },
-        { nom: "Mesra", coords: [35.8833, 0.2000], description: "Agence Mesra" },
-        { nom: "Aïn Tédelès", coords: [35.9761, 0.2392], description: "Agence Aïn Tédelès" },
-        { nom: "Bouguirat", coords: [35.7403, 0.2432], description: "Agence Bouguirat" },
-        { nom: "Achaacha", coords: [36.1956, 0.3953], description: "Agence Achaacha" }
-    ];
-
-    // Ajout d'un marqueur sur Mostaganem
-    agences.forEach(agence => {
-        //sidi lakhdar
-    L.marker([36.1056, 0.2790]).addTo(map)
-        .bindPopup('<b>Agence</b><br>Sidi Lakhdar, Mostaganem')
-        .openPopup(); 
-        
-
-    //Mesra 
-    L.marker([35.8833, 0.2000]).addTo(map)
-        .bindPopup('<b>Agence</b><br>Mesra,Mostaganem')
-        .openPopup(); 
-    //ain tedles 
-    L.marker([35.9761, 0.2392]).addTo(map)
-        .bindPopup('<b>Agence</b><br>Aïn Tédelès, Mostaganem')
-        .openPopup(); 
-     //Bouguirat
-     L.marker([35.7403, 0.2432]).addTo(map)
-        .bindPopup('<b>Agence</b><br>Bouguirat, Mostaganem')
-        .openPopup(); 
-     //Achaacha 
-     L.marker([36.1956, 0.3953]).addTo(map)
-        .bindPopup('<b>Agence</b><br>Achaacha, Mostaganem')
-        .openPopup(); 
-        });
-    // Ouvrir seulement celle de Mostaganem au début
-L.marker([35.9312, 0.0895]).addTo(map)
-    .bindPopup('<b>Mostaganem</b><br>Agence principale , Algérie')
-    .openPopup();
-</script>
-</div>
- 
 
 <!-- partie chatbot -->
  <!-- Message d'accueil -->
@@ -594,8 +669,6 @@ function fetchResponse(question) {
 
 populateQuestions();
 </script>
-
+ 
 </body>
 </html>
-
-
