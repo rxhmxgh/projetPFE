@@ -28,45 +28,21 @@ body {
     justify-content: center;
     text-align: center;
 }
-/* Card Styles */
- .content {
-    padding: 30px 30px;
-   
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    display: flex;
+/* partie contenu */ 
+.badr-section {
+  background: linear-gradient(to right, #f4f6f9, #eaf7f1);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.06);
 }
 
-.card {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+.badr-section h2 {
+  font-weight: 700;
 }
 
-.card:hover {
-    transform: scale(1.02);
+.badr-section .lead {
+  color: #333;
+  font-size: 1.1rem;
 }
-
-.card-title {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.card-text {
-    font-size: 14px;
-}
-
-
-img {
-    max-width: 150px;
-    height: auto;
-    border-radius: 10px;
-}
-
-
-
 
 /* navbar style */
 .navbar {
@@ -404,87 +380,97 @@ img {
 
 
 <!-- principal -->
-    <div class="content">
-        <div class="row row-cols-2 g-4">
-         
-            <div class="col">
-                <div class="card h-100 bg-primary text-white">
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <div>
-                            <h3 class="card-title">KRIDI EL-TAHADI</h3>
-                            <p class="card-text">Investissez dans l’avenir de votre ferme avec Kridi El Tahadi – Le défi qui transforme vos idées en réussite !</p>
-                        </div>
-                       
-                    </div>
-                </div>
-            </div>
-
-         
-            <div class="col">
-                <div class="card h-100 bg-info text-white">
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <div>
-                            <h3 class="card-title">KRIDI RAFAHIYATI</h3>
-                            <p class="card-text">Équipez votre maison en toute facilité avec Kridi Rafahiyati.</p>
-                        </div>
-  
-                    </div>
-                </div>
-            </div>
-
-         
-            <div class="col">
-                <div class="card h-100 bg-light text-dark">
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <div>
-                            <h3 class="card-title">KRIDI SAYARATI</h3>
-                            <p class="card-text">Montez à bord de votre nouvelle voiture grâce à Kridi Sayarati.</p>
-                        </div>
-           
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card h-100 bg-success text-white">
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <div>
-                            <h3 class="card-title">KRIDI MAZRAATY</h3>
-                            <p class="card-text">Kridi Mazraaty, cultivez vos projets en toute sérénité.</p>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-
-      
-            <div class="col">
-                <div class="card h-100 bg-secondary text-white">
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <div>
-                            <h3 class="card-title">KRIDI BEYTI</h3>
-                            <p class="card-text">Le crédit qui construit plus qu’une maison : une vie.</p>
-                        </div>
-                
-                    </div>
-                </div>
-            </div>
-
-           
-            <div class="col">
-                <div class="card h-100 bg-warning text-dark">
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <div>
-                            <h3 class="card-title"> Kridi Sehi</h3>
-                            <p class="card-text">Prenez soin de vous sans stress avec Kridi Sehi.</p>
-                        </div>
-                       
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section class="badr-section py-5 px-4">
+  <div class="row align-items-center g-5">
+    <div class="col-md-6">
+      <h2>Découvrez <span class="text-success">KRIDI EL-TAHADI</span></h2>
+      <p class="lead">Investissez dans l’avenir de votre ferme avec Kridi El Tahadi – Le défi qui transforme vos idées en réussite !</p>
+      <ul class="list-unstyled">
+        <li class="mb-2">✔ Crédit agricole sur mesure</li>
+        <li class="mb-2">✔ Taux préférentiels pour les projets durables</li>
+        <li class="mb-2">✔ Suivi digitalisé en temps réel</li>
+      </ul>
     </div>
-    
+    <div class="col-md-6 text-center">
+      <img src="kriditahadi.jpg" alt="Kridi El-Tahadi" class="img-fluid rounded shadow-sm" style="max-height: 280px;">
+    </div>
+  </div>
+</section>
+
+<section class="badr-section py-5 px-4">
+  <div class="row align-items-center g-5">
+    <div class="col-md-6">
+      <h2>Découvrez <span class="text-success"> KRIDI RAFAHIYATI</span></h2>
+      <p class="lead">Équipez votre maison en toute facilité.
+    Offrez-vous le confort moderne avec Kridi Rafahiyati – une solution de financement flexible pour vos besoins domestiques :</p>
+      <ul class="list-unstyled">
+        <li class="mb-2">✔ Crédit rapide pour mobilier & électroménager</li>
+        <li class="mb-2">✔ Modalités de remboursement souples</li>
+        <li class="mb-2">✔ 100% en ligne et sans paperasse</li>
+      </ul>
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="kridirafahiyati.jpg" alt="Kridi RAFAHIYATI" class="img-fluid rounded shadow-sm" style="max-height: 280px;">
+    </div>
+  </div>
+</section>
+
+<section class="badr-section py-5 px-4">
+  <div class="row align-items-center g-5">
+    <div class="col-md-6">
+      <h2>Découvrez <span class="text-success">  KRIDI SAYARATI</span></h2>
+      <p class="lead">Prenez la route en toute liberté.
+      Réalisez votre rêve automobile avec Kridi Sayarati, que ce soit pour une voiture neuve ou d’occasion :</p>
+      <ul class="list-unstyled">
+        <li class="mb-2">✔ Jusqu’à 100% de financement</li>
+        <li class="mb-2">✔ Réponse rapide & simulation immédiate</li>
+        <li class="mb-2">✔  Assurance auto incluse en option</li>
+      </ul>
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="kridisayarati.jpg" alt="Kridi SAYARATI" class="img-fluid rounded shadow-sm" style="max-height: 280px;">
+    </div>
+  </div>
+</section>
+
+<section class="badr-section py-5 px-4">
+  <div class="row align-items-center g-5">
+    <div class="col-md-6">
+      <h2>Découvrez <span class="text-success">  KRIDI MAZRAATY</span></h2>
+      <p class="lead">Cultivez vos projets, nous finançons votre passion.
+
+Que ce soit pour du matériel agricole ou du bétail, Kridi Mazraaty vous soutient :</p>
+      <ul class="list-unstyled">
+        <li class="mb-2">✔ Financement des projets ruraux</li>
+        <li class="mb-2">✔ Assistance technique gratuite</li>
+        <li class="mb-2">✔ Soutien aux jeunes agriculteurs</li>
+      </ul>
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="kridimazraaty.jpg" alt="Kridi MAZRAATY" class="img-fluid rounded shadow-sm" style="max-height: 280px;">
+    </div>
+  </div>
+</section>
+
+<section class="badr-section py-5 px-4">
+  <div class="row align-items-center g-5">
+    <div class="col-md-6">
+      <h2>Découvrez <span class="text-success">  KRIDI BEYTI</span></h2>
+      <p class="lead">Bâtissez plus qu’une maison, construisez une vie.
+
+Avec Kridi Beyti, accédez à la propriété ou améliorez votre logement :</p>
+      <ul class="list-unstyled">
+        <li class="mb-2">✔ Crédit immobilier ou rénovation</li>
+        <li class="mb-2">✔ APlans personnalisés selon revenus</li>
+        <li class="mb-2">✔ Accompagnement jusqu’à l’emménagement</li>
+      </ul>
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="kridibayti.jpg" alt="Kridi BEYTI" class="img-fluid rounded shadow-sm" style="max-height: 280px;">
+    </div>
+  </div>
+</section>
+
 
 
 <!-- partie chatbot -->
