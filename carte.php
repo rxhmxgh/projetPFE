@@ -628,7 +628,7 @@ button[type="submit"]:hover {
 
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">MYBANK Banque</a>
+    <a class="navbar-brand" href="#">BADRLINE  Banque</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -756,7 +756,7 @@ button[type="submit"]:hover {
 <!-- contenu principal -->
 <div class="landing-container">
   <div class="text-side">
-    <h1>Allez plus loin avec <span class="highlight">MYBANK Banque</span></h1>
+    <h1>Allez plus loin avec <span class="highlight">BADRLINE  Banque</span></h1>
     <p>Découvrez nos solutions modernes pour gérer votre argent plus facilement : carte bancaire, chéquier, et services à distance adaptés à vos besoins.</p>
     <ul class="features">
       <li>✔️ Commande facile en ligne</li>
