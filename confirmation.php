@@ -10,18 +10,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = $_POST['date'];
     $heure = $_POST['heure'];
   
+    // Vérifier si l'heure est déjà prise
+  $stmt = $pdo->prepare("SELECT COUNT(*) FROM rendezvous WHERE date_rdv = ? AND heure_rdv = ? AND type_rdv = ?");
+  $stmt->execute([$date, $heure, $type]);
+  $existe = $stmt->fetchColumn();
+
+  if ($existe > 0) {
+    echo "Ce créneau est déjà réservé.";
+    exit;
+  }
+
+  $insert = $pdo->prepare("INSERT INTO rendezvous (nom, email, telephone, type_rdv, date_rdv, heure_rdv) VALUES (?, ?, ?, ?, ?, ?)");
+  if ($insert->execute([$nom, $email, $telephone, $type, $date, $heure])) {
+    echo "success";
+  } else {
+    echo "Erreur lors de l’enregistrement.";
+  }
+}
+
     // 1. Enregistrement en base de données
-    $stmt = $pdo->prepare("INSERT INTO rendezvous (nom, email, telephone, type, date, heure) VALUES (?, ?, ?, ?, ?, ?)");
+     // Enregistrement en base de données
+     $insert = $pdo->prepare("INSERT INTO rendezvous (nom, email, telephone, type_rdv, date_rdv, heure_rdv) VALUES (?, ?, ?, ?, ?, ?)");
     
-    if ($stmt->execute([$nom, $email, $telephone, $type, $date, $heure])) {
-      
-      // 2. Envoyer un email de notification
-      $destinataire = "rahmaghomari26@gmail.com"; // <-- Remplacer par l'email du conseiller
-      $sujet = "Nouvelle demande de rendez-vous";
-      $message = "
-      Bonjour,
-  
-      Une nouvelle demande de rendez-vous a été enregistrée :
+     if ($insert->execute([$nom, $email, $telephone, $type, $date, $heure])) {
+         
+         // Envoyer un email de notification
+         $destinataire = "rahmaghomari26@gmail.com"; // <-- à modifier si nécessaire
+         $sujet = "Nouvelle demande de rendez-vous";
+         $message = "
+ Bonjour,
+ 
+ Une nouvelle demande de rendez-vous a été enregistrée :
+ 
   
       Nom : $nom
       Email : $email
@@ -46,6 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
       echo "Erreur lors de l'enregistrement";
     }
-  }
+  
   ?>
   
