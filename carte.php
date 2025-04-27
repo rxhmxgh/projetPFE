@@ -628,7 +628,7 @@ button[type="submit"]:hover {
 
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">BADRLINE  Banque</a>
+    <a class="navbar-brand" href="#">BADR LINE</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -655,9 +655,7 @@ button[type="submit"]:hover {
           <li class="nav-item">
             <a class="nav-link" href="relev.php">Relever</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="historique.php">Historique</a>
-          </li>
+
           </li>
           <li class="nav-item">
             <a class="nav-link" href="services.php">Les services bancaire</a>

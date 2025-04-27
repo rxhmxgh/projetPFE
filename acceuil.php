@@ -692,7 +692,7 @@ footer {
     </style>
 </head>
     <header>
-        <div class="logo">BADRLINE <span>Banque</span></div>
+        <div class="logo">BADR LINE </div>
         <nav>
             <ul>
                 <li><a href="inscription.php">S'inscrire</a></li>   

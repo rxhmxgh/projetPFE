@@ -217,7 +217,7 @@ legend {
 
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="acceuil.php">BADRLINE  Banque</a>
+    <a class="navbar-brand" href="acceuil.php">BADR LINE </a>
 </div>
 </nav>
 
@@ -226,7 +226,7 @@ legend {
 <section id="inscription" class="signup-section py-5">
   <div class="container">
     <div class="card shadow-lg p-4 mx-auto" style="max-width: 700px;">
-      <h2 class="text-center mb-4">Créer un compte bancaire</h2>
+      <h2 class="text-center mb-4">Créer un compte </h2>
       <form method="POST" action="">
         <fieldset class="border p-3 mb-3 rounded">
           <legend class="float-none w-auto px-3">Informations Personnelles</legend>

@@ -311,7 +311,7 @@ body {
 
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">EL-BADR Banque</a>
+    <a class="navbar-brand" href="#">BADR LINE</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -349,7 +349,7 @@ body {
             <a class="nav-link" href="moncompte.php" onclick="loadPage('compte')">Mon compte</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Se déconnecter</a>
+            <a class="nav-link" href="logout.php">Se déconnecter</a>
           </li>
              
       </div>
