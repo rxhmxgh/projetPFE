@@ -509,27 +509,51 @@ button[type="submit"]:hover {
     <img src="rechargemobile.png" alt="Icône Téléphone" style="width:30px; height:30px; vertical-align:middle; margin-right:8px;">
     Recharge Mobile
 </h3>
-        <form action="traitement_recharge.php" method="post">
-            <label>Opérateur :
-                <select name="operateur" required>
-                    <option value="">-- Choisissez --</option>
-                    <option value="ooredoo">Ooredoo</option>
-                    <option value="djezzy">Djezzy</option>
-                    <option value="mobilis">Mobilis</option>
-                </select>
-            </label>
+<form action="traitement_recharge.php" method="post" onsubmit="return validateForm();">
+        <label for="operateur">Opérateur :</label>
+        <select name="operateur" id="operateur" required>
+            <option value="">-- Choisir --</option>
+            <option value="Ooredoo">Ooredoo</option>
+            <option value="Djezzy">Djezzy</option>
+            <option value="Mobilis">Mobilis</option>
+        </select>
 
-            <label>Numéro de téléphone :
-                <input type="text" name="numero" pattern="\d{10}" required>
-            </label>
+        <label for="numero">Numéro de téléphone :</label>
+        <input type="text" name="numero" id="numero" maxlength="10" placeholder="Ex: 0771234567" required>
 
-            <label>Montant (DA) :
-                <input type="number" name="montant" min="100" required>
-            </label>
+        <label for="montant">Montant (DA) :</label>
+        <input type="number" name="montant" id="montant" min="50" step="10" required>
 
-            <button type="submit">Recharger</button>
-        </form>
+        <div id="erreur" class="error"></div>
+
+        <button type="submit">Valider la Recharge</button>
+    </form>
     </section>
+    <script>
+        function validateForm() {
+            const operateur = document.getElementById("operateur").value;
+            const numero = document.getElementById("numero").value.trim();
+            const erreur = document.getElementById("erreur");
+
+            let regex;
+
+            if (operateur === "Ooredoo") {
+                regex = /^05\d{8}$/;
+            } else if (operateur === "Mobilis") {
+                regex = /^06\d{8}$/;
+            } else if (operateur === "Djezzy") {
+                regex = /^07\d{8}$/;
+            }
+
+            if (!regex.test(numero)) {
+                erreur.textContent = "Le numéro doit commencer par " + regex.source.slice(1, 3) + " et comporter 10 chiffres.";
+                return false;
+            }
+
+            erreur.textContent = "";
+            return true;
+        }
+    </script>
 
     <!-- Internet & Facture Téléphonique -->
     <section class="paiement-section">

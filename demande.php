@@ -308,24 +308,43 @@ input[type="file"] {
 </div>
 
 <script>
-  document.getElementById('envoyé').addEventListener('submit', function (e) {
-    e.preventDefault(); // Empêche le vrai envoi pour cet exemple
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
 
-    const nom = document.getElementById('nom').value;
-    const fichier = document.getElementById('fichier').files[0];
-    const message = document.getElementById('message');
-
-    // Simuler une vérification (exemple simple)
-    if (nom.trim() !== '' && fichier) {
-      message.textContent = "✅ La demande a été envoyée avec succès.";
-      message.style.color = "green";
-    } else {
-      message.textContent = "❌ Échec de l'envoi. Veuillez remplir tous les champs.";
-      message.style.color = "red";
-    }
+    form.addEventListener("submit", function () {
+      alert("✅ Votre demande est en cours d’envoi. Merci !");
+    });
   });
 </script>
 
+<?php
+// Sauvegarde dans la base de données
+try {
+    $pdo = new PDO("mysql:host=localhost;dbname=banquemoderne;charset=utf8", "root", "");
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $stmt = $pdo->prepare("INSERT INTO demandes_compte 
+        (full_name, dob, phone, email, address, job_status, identity_file, extrait_file, residence_file, consentement) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+    $stmt->execute([
+        $full_name,
+        $dob,
+        $phone,
+        $email,
+        $address,
+        $job_status,
+        $identity_proof["name"],
+        $Extrer_proof["name"],
+        $récidence_proof["name"],
+        1
+    ]);
+
+    echo "<br>✅ Les données ont été enregistrées avec succès dans la base.";
+} catch (PDOException $e) {
+    echo "❌ Erreur de base de données : " . $e->getMessage();
+}
+?>
 
 <!-- telecharger document -->
 <div class="center-section">
@@ -399,8 +418,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         echo "Votre demande a été soumise avec succès. Voici les résultats des fichiers téléchargés :<br>";
         echo "Pièce d'identité : $identity_msg<br>";
-        echo "Extrer de naissance : $income_msg<br>";
-        echo "La récidence: $address_msg<br>";
+        echo "Extrer de naissance : $Extrer_msg<br>";
+        echo "La récidence: $récidence_msg<br>";
 
         // Vous pouvez également enregistrer ces informations dans une base de données ici
     } else {
@@ -412,8 +431,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 
-<!-- partie chatbot -->
- <!-- Message d'accueil -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  <div class="chat-tooltip" id="chat-tooltip">Bonjour 👋 ! Comment puis-je vous aider aujourd’hui ?</div>
 
 <!-- Icône pour ouvrir/fermer le chatbot -->

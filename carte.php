@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: seconnecter.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -624,6 +631,7 @@ button[type="submit"]:hover {
 </style>
 </head>
 <body>
+  
 <!-- partie menu  -->
 
 <nav class="navbar navbar-dark bg-dark fixed-top">
