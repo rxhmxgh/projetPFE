@@ -361,6 +361,7 @@ img.img-fluid {
   </div>
 </nav>
 <div class="content">
+
   <div class="bg-light"></div>
   <h1>Demande de rendez-vous avec votre agence bancaire </h1>
   Planifiez facilement votre rendez-vous en ligne avec l’un de nos conseillers.
