@@ -548,8 +548,7 @@ strong {
           <a href="relev.php" class="btn btn-outline-primary px-4 py-2 rounded-pill">
             📜 Relevé de compte
           </a>
-          <a href="modifierprofil.php" class="btn btn-outline-dark px-4 py-2 rounded-pill">
-            🛠️ Modifier mon profil
+
           </a>
         </div>
       </div>

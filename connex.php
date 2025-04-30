@@ -26,10 +26,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
     $password = $_POST["password"];
 
     // Vérification de l'admin via un numéro CCP spécial ou les informations de l'utilisateur
-    if ($ccp == 'admin123' && $password == 'adminpassword') {
+    if ($ccp == 'admin123' && $password == '1234') {
       // Si l'admin se connecte avec un numéro spécial
       $_SESSION["admin_logged_in"] = true;
-      header("Location: admin_dashboard.php"); // Redirige vers la page de gestion de l'admin
+      header("Location: administration.php"); // Redirige vers la page de gestion de l'admin
       exit;
     }else {
     $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE ccp = :ccp");
