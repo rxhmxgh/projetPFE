@@ -15,7 +15,8 @@ try {
 }
 
 // Récupérer les rendez-vous
-$stmt = $pdo->query("SELECT * FROM rendezvous ORDER BY date, heure");
+$stmt = $pdo->query("SELECT * FROM rendezvous ORDER BY date_rdv, heure_rdv");
+
 $rendezvous = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -25,12 +26,131 @@ $rendezvous = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <meta charset="UTF-8">
   <title>Liste des Rendez-vous</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    margin: 0;
+    padding: 20px;
+    color: #2c3e50;
+}
+
+nav {
+        background-color: #333;
+        padding: 10px;
+        text-align: center;
+    }
+    
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    nav ul li {
+        display: inline;
+        margin-right: 20px;
+    }
+    
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+    }
+    
+    nav ul li a:hover {
+        text-decoration: underline;
+    }
+h2 {
+  text-align: center;
+    color: #34495e;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 16px;
+    text-align: left;
+}
+
+th {
+    background-color: #d5f0da;
+    color: #2c3e50;
+    font-weight: 600;
+    border-bottom: 2px solid #bdc3c7;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #eef6f9;
+}
+
+a {
+    color:#34495e;
+    
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.button {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #2980b9;
+}
+  </style>
 </head>
+
+<!-- Menu de navigation -->
+<nav>
+    <ul>
+        <li><a href="admin_rendezvous.php">Rendez-vous</a></li>
+        <li><a href="admin_demandeouvrircompteb.php">Compte bancaire</a></li>
+        <li><a href="admin_demandes.php">Carte et Chèques</a></li>
+        
+    </ul>
+</nav>
+
+
 <body class="bg-light">
-  <div class="container py-5">
-    <h2 class="text-center mb-4 text-primary">📋 Liste des rendez-vous planifiés</h2>
+
+    <div class="text-center mb-4 text-primary"> 
 
     <?php if (count($rendezvous) > 0): ?>
+      
+ <h2> Liste rendez-vous planifiés</h2>
+ 
       <table class="table table-bordered table-hover bg-white shadow">
         <thead class="table-success">
           <tr>
@@ -48,16 +168,18 @@ $rendezvous = $stmt->fetchAll(PDO::FETCH_ASSOC);
               <td><?= htmlspecialchars($r['nom']) ?></td>
               <td><?= htmlspecialchars($r['email']) ?></td>
               <td><?= htmlspecialchars($r['telephone']) ?></td>
-              <td><?= htmlspecialchars($r['type']) ?></td>
-              <td><?= htmlspecialchars($r['date']) ?></td>
-              <td><?= htmlspecialchars($r['heure']) ?></td>
+              <td><?= htmlspecialchars($r['type_rdv']) ?></td>
+              <td><?= htmlspecialchars($r['date_rdv']) ?></td>
+              <td><?= htmlspecialchars($r['heure_rdv']) ?></td>
+
             </tr>
           <?php endforeach; ?>
         </tbody>
       </table>
+    </div>
     <?php else: ?>
       <p class="text-center">Aucun rendez-vous enregistré pour le moment.</p>
     <?php endif; ?>
-  </div>
+
 </body>
 </html>

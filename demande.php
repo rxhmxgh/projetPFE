@@ -254,7 +254,7 @@ input[type="file"] {
     <h1>Demande d'ouvrir un compte bancaire</h1>
     <p>Remplissez le formulaire ci-dessous pour soumettre votre demande.</p>
 
-    <form action="submit_request.php" method="POST" enctype="multipart/form-data">
+    <form action="demande.php" method="POST" enctype="multipart/form-data">
         
         <!-- Informations personnelles -->
         <h2>Informations Personnelles</h2>
@@ -318,6 +318,20 @@ input[type="file"] {
 </script>
 
 <?php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Récupération des données du formulaire
+    $full_name = $_POST['full_name'] ?? '';
+    $dob = $_POST['dob'] ?? '';
+    $phone = $_POST['phone'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $address = $_POST['address'] ?? '';
+    $job_status = $_POST['job_status'] ?? '';
+    $consent = isset($_POST['consent']) ? 1 : 0;
+
+    // Fichiers
+    $identity_proof = $_FILES['identity_proof'] ?? null;
+    $extrait_proof = $_FILES['income_proof'] ?? null;
+    $residence_proof = $_FILES['address_proof'] ?? null;
 // Sauvegarde dans la base de données
 try {
     $pdo = new PDO("mysql:host=localhost;dbname=banquemoderne;charset=utf8", "root", "");
@@ -334,15 +348,16 @@ try {
         $email,
         $address,
         $job_status,
-        $identity_proof["name"],
-        $Extrer_proof["name"],
-        $récidence_proof["name"],
-        1
+        $identity_proof['name'] ?? '',
+        $extrait_proof['name'] ?? '',
+        $residence_proof['name'] ?? '',
+        $consent
     ]);
 
     echo "<br>✅ Les données ont été enregistrées avec succès dans la base.";
 } catch (PDOException $e) {
     echo "❌ Erreur de base de données : " . $e->getMessage();
+}
 }
 ?>
 
