@@ -7,34 +7,53 @@
   font-family: Arial, sans-serif;
 }
 
-/* Navigation */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    margin: 0;
+    padding: 20px;
+    color: #2c3e50;
+}
 nav {
-  background-color: #004080;
-  padding: 10px 20px;
-}
+        background-color: #333;
+        padding: 10px;
+        text-align: center;
+    }
+    
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    nav ul li {
+        display: inline;
+        margin-right: 20px;
+    }
+    
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+    }
+    
+    nav ul li a:hover {
+        text-decoration: underline;
+    }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  justify-content: flex-start;
-  gap: 20px;
-}
-
-nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-nav ul li a:hover {
-  text-decoration: underline;
-}
 
 /* Contenu principal */
 .content {
   padding: 30px;
   background-color: #f4f4f4;
   min-height: 100vh;
+  
+  /* Centrage horizontal et vertical */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  flex-direction: column;  /* Facultatif : permet de gérer la disposition des éléments enfants */
 }
 
 /* Cartes et sections */
@@ -45,7 +64,7 @@ nav ul li a:hover {
 }
 
 h2, h3 {
-  color: #004080;
+  color: #34495e;
   text-align: center;
 }
 
@@ -63,7 +82,7 @@ th, td {
 }
 
 th {
-  background-color: #007acc;
+  background-color:rgb(183, 230, 192);
   color: white;
 }
 
@@ -73,6 +92,7 @@ tr:nth-child(even) {
 
 /* Boutons */
 .btn {
+   
   padding: 6px 12px;
   border: none;
   border-radius: 5px;
@@ -82,7 +102,7 @@ tr:nth-child(even) {
 }
 
 .btn-primary {
-  background-color: #007acc;
+  background-color:rgb(52, 125, 34);
 }
 
 .btn-warning {
@@ -117,7 +137,7 @@ fieldset {
 legend {
   font-weight: bold;
   padding: 0 10px;
-  color: #004080;
+  color: #34495e;
 }
 </style>
 
@@ -131,6 +151,9 @@ legend {
         <li><a href="admin_rendezvous.php">Rendez-vous</a></li>
         <li><a href="admin_demandeouvrircompteb.php">Compte bancaire</a></li>
         <li><a href="admin_demandes.php">Carte et Chèques</a></li>
+        <li><a href="administration.php">Gestion des clients</a></li>
+        <li><a href="logout.php">Déconnecter</a></li>
+
         
     </ul>
 </nav>
@@ -143,23 +166,32 @@ legend {
                 <h2 class="text-center mb-4">Gestion des Clients</h2>
 
                 <!-- Ajouter un client -->
-                <form method="POST" action="" class="mb-4">
-                    <fieldset class="border p-3 mb-3 rounded">
-                        <legend class="float-none w-auto px-3">Ajouter un nouveau client</legend>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="nom" class="form-label">Nom</label>
-                                <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="prenom" class="form-label">Prénom</label>
-                                <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" required>
-                            </div>
-                            <!-- Ajoutez d'autres champs ici -->
-                        </div>
-                        <button type="submit" name="ajouter_client" class="btn btn-primary">Ajouter un client</button>
-                    </fieldset>
-                </form>
+                <form method="POST" action="">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label for="nom" class="form-label">Nom</label>
+      <input type="text" class="form-control" id="nom" name="nom" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="prenom" class="form-label">Prénom</label>
+      <input type="text" class="form-control" id="prenom" name="prenom" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="telephone" class="form-label">Téléphone</label>
+      <input type="tel" class="form-control" id="telephone" name="telephone" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="ccp" class="form-label">Numéro CCP</label>
+      <input type="text" class="form-control" id="ccp" name="ccp" required>
+    </div>
+  </div>
+  <button type="submit" name="ajouter_client" class="btn btn-primary">Ajouter</button>
+</form>
+
 
                 <!-- Tableau des clients -->
                 <h3 class="text-center mb-4">Liste des clients</h3>
@@ -171,7 +203,7 @@ legend {
                             <th>Prénom</th>
                             <th>Email</th>
                             <th>Téléphone</th>
-                            <th>Action</th>
+                            <th>ccp</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -186,6 +218,7 @@ legend {
                                     <td>{$client['prenom']}</td>
                                     <td>{$client['email']}</td>
                                     <td>{$client['telephone']}</td>
+                                     <td>{$client['ccp']}</td>
                                     <td>
                                         <a href='modifier_client.php?id={$client['id']}' class='btn btn-warning btn-sm'>Modifier</a>
                                         <a href='supprimer_client.php?id={$client['id']}' class='btn btn-danger btn-sm' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer ce client ?\");'>Supprimer</a>
@@ -202,20 +235,41 @@ legend {
 
 <!-- Partie PHP pour gestion admin -->
 <?php
+$pdo = new PDO("mysql:host=localhost;dbname=BanqueModerne;charset=utf8", "root", "");
+
 if (isset($_POST['ajouter_client'])) {
     $nom = htmlspecialchars($_POST['nom']);
     $prenom = htmlspecialchars($_POST['prenom']);
-    // Ajoutez d'autres champs ici...
+    $email = htmlspecialchars($_POST['email']);
+    $telephone = htmlspecialchars($_POST['telephone']);
+    $ccp = htmlspecialchars($_POST['ccp']);
 
-    // Insérer un nouveau client
-    $sql = "INSERT INTO utilisateurs (nom, prenom) VALUES (:nom, :prenom)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        'nom' => $nom,
-        'prenom' => $prenom,
-    ]);
-    echo "<script>alert('Client ajouté avec succès !'); window.location.reload();</script>";
+    try {
+        // Vérifier si le CCP existe déjà
+        $check = $pdo->prepare("SELECT * FROM utilisateurs WHERE ccp = :ccp");
+        $check->execute(['ccp' => $ccp]);
+
+        if ($check->rowCount() > 0) {
+            echo "<script>alert('⚠️ Ce numéro CCP existe déjà !');</script>";
+        } else {
+            $sql = "INSERT INTO utilisateurs (nom, prenom, email, telephone, ccp) 
+                    VALUES (:nom, :prenom, :email, :telephone, :ccp)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                'nom' => $nom,
+                'prenom' => $prenom,
+                'email' => $email,
+                'telephone' => $telephone,
+                'ccp' => $ccp
+            ]);
+
+            echo "<script>alert('✅ Client ajouté avec succès !'); window.location.reload();</script>";
+        }
+    } catch (PDOException $e) {
+        echo "Erreur : " . $e->getMessage();
+    }
 }
 ?>
+
 </body>
 </html>

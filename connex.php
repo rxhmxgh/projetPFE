@@ -25,6 +25,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
     $ccp = htmlspecialchars($_POST["ccp"]);
     $password = $_POST["password"];
 
+    // Vérification de l'admin via un numéro CCP spécial ou les informations de l'utilisateur
+    if ($ccp == 'admin123' && $password == 'adminpassword') {
+      // Si l'admin se connecte avec un numéro spécial
+      $_SESSION["admin_logged_in"] = true;
+      header("Location: admin_dashboard.php"); // Redirige vers la page de gestion de l'admin
+      exit;
+    }else {
     $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE ccp = :ccp");
     $stmt->execute(["ccp" => $ccp]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -38,7 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
     } else {
         $erreur = "⚠️ Numéro CCP ou mot de passe incorrect.";
     }
-}
+}}
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
