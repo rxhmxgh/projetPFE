@@ -116,6 +116,7 @@ a:hover {
         <li><a href="admin_demandeouvrircompteb.php">Compte bancaire</a></li>
         <li><a href="admin_demandes.php">Carte et Chèques</a></li>
         <li><a href="administration.php">Gestion des clients</a></li>
+        <li><a href="logout.php">Déconnecter</a></li>
     </ul>
 </nav>
 
