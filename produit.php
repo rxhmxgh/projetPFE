@@ -496,7 +496,7 @@ Avec Kridi Beyti, accédez à la propriété ou améliorez votre logement :</p>
     </div>
     <div class="chat-input">
   <p id="fixed-message">Vous pouvez passer à Nous contacter et posez des questions dès que vous cliquez sur le bouton vert.</p>
-  <button class="send-btn" id="send-custom-btn" style="background-color: green; color: white;">➤r</button>
+  <button class="send-btn" id="send-custom-btn" style="background-color: green; color: white;">➤</button>
 </div>
 
 </div>
