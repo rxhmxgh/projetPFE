@@ -392,6 +392,7 @@ body {
       <img src="kriditahadi.jpg" alt="Kridi El-Tahadi" class="img-fluid rounded shadow-sm" style="max-height: 280px;">
     </div>
   </div>
+  <a href="#details-kridi" class="btn btn-success mt-3">Savoir plus</a>
 </section>
 
 <section class="badr-section py-5 px-4">
@@ -410,6 +411,7 @@ body {
       <img src="kridirafahiyati.jpg" alt="Kridi RAFAHIYATI" class="img-fluid rounded shadow-sm" style="max-height: 280px;">
     </div>
   </div>
+  <a href="#details-kridi" class="btn btn-success mt-3">Savoir plus</a>
 </section>
 
 <section class="badr-section py-5 px-4">
@@ -428,6 +430,9 @@ body {
       <img src="kridisayarati.jpg" alt="Kridi SAYARATI" class="img-fluid rounded shadow-sm" style="max-height: 280px;">
     </div>
   </div>
+  <!-- fonctionnel -->
+   
+  <a href="sayarati.php" class="btn btn-success mt-3">Savoir plus</a>      
 </section>
 
 <section class="badr-section py-5 px-4">
@@ -447,6 +452,7 @@ Que ce soit pour du matériel agricole ou du bétail, Kridi Mazraaty vous soutie
       <img src="kridimazraaty.jpg" alt="Kridi MAZRAATY" class="img-fluid rounded shadow-sm" style="max-height: 280px;">
     </div>
   </div>
+  <a href="#details-kridi" class="btn btn-success mt-3">Savoir plus</a>
 </section>
 
 <section class="badr-section py-5 px-4">
@@ -466,6 +472,7 @@ Avec Kridi Beyti, accédez à la propriété ou améliorez votre logement :</p>
       <img src="kridibayti.jpg" alt="Kridi BEYTI" class="img-fluid rounded shadow-sm" style="max-height: 280px;">
     </div>
   </div>
+  <a href="#details-kridi" class="btn btn-success mt-3">Savoir plus</a>
 </section>
 
 
