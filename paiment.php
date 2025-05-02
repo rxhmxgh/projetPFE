@@ -628,36 +628,53 @@ button[type="submit"]:hover {
         <button class="send-btn" id="send-btn">➤</button>
     </div>
     <div class="chat-input">
-        <input type="text" id="custom-question" placeholder="Posez votre question...">
-        <button class="send-btn" id="send-custom-btn" onclick="mailchatbot()">➤</button>
-    </div>
+  <p id="fixed-message">Vous pouvez passer à Nous contacter et posez des questions dès que vous cliquez sur le bouton vert.</p>
+  <button class="send-btn" id="send-custom-btn" style="background-color: green; color: white;">➤</button>
 </div>
 
-<!-- script d'envoie email -->
-<script>
-      (function () {
-        emailjs.init("UA8naRzna1HefVjV9"); // PUBLIC KEY telkayha f site
-      })();
+</div>
 
-      function mailchatbot() {
-        emailjs
-          .send("service_0v5y3fp", "template_lhyftlt", { // SERVICE ID w TEMPLATE ID
-            to_name: "Bnaque",
-            from_name: "Client bancaire",
-            message: "Un nouveau message du chatbot !",
-            reply_to: "rahmaghomari26@gmail.com",
-          })
-          .then(
-            function (response) {
-              alert("Email envoyé avec succès !");
-            },
-            function (error) {
-              console.error("EmailJS Error:", error);
-              alert("Erreur lors de l'envoi de l'email: " + JSON.stringify(error));
-            }
-          );
-      }
-    </script>
+<script>
+  document.getElementById("send-custom-btn").addEventListener("click", function() {
+    let message = document.getElementById("fixed-message").textContent.trim();
+    addUserMessage(message);
+    sendEmail(message);
+  });
+</script>
+
+
+<!-- script d'envoie email -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function () {
+    emailjs.init("UA8naRzna1HefVjV9"); // ta clé publique
+  })();
+
+  function sendEmail(messageContent) {
+    emailjs.send("service_0v5y3fp", "template_lhyftlt", {
+      to_name: "Banque",
+      from_name: "Client bancaire",
+      message: messageContent,
+      reply_to: "rahmaghomari26@gmail.com"
+    })
+    .then(function(response) {
+      alert("Email envoyé avec succès !");
+    }, function(error) {
+      console.error("Erreur EmailJS :", error);
+      alert("Erreur : " + JSON.stringify(error));
+    });
+  }
+
+  // Fonction optionnelle pour afficher dans le chat
+  function addUserMessage(message) {
+    let chatBox = document.getElementById("chat-box");
+    let userMsg = document.createElement("div");
+    userMsg.className = "user-message";
+    userMsg.textContent = message;
+    chatBox.appendChild(userMsg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+</script>
 
 
 
@@ -674,7 +691,7 @@ button[type="submit"]:hover {
 };
 // Liste des questions et réponses prédéfinies
 const qaData = {
-   "Quels sont les produits de la banque ?": "Notre banque propose des comptes courants, des comptes épargne, des crédits, des cartes bancaires et bien plus encore, pour plus de déttails consultez notre site.",
+    "Quels sont les produits de la banque ?": "Notre banque propose des comptes courants, des comptes épargne, des crédits, des cartes bancaires et bien plus encore, pour plus de déttails consultez notre site.",
     "Comment faire une carte magnétique ?": "Pour obtenir une carte magnétique, accéder au services bancaire sur notre sites pour savoir plus.",
     "Comment faire pour transférer de l'argent d'un compte à un autre ?": "Vous pouvez effectuer un virement via votre espace en ligne, sur notre site en ligne ou en agence.",
     "Comment faire une carte Visa ?": "Rendez-vous en agence pour demander une carte Visa. Vous devrez fournir des documents et respecter certaines conditions.",
@@ -759,6 +776,6 @@ function fetchResponse(question) {
 populateQuestions();
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
