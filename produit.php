@@ -1,3 +1,27 @@
+<?php
+// Connexion à la base de données
+$host = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "banquemoderne";
+
+$conn = new mysqli($host, $user, $pass, $dbname);
+if ($conn->connect_error) {
+    die("Erreur : " . $conn->connect_error);
+}
+
+// Traitement de la soumission du formulaire
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_question'])) {
+    $question = $conn->real_escape_string($_POST['user_question']);
+    $conn->query("INSERT INTO questions (user_question) VALUES ('$question')");
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+// Récupération des questions et réponses
+$questions = $conn->query("SELECT user_question, admin_response FROM questions ORDER BY created_at ASC");
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -303,6 +327,137 @@ body {
             justify-content: center;
             align-items: center;
         }
+      
+
+
+
+
+     
+        .chatbot-container {
+            width: 400px;
+            background: #d4e9d3;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: none; /* Chatbot caché par défaut */
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 1000;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background: #43a047;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .chat-body {
+            background: white;
+            padding: 15px;
+            height: 300px;
+            overflow-y: scroll;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px 15px;
+            border-radius: 20px;
+            max-width: 80%;
+        }
+
+        .from-user {
+            background: #e0e0e0;
+            align-self: flex-start;
+        }
+
+        .from-admin {
+            background: #c8e6c9;
+            align-self: flex-end;
+            text-align: right;
+        }
+
+        .chat-footer {
+            background: #d9e8d9;
+            padding: 10px;
+        }
+
+        .form-section {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        select, input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            background: #4CAF50;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        button img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Icône flottante et tooltip */
+        .chat-tooltip {
+            position: fixed;
+            bottom: 90px;
+            right: 90px;
+            background: #333;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 999;
+            animation: fadeIn 0.5s;
+        }
+
+        .chat-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #4CAF50;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            transition: transform 0.2s;
+        }
+
+        .chat-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-icon img {
+            width: 30px;
+            height: 30px;
+        }
+
+        /* Animation du message d'accueil */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -478,94 +633,84 @@ Avec Kridi Beyti, accédez à la propriété ou améliorez votre logement :</p>
 
 
 <!-- partie chatbot -->
- <!-- Message d'accueil -->
- <div class="chat-tooltip" id="chat-tooltip">Bonjour 👋 ! Comment puis-je vous aider aujourd’hui ?</div>
+ <!-- ✅ Partie Chatbot HTML -->
+ <div class="chat-tooltip" id="chat-tooltip">
+    Bonjour 👋 ! Comment puis-je vous aider aujourd’hui ?
+</div>
 
-<!-- Icône pour ouvrir/fermer le chatbot -->
+<!-- ✅ Icône flottante -->
 <div class="chat-icon" id="chat-icon">
-<img src="icon_chatbot.png" alt="Chat Icon" />
+    <img src="icon_chatbot.png" alt="Chat Icon" width="50">
 </div>
 
-<!-- Chatbot -->
- 
-<div class="chat-container" id="chat-container">
-
+<!-- ✅ Fenêtre du chatbot -->
+<div class="chatbot-container" id="chat-container">
     <div class="chat-header">Chatbot</div>
-    
-    <div class="chat-box" id="chat-box">
-        <div class="bot-message">Bonjour ! Comment puis-je vous aider ?</div>
-    </div>
-    <div class="chat-input">
-        <select id="question-select">
-            <option selected disabled>Choisissez une question...</option>
-        </select>
-        <button class="send-btn" id="send-btn">➤</button>
-    </div>
-    <div class="chat-input">
-  <p id="fixed-message">Vous pouvez passer à Nous contacter et posez des questions dès que vous cliquez sur le bouton vert.</p>
-  <button class="send-btn" id="send-custom-btn" style="background-color: green; color: white;">➤</button>
+    <div class="chat-body" id="chat">
+    <div class="message from-user">Bonjour 👋 ! Comment puis-je vous aider aujourd’hui ?</div>
+    <?php
+    if (isset($questions)) {
+        while ($row = $questions->fetch_assoc()) {
+            echo '<div class="message from-user">' . htmlspecialchars($row['user_question']) . '</div>';
+            if (!empty($row['admin_response'])) {
+                echo '<div class="message from-admin">' . htmlspecialchars($row['admin_response']) . '</div>';
+            }
+        }
+    }
+    ?>
 </div>
 
+    <div class="chat-footer">
+        <!-- Choix rapide -->
+        <form class="form-section" onsubmit="return false;">
+            <select onchange="faqSelected(this)" id="faq">
+                <option value="">Choisissez une question...</option>
+                <option value="Quels sont les produits de la banque ?">Quels sont les produits de la banque ?</option>
+                <option value="Comment faire une carte magnétique ?">Comment faire une carte magnétique ?</option>
+                <option value="Comment faire pour transférer de l'argent d'un compte à un autre ?">Comment faire pour transférer de l'argent d'un compte à un autre ?</option>
+                <option value="Comment faire une carte Visa ?">Comment faire une carte Visa ?</option>
+                <option value="Comment payer les factures ?">Comment payer les factures ?</option>
+                <option value="Comment récupérer le code de ma carte ?">Comment récupérer le code de ma carte ?</option>
+                <option value="Carte perdue : que dois-je faire ?">Carte perdue : que dois-je faire ?</option>
+                <option value="Quelles sont les procédures pour demander un chèque ou carte ?">Quelles sont les procédures pour demander un chèque ou carte ?</option>
+                <option value="Comment créer un compte épargne ?">Comment créer un compte épargne ?</option>
+                <option value="Quels sont les autres types de comptes et leurs procédures d'ouverture ?">Quels sont les autres types de comptes et leurs procédures d'ouverture ?</option>
+               
+            </select>
+            <button type="button" onclick="sendFAQ()">
+                <img src="send.png" alt="Envoyer" width="20">
+            </button>
+        </form>
+
+        <p style="font-size: 12px; color: #333; margin: 5px;">Vous pouvez poser vos questions directement 👇</p>
+
+        <!-- Envoi de question -->
+        <form class="form-section" id="manual-question-form" method="POST" action="">
+
+            <input type="text" name="user_question" placeholder="Votre question..." required>
+            <button type="submit">
+                <img src="send.png" alt="Envoyer" width="20">
+            </button>
+        </form>
+    </div>
 </div>
 
+<!-- ✅ Script JavaScript -->
 <script>
-  document.getElementById("send-custom-btn").addEventListener("click", function() {
-    let message = document.getElementById("fixed-message").textContent.trim();
-    addUserMessage(message);
-    sendEmail(message);
-  });
-</script>
-
-
-<!-- script d'envoie email -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-  (function () {
-    emailjs.init("UA8naRzna1HefVjV9"); // ta clé publique
-  })();
-
-  function sendEmail(messageContent) {
-    emailjs.send("service_0v5y3fp", "template_lhyftlt", {
-      to_name: "Banque",
-      from_name: "Client bancaire",
-      message: messageContent,
-      reply_to: "rahmaghomari26@gmail.com"
-    })
-    .then(function(response) {
-      alert("Email envoyé avec succès !");
-    }, function(error) {
-      console.error("Erreur EmailJS :", error);
-      alert("Erreur : " + JSON.stringify(error));
-    });
-  }
-
-  // Fonction optionnelle pour afficher dans le chat
-  function addUserMessage(message) {
-    let chatBox = document.getElementById("chat-box");
-    let userMsg = document.createElement("div");
-    userMsg.className = "user-message";
-    userMsg.textContent = message;
-    chatBox.appendChild(userMsg);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
-</script>
-
-
-
-<!-- script de chatbot -->
-<script>
-    window.onload = function() {
-    let tooltip = document.getElementById("chat-tooltip");
-    tooltip.style.display = "block";
-
-    // Cacher après 5 secondes
+    // ✅ Masquer le message d’accueil après 5s
     setTimeout(() => {
-        tooltip.style.display = "none";
+        document.getElementById("chat-tooltip").style.display = "none";
     }, 5000);
-};
-// Liste des questions et réponses prédéfinies
-const qaData = {
-    "Quels sont les produits de la banque ?": "Notre banque propose des comptes courants, des comptes épargne, des crédits, des cartes bancaires et bien plus encore, pour plus de déttails consultez notre site.",
+
+    // ✅ Ouvrir/fermer le chatbot
+    document.getElementById("chat-icon").addEventListener("click", function () {
+        const chatContainer = document.getElementById("chat-container");
+        chatContainer.style.display = (chatContainer.style.display === "flex" || chatContainer.style.display === "block") ? "none" : "flex";
+        chatContainer.style.flexDirection = "column";
+    });
+    // ✅ Liste de questions/réponses prédéfinies
+    const qaData = {
+       "Quels sont les produits de la banque ?": "Notre banque propose des comptes courants, des comptes épargne, des crédits, des cartes bancaires et bien plus encore, pour plus de déttails consultez notre site.",
     "Comment faire une carte magnétique ?": "Pour obtenir une carte magnétique, accéder au services bancaire sur notre sites pour savoir plus.",
     "Comment faire pour transférer de l'argent d'un compte à un autre ?": "Vous pouvez effectuer un virement via votre espace en ligne, sur notre site en ligne ou en agence.",
     "Comment faire une carte Visa ?": "Rendez-vous en agence pour demander une carte Visa. Vous devrez fournir des documents et respecter certaines conditions.",
@@ -575,79 +720,44 @@ const qaData = {
     "Quelles sont les procédures pour demander un chèque ou carte ?": "Pour obtenir une carte et un chéquier, 1). Connectez-vous à votre espace personnel. 2).Accédez à Demande de carte et chèque. 3). Remplissez et validez le formulaire.",
     "Comment créer un compte épargne ?": "Rendez-vous en agence avec une pièce d'identité et un justificatif de domicile pour ouvrir un compte épargne.",
     "Quels sont les autres types de comptes et leurs procédures d'ouverture ?": "Nous proposons des comptes courants, épargne et professionnels. Chaque type a des conditions spécifiques, consultez notre site ou une agence."
-};
+    };
 
+    const chat = document.getElementById("chat");
 
-// Ouvrir/Fermer le chatbot
-document.getElementById("chat-icon").addEventListener("click", function() {
-    console.log("Icône cliquée !");
-    let chatContainer = document.getElementById("chat-container");
-    chatContainer.style.display = (chatContainer.style.display === "flex") ? "none" : "flex";
-   
-});
-
-// Générer la liste déroulante avec les questions
-function populateQuestions() {
-    let select = document.getElementById("question-select");
-    for (let question in qaData) {
-        let option = document.createElement("option");
-        option.value = question;
-        option.textContent = question;
-        select.appendChild(option);
+    // ✅ Ajouter un message dans la discussion
+    function appendMessage(content, sender = "user") {
+        const div = document.createElement("div");
+        div.className = "message from-" + sender;
+        div.textContent = content;
+        chat.appendChild(div);
+        chat.scrollTop = chat.scrollHeight;
     }
-}
 
-// Envoyer une question et afficher la réponse
-document.getElementById("send-btn").addEventListener("click", function() {
-    let select = document.getElementById("question-select");
-    let question = select.value;
-    
-    if (question) {
-        addUserMessage(question);
-        fetchResponse(question);
-        select.selectedIndex = 0; // Réinitialiser la sélection
+    // ✅ Lorsqu'on choisit une question dans le menu
+    function faqSelected(select) {
+        const question = select.value;
+        if (question) {
+            document.querySelector('input[name="user_question"]').value = question;
+        }
     }
-});
 
-// Envoyer une question personnalisée
-document.getElementById("send-custom-btn").addEventListener("click", function() {
-    let input = document.getElementById("custom-question");
-    let question = input.value.trim();
-    
-    if (question) {
-        addUserMessage(question);
-        sendEmail(question);
-        input.value = "";
+    // ✅ Lorsqu'on clique sur le bouton d'envoi du menu déroulant
+    function sendFAQ() {
+        const question = document.getElementById("faq").value;
+        if (question) {
+            appendMessage(question, "user");
+
+            const response = qaData[question];
+            if (response) {
+                setTimeout(() => appendMessage(response, "admin"), 600);
+            } else {
+                setTimeout(() => appendMessage("Un conseiller vous répondra sous peu.", "admin"), 600);
+            }
+
+            document.getElementById("faq").value = "";
+            document.querySelector('input[name="user_question"]').value = "";
+        }
     }
-});
-
-// Ajouter un message utilisateur
-function addUserMessage(message) {
-    let chatBox = document.getElementById("chat-box");
-    let userMsg = document.createElement("div");
-    userMsg.className = "user-message";
-    userMsg.textContent = message;
-    chatBox.appendChild(userMsg);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-// Ajouter un message bot
-function addBotMessage(message) {
-    let chatBox = document.getElementById("chat-box");
-    let botMsg = document.createElement("div");
-    botMsg.className = "bot-message";
-    botMsg.textContent = message;
-    chatBox.appendChild(botMsg);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-// Récupérer la réponse en fonction de la question
-function fetchResponse(question) {
-    let response = qaData[question] || "Désolé, je ne comprends pas votre question.";
-    addBotMessage(response);
-}
-
-populateQuestions();
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
