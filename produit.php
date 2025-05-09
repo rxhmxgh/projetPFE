@@ -388,7 +388,7 @@ select, input[type="text"] {
           </li>
           
           <li class="nav-item">
-            <a class="nav-link" href="gere.php">Relever</a>
+            <a class="nav-link" href="relev.php">Relever</a>
           </li>
          
           <li class="nav-item">

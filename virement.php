@@ -2,9 +2,9 @@
 // Démarrer la session
 session_start();
 
-// Connexion à la base de données
+// Connexion à la base de données (PDO pour toutes les opérations)
 $host = "localhost";
-$dbname = "BanqueModerne";
+$dbname = "banquemoderne";
 $username = "root";
 $password = "";
 
@@ -12,12 +12,12 @@ try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
+    die("Erreur de connexion PDO : " . $e->getMessage());
 }
 
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
-    header('Location: seconnecter.php');
+    header('Location: connex.php');
     exit();
 }
 
@@ -26,7 +26,6 @@ $stmt = $pdo->prepare("SELECT ccp FROM utilisateurs WHERE id = :id");
 $stmt->execute(["id" => $_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 $ccpSource = $user ? $user["ccp"] : "";
-
 
 // Traitement du formulaire de virement
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["virement"])) {
@@ -49,16 +48,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["virement"])) {
             if ($source && $dest) {
                 if ($source["solde"] >= $montant) {
                     // Effectuer le virement
-                    $newSoldeSource = $source["solde"] - $montant;
-                    $newSoldeDest = $dest["solde"] + $montant;
+                    $updateSrc = $pdo->prepare("UPDATE utilisateurs SET solde = solde - :montant WHERE id = :id");
+                    $updateSrc->execute(["montant" => $montant, "id" => $source["id"]]);
 
-                    $updateSrc = $pdo->prepare("UPDATE utilisateurs SET solde = :solde WHERE id = :id");
-                    $updateSrc->execute(["solde" => $newSoldeSource, "id" => $source["id"]]);
+                    $updateDest = $pdo->prepare("UPDATE utilisateurs SET solde = solde + :montant WHERE id = :id");
+                    $updateDest->execute(["montant" => $montant, "id" => $dest["id"]]);
 
-                    $updateDest = $pdo->prepare("UPDATE utilisateurs SET solde = :solde WHERE id = :id");
-                    $updateDest->execute(["solde" => $newSoldeDest, "id" => $dest["id"]]);
-
-                    // Enregistrer la transaction
+                    // Enregistrer les transactions
                     $transactionStmt = $pdo->prepare("INSERT INTO transactions (utilisateur_id, type, montant) VALUES (:utilisateur_id, 'virement_envoye', :montant)");
                     $transactionStmt->execute(["utilisateur_id" => $source["id"], "montant" => $montant]);
 
@@ -75,36 +71,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["virement"])) {
             }
         } catch (PDOException $e) {
             $pdo->rollBack();
-            echo "❌ Erreur : " . $e->getMessage();
+            echo "❌ Erreur de virement : " . $e->getMessage();
         }
     } else {
         echo "⚠️ Le montant doit être supérieur à zéro.";
     }
 }
-?>
 
-<?php
-// Connexion à la base de données
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "banquemoderne";
-
-$conn = new mysqli($host, $user, $pass, $dbname);
-if ($conn->connect_error) {
-    die("Erreur : " . $conn->connect_error);
-}
-
-// Traitement de la soumission du formulaire
+// Traitement de la question utilisateur (chatbot)
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_question'])) {
-    $question = $conn->real_escape_string($_POST['user_question']);
-    $conn->query("INSERT INTO questions (user_question) VALUES ('$question')");
+    $question = htmlspecialchars($_POST['user_question']);
+    $stmt = $pdo->prepare("INSERT INTO questions (user_question) VALUES (:question)");
+    $stmt->execute(["question" => $question]);
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
 
 // Récupération des questions et réponses
-$questions = $conn->query("SELECT user_question, admin_response FROM questions ORDER BY created_at ASC");
+$questionsStmt = $pdo->query("SELECT user_question, admin_response FROM questions ORDER BY created_at ASC");
+$questions = $questionsStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
