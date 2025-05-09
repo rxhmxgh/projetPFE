@@ -1141,10 +1141,8 @@ L.marker([35.9312, 0.0895]).addTo(map)
 
  
 </script>
-
-
-<!-- partie contacte -->
- <section id="contacte" class="contact-section">
+<!-- Formulaire de contact -->
+<section id="contacte" class="contact-section">
   <div class="contact-container">
     <div class="contact-info">
       <h1>Contactez-Nous</h1>
@@ -1157,54 +1155,61 @@ L.marker([35.9312, 0.0895]).addTo(map)
         <div class="form-group">
           <label for="name">Nom</label>
           <input type="text" id="name" name="name" required>
+
           <label for="email">Email</label>
           <input type="email" id="email" name="email" required>
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
         </div>
-        <button type="submit">Contactez-Nous</button>
+        <!-- Important : type="submit" -->
+        <button type="submit">Envoyer</button>
       </form>
     </div>
   </div>
 </section>
 
-<!-- EmailJS SDK -->
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<!-- SDK EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
 <script>
+  // Initialisation avec la clé publique (vérifiée)
   (function () {
-    emailjs.init("UA8naRzna1HefVjV9"); // ✅ PUBLIC KEY
+    emailjs.init("XAvVX2uSl3Ctz3aAV");
   })();
 
-  // Attacher l'envoi au submit du formulaire
+  // Événement sur la soumission du formulaire
   document.getElementById("contact-form").addEventListener("submit", function (e) {
-    e.preventDefault();
+    e.preventDefault(); // Évite le rechargement
 
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
 
-    if (!name || !email) {
+    if (!name || !email || !message) {
       alert("Veuillez remplir tous les champs.");
       return;
     }
 
+    // Paramètres attendus par votre template EmailJS
     const params = {
-      to_name: "Banque",
-      from_name: name,
-      reply_to: email,
-      message: `Une nouvelle demande de contact de ${name} (${email}).`,
+       to_name: "Bnaque",
+            from_name: "Client bancaire",
+            message: "Un nouveau message !",
+            reply_to: "rahmaghomari26@gmail.com",
     };
 
-    emailjs.send("service_0v5y3fp", "template_x0rfy3m", params)
-      .then(function (response) {
+    // Envoi de l'email
+   emailjs.send("service_0v5y3fp","template_lhyftlt");
+      .then(function () {
         alert("Email envoyé avec succès !");
         document.getElementById("contact-form").reset();
       }, function (error) {
         console.error("EmailJS Error:", error);
-        alert("Erreur lors de l'envoi de l'email : " + JSON.stringify(error));
+        alert("Erreur lors de l'envoi de l'email : " + error.text);
       });
   });
 </script>
-
-
 
 
 <footer>
@@ -1212,6 +1217,6 @@ L.marker([35.9312, 0.0895]).addTo(map)
 </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-   
+   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </body>
 </html>
