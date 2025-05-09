@@ -585,7 +585,7 @@ select, input[type="text"] {
             }
         }
     }
-    ?>
+ ?>
 </div>
 
 <script>

@@ -438,6 +438,34 @@ button:hover {
             font-size: 1rem;
             line-height: 1.5;
         }
+
+/* taux de change */
+ .marquee-container {
+      background-color: white;
+      color: green;
+      overflow: hidden;
+      white-space: nowrap;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-top: 2px solid green;
+      border-bottom: 2px solid green;
+    }
+
+    .marquee-text {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 15s linear infinite;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
         /*la maps */ 
   /* Style de la section */
   .location-section {
@@ -773,6 +801,14 @@ select, input[type="text"] {
     <div class="cta-section">
       <h2 class="cta-text">Rejoignez-nous dès aujourd’hui et profitez d’une gestion bancaire moderne et sans contraintes !</h2>
   </div>
+<!-- taux de change -->
+  <div class="marquee-container">
+    <div class="marquee-text">
+       Banque El Badr - Taux de change aujourd'hui : 1 EUR = 146.30 DZD | 1 USD = 135.20 DZD | 1 DZD = 0.0068 EUR |  TAUX DE CHANGE SUR BADR LINE 
+    </div>
+  </div>  
+
+
      <!-- div for card (3)-->
     
      <div class="cards-container">
