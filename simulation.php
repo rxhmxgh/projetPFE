@@ -219,9 +219,9 @@
     <div class="col-md-6">
       <label for="type" class="form-label">Type de crédit</label>
       <select class="form-select" id="type">
-        <option>Véhicules particuliers de tourisme</option>
-        <option>Électroménager</option>
-        <option>Travaux domestiques</option>
+        <option>Crédit Immobilier</option>
+        <option>Crédit Auto</option>
+        <option>Crédit Travaux</option>
       </select>
     </div>
 
