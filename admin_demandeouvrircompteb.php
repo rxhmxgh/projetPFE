@@ -116,9 +116,10 @@ a:hover {
         <li><a href="admin_demandeouvrircompteb.php">Compte bancaire</a></li>
         <li><a href="admin_demandes.php">Carte et Chèques</a></li>
         <li><a href="administration.php">Gestion des clients</a></li>
-        <li><a href="chatbot_admin.php">Les messages</a></li>
+         <li><a href="admin_message.php">Gestion des messages</a></li>
+          <li><a href="chatbot_admin.php">Les messages</a></li>
         <li><a href="logout.php">Déconnecter</a></li>
-
+      
     </ul>
 </nav>
 
@@ -129,32 +130,41 @@ $demandes = $stmt->fetchAll();
 ?>
 
 <h2>Liste des demandes de comptes bancaires</h2>
-<table border="1" cellpadding="8">
-    <tr>
-        <th>ID</th>
-        <th>Nom</th>
-        <th>Email</th>
-        <th>Téléphone</th>
-        <th>Type Compte</th>
-        <th>Date</th>
-        <th>Pièces jointes</th>
-    </tr>
-    <?php foreach ($demandes as $demande): ?>
-    <tr>
-        <td><?= $demande['id'] ?></td>
-        <td><?= $demande['full_name'] ?></td>
-        <td><?= $demande['email'] ?></td>
-        <td><?= $demande['phone'] ?></td>
-        <td><?= $demande['job_status'] ?></td>
-        <td><?= $demande['date_demande'] ?></td>
-        <td>
-            <a href="uploads/<?= $demande['identity_file'] ?>">Identité</a><br>
-            <a href="uploads/<?= $demande['extrait_file'] ?>">Extrait</a><br>
-            <a href="uploads/<?= $demande['residence_file'] ?>">Résidence</a>
-        </td>
-    </tr>
-    <?php endforeach; ?>
-</table>
+<form method="post" action="verifier_dossier.php">
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Type Compte</th>
+            <th>Date</th>
+            <th>Pièces jointes</th>
+            <th>Vérifié</th> <!-- Nouvelle colonne "Vérifié" -->
+        </tr>
+        <?php foreach ($demandes as $demande): ?>
+        <tr>
+            <td><?= $demande['id'] ?></td>
+            <td><?= $demande['full_name'] ?></td>
+            <td><?= $demande['email'] ?></td>
+            <td><?= $demande['phone'] ?></td>
+            <td><?= $demande['job_status'] ?></td>
+            <td><?= $demande['date_demande'] ?></td>
+            <td>
+                <a href="uploads/<?= $demande['identity_file'] ?>">Identité</a><br>
+                <a href="uploads/<?= $demande['extrait_file'] ?>">Extrait</a><br>
+                <a href="uploads/<?= $demande['residence_file'] ?>">Résidence</a>
+            </td>
+            <td>
+                <input type="checkbox" name="verified_ids[]" value="<?= $demande['id'] ?>" 
+                <?= $demande['is_verified'] ? 'checked' : '' ?>>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+    <br>
+    <input type="submit" value="Mettre à jour les dossiers vérifiés">
+</form>
 
 </body>
 </html>

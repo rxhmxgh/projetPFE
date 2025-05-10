@@ -1150,69 +1150,30 @@ L.marker([35.9312, 0.0895]).addTo(map)
       <p><strong>+213 (0)21 989 323</strong></p>
       <p>badrlinebanque-dz@gmail.com</p>
     </div>
-    <div class="contact-form">
-      <form id="contact-form">
-        <div class="form-group">
-          <label for="name">Nom</label>
-          <input type="text" id="name" name="name" required>
+    <form action="send.php" method="post"></form>
+<div class="contact-form">
+  <form action="send.php" method="post" id="contact-form">
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <input type="text" id="name" name="name" required>
 
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
 
-          <label for="message">Message</label>
-          <textarea id="message" name="message" required></textarea>
-        </div>
-        <!-- Important : type="submit" -->
-        <button type="submit">Envoyer</button>
-      </form>
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required></textarea>
     </div>
+
+    <!-- Bouton de soumission -->
+    <button type="submit">Envoyer</button>
+  </form>
+</div> 
   </div>
 </section>
 
-<!-- SDK EmailJS -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-
-<script>
-  // Initialisation avec la clé publique (vérifiée)
-  (function () {
-    emailjs.init("XAvVX2uSl3Ctz3aAV");
-  })();
-
-  // Événement sur la soumission du formulaire
-  document.getElementById("contact-form").addEventListener("submit", function (e) {
-    e.preventDefault(); // Évite le rechargement
-
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const message = document.getElementById("message").value.trim();
-
-    if (!name || !email || !message) {
-      alert("Veuillez remplir tous les champs.");
-      return;
-    }
-
-    // Paramètres attendus par votre template EmailJS
-    const params = {
-       to_name: "Bnaque",
-            from_name: "Client bancaire",
-            message: "Un nouveau message !",
-            reply_to: "rahmaghomari26@gmail.com",
-    };
-
-    // Envoi de l'email
-   emailjs.send("service_0v5y3fp","template_lhyftlt");
-      .then(function () {
-        alert("Email envoyé avec succès !");
-        document.getElementById("contact-form").reset();
-      }, function (error) {
-        console.error("EmailJS Error:", error);
-        alert("Erreur lors de l'envoi de l'email : " + error.text);
-      });
-  });
-</script>
 
 
-<footer>
+ <footer>
     <p>&copy; 2025 Banque BADRLINE . Tous droits réservés.</p>
 </footer>
 

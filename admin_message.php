@@ -1,20 +1,26 @@
 <?php
-try {
-    $pdo = new PDO("mysql:host=localhost;dbname=BanqueModerne;charset=utf8", "root", "");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// Connexion à la base de données 'banquemoderne'
+$host = "localhost";
+$username = "root";
+$password = "";
+$dbname = "banquemoderne";
 
-    $stmt = $pdo->query("SELECT * FROM demande_carte ORDER BY date_demande DESC");
-    $demandes = $stmt->fetchAll();
-} catch (PDOException $e) {
-    die("Erreur : " . $e->getMessage());
+$conn = new mysqli($host, $username, $password, $dbname);
+
+// Vérifier la connexion
+if ($conn->connect_error) {
+    die("Échec de la connexion : " . $conn->connect_error);
 }
+$sql = "SELECT * FROM messages ORDER BY created_at DESC";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Liste des Demandes Carte</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Messages - Admin</title>
     <style>
 
 body {
@@ -24,6 +30,7 @@ body {
     padding: 20px;
     color: #2c3e50;
 }
+
 nav {
         background-color: #333;
         padding: 10px;
@@ -50,9 +57,8 @@ nav {
     nav ul li a:hover {
         text-decoration: underline;
     }
-
 h2 {
-    text-align: center;
+  text-align: center;
     color: #34495e;
     margin-bottom: 25px;
     font-size: 24px;
@@ -96,8 +102,8 @@ tr:hover {
 }
 
 a {
-    color: #3498db;
-    text-decoration: none;
+    color:#34495e;
+    
 }
 
 a:hover {
@@ -118,10 +124,14 @@ a:hover {
 .button:hover {
     background-color: #2980b9;
 }
+
     </style>
 </head>
 <body>
-    <!-- Menu de navigation -->
+
+
+
+<!-- Menu de navigation -->
 <nav>
     <ul>
     <li><a href="admin_rendezvous.php">Rendez-vous</a></li>
@@ -134,34 +144,38 @@ a:hover {
       
     </ul>
 </nav>
-
-
-    <h2> Demandes de Carte / Chéquier</h2>
-
-    <?php if (count($demandes) === 0): ?>
-        <p>Aucune demande pour le moment.</p>
-    <?php else: ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Email</th>
-                    <th>Type</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($demandes as $demande): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($demande['nom']) ?></td>
-                        <td><?= htmlspecialchars($demande['email']) ?></td>
-                        <td><?= htmlspecialchars($demande['type']) ?></td>
-                        <td><?= $demande['date_demande'] ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php endif; ?>
-
+   <center><h1>Gestion des Messages</h1></center> 
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+<?php
+// Vérification si des messages sont récupérés
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . $row["id"] . "</td>";
+        echo "<td>" . $row["name"] . "</td>";
+        echo "<td>" . $row["email"] . "</td>";
+        echo "<td>" . nl2br($row["message"]) . "</td>";
+        echo "<td>" . $row["created_at"] . "</td>";
+        echo "<td><a href='supprimer_message.php?id=" . $row["id"] . "'>Supprimer</a></td>";
+        echo "</tr>";
+    }
+} else {
+    echo "<tr><td colspan='6'>Aucun message trouvé</td></tr>";
+}
+?>
+    </table>
 </body>
 </html>
+
+<?php
+// Fermer la connexion à la base de données
+$conn->close();
+?>
