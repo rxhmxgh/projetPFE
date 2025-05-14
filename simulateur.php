@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: connex.php');
+    exit();
+}
+
 // Connexion à la base de données
 $host = "localhost";
 $user = "root";

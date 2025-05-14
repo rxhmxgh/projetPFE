@@ -1,4 +1,6 @@
 <?php
+
+
 // chatbot_admin.php
 $host = "localhost";
 $user = "root";

@@ -1,3 +1,4 @@
+
 <style>
 /* Reset simple */
 * {
@@ -237,6 +238,8 @@ legend {
 
 <!-- Partie PHP pour gestion admin -->
 <?php
+
+
 $pdo = new PDO("mysql:host=localhost;dbname=BanqueModerne;charset=utf8", "root", "");
 
 if (isset($_POST['ajouter_client'])) {

@@ -360,7 +360,7 @@ legend {
 
 /* Fenêtre du chatbot */
 .chatbot-container {
-    width: 400px;
+    width: 400px  !important;
     background: #d4e9d3;
     border-radius: 20px;
     overflow: hidden;
