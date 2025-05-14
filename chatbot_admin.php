@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 // chatbot_admin.php
 $host = "localhost";

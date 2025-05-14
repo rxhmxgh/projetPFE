@@ -1,11 +1,4 @@
-<?php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header('Location: connex.php');
-    exit();
-}
-
-// Démarrer la session
+<?php // Démarrer la session
 session_start();
 
 // Connexion à la base de données (PDO pour toutes les opérations)
@@ -84,6 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["virement"])) {
     }
 }
 
+
 // Traitement de la question utilisateur (chatbot)
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_question'])) {
     $question = htmlspecialchars($_POST['user_question']);
@@ -96,7 +90,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_question'])) {
 // Récupération des questions et réponses
 $questionsStmt = $pdo->query("SELECT user_question, admin_response FROM questions ORDER BY created_at ASC");
 $questions = $questionsStmt->fetchAll(PDO::FETCH_ASSOC);
+
+
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -268,7 +265,7 @@ input {
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 8px; 
     font-size: 16px;
 }
 
@@ -321,7 +318,7 @@ input[readonly] {
 /* partie de chatbot  */
 /* Icône flottante et message d'accueil */
 .chat-tooltip {
-    position: fixed;
+    position: fixed; 
     bottom: 90px;
     right: 90px;
     background: #333;
@@ -411,16 +408,16 @@ input[readonly] {
     padding: 10px 15px;
     border-radius: 20px;
     max-width: 80%;
-    word-wrap: break-word;
+    word-wrap: break-word !important;
 }
 .from-user {
     background: #e0e0e0;
-    align-self: flex-start;
+    align-self: flex-start !important;
 }
 .from-admin {
     background: #c8e6c9;
     align-self: flex-end;
-    text-align: right;
+    text-align: right  !important;
 }
 
 /* Pied du chatbot */
@@ -555,7 +552,7 @@ select, input[type="text"] {
             <input type="text" name="ccp_dest" required>
 
             <label>Montant :</label>
-            <input type="number" name="montant" step="0.01" required>
+            <input type="number" name="montant" step="1" required>
 
             <button type="submit" name="virement" class="btn-transfer">Effectuer le Virement</button>
         </form>
@@ -582,16 +579,16 @@ select, input[type="text"] {
     <div class="chat-header">Chatbot</div>
     <div class="chat-body" id="chat">
     <div class="message from-user">Bonjour 👋 ! Comment puis-je vous aider aujourd’hui ?</div>
-    <?php
-    if (isset($questions)) {
-        while ($row = $questions->fetch_assoc()) {
+ <?php
+    if (!empty($questions)) {
+        foreach ($questions as $row) {
             echo '<div class="message from-user">' . htmlspecialchars($row['user_question']) . '</div>';
             if (!empty($row['admin_response'])) {
                 echo '<div class="message from-admin">' . htmlspecialchars($row['admin_response']) . '</div>';
             }
         }
     }
- ?>
+    ?>
 </div>
 
 <script>

@@ -1,17 +1,12 @@
 <?php
 session_start();
+// Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
     header('Location: connex.php');
     exit();
 }
 
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: seconnecter.php");
-    exit();
-}
-
-$success = $error = "";
+ $success = $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $operateur = $_POST['operateur'];
