@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
     $ccp = htmlspecialchars($_POST["ccp"]);
     $password = $_POST["password"];
 
-    // Vérification de l'admin via un numéro CCP spécial ou les informations de l'utilisateur
+    // Vérification de l'admin via un numéro RIB spécial ou les informations de l'utilisateur
     if ($ccp == 'admin123' && $password == '1234') {
       // Si l'admin se connecte avec un numéro spécial
       $_SESSION["admin_logged_in"] = true;
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
         header("Location: moncompte.php");
         exit;
     } else {
-        $erreur = "⚠️ Numéro CCP ou mot de passe incorrect.";
+        $erreur = "⚠️ Numéro RIB ou mot de passe incorrect.";
     }
 }}
 
@@ -153,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
         <div class="error-msg"><?= $erreur ?></div>
       <?php endif; ?>
       <div class="input-group">
-        <label for="ccp">Numéro CCP</label>
+        <label for="ccp">Numéro RIB</label>
         <input type="text" id="ccp" name="ccp" required />
       </div>
       <div class="input-group">

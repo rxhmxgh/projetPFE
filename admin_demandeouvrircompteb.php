@@ -8,13 +8,22 @@
     <title>Administration - Demandes d'ouverture de compte</title>
     <style>
 
-body {
+/* Reset simple */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f5f7fa;
     margin: 0;
     padding: 20px;
     color: #2c3e50;
 }
+
 nav {
         background-color: #333;
         padding: 10px;
@@ -41,9 +50,8 @@ nav {
     nav ul li a:hover {
         text-decoration: underline;
     }
-
 h2 {
-    text-align: center;
+  text-align: center;
     color: #34495e;
     margin-bottom: 25px;
     font-size: 24px;
@@ -87,8 +95,8 @@ tr:hover {
 }
 
 a {
-    color: #3498db;
-    text-decoration: none;
+    color:#34495e;
+    
 }
 
 a:hover {
@@ -120,7 +128,7 @@ a:hover {
         <li><a href="admin_demandes.php">Carte et Chèques</a></li>
         <li><a href="administration.php">Gestion des clients</a></li>
          <li><a href="admin_message.php">Gestion des messages</a></li>
-          <li><a href="chatbot_admin.php">Les messages</a></li>
+          <li><a href="chatbot_admin.php">Les messages du chatbot</a></li>
         <li><a href="logout.php">Déconnecter</a></li>
       
     </ul>

@@ -250,12 +250,12 @@ legend {
           <legend class="float-none w-auto px-3">Informations Bancaires</legend>
           <div class="row">
             <div class="col-md-6 mb-3">
-              <label for="ccp" class="form-label">Numéro CCP</label>
-              <input type="text" class="form-control" id="ccp" name="ccp" placeholder="Numéro CCP" required>
+              <label for="ccp" class="form-label">Numéro RIB</label>
+              <input type="text" class="form-control" id="ccp" name="ccp" placeholder="Numéro RIB" required>
             </div>
             <div class="col-md-6 mb-3">
-              <label for="cle-ccp" class="form-label">Clé CCP</label>
-              <input type="text" class="form-control" id="cle-ccp" name="cle-ccp" placeholder="Clé CCP" required>
+              <label for="cle-ccp" class="form-label">Clé RIB</label>
+              <input type="text" class="form-control" id="cle-ccp" name="cle-ccp" placeholder="Clé RIB" required>
             </div>
           </div>
         </fieldset>
@@ -329,7 +329,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $checkQuery = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = :email OR ccp = :ccp");
         $checkQuery->execute(["email" => $email, "ccp" => $ccp]);
         if ($checkQuery->rowCount() > 0) {
-            echo "⚠️ Cet email ou numéro CCP est déjà utilisé.";
+            echo "⚠️ Cet email ou numéro RIB est déjà utilisé.";
             exit;
         }
 

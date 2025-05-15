@@ -18,7 +18,13 @@ try {
     <meta charset="UTF-8">
     <title>Liste des Demandes Carte</title>
     <style>
-
+/* Reset simple */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f5f7fa;

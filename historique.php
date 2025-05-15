@@ -6,8 +6,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 
-session_start();
-$pdo = new PDO("mysql:host=localhost;dbname=banquemoderne;charset=utf8", "root", "");
+ $pdo = new PDO("mysql:host=localhost;dbname=banquemoderne;charset=utf8", "root", "");
 
 // Vérifier si un ID est passé
 if (!isset($_POST["id"])) {

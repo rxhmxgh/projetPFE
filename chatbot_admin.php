@@ -27,6 +27,14 @@ $questions = $conn->query("SELECT * FROM questions ORDER BY created_at DESC");
     <meta charset="UTF-8">
     <title>Admin Chatbot BADR LINE</title>
     <style>
+
+    /* Reset simple */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f2f4f7;

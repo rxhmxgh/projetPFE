@@ -216,6 +216,10 @@ $questions = $conn->query("SELECT user_question, admin_response FROM questions O
 }
 
 /* partie des carte (2)*/
+.offres h1 {
+  color: black;
+  font-family: 'Poppins', sans-serif;
+}
 h1 {
     font-size: 2.5em;
     margin: 20px 0;
@@ -312,17 +316,19 @@ button:hover {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
 /* partie de rejoindre */
 .bloc-inscription {
-    background-color:#adbc9f; 
+    background-color: #adbc9f;
     padding: 40px;
-    width: 30%;
+    width: 90%;
+    max-width: 400px;
     margin: 50px auto;
     border-radius: 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     position: relative;
     font-family: 'Poppins', sans-serif;
-    
+    box-sizing: border-box;
 }
 
 .bloc-inscription::before {
@@ -335,6 +341,7 @@ button:hover {
     border: 2px solid #133215;
     transform: rotate(2deg);
     z-index: -1;
+    box-sizing: border-box;
 }
 
 .titre {
@@ -350,7 +357,7 @@ button:hover {
 .liste-avantages {
     list-style: none;
     padding: 0;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 .avantage {
@@ -373,6 +380,45 @@ button:hover {
 
 .bouton-action:hover {
     background-color:#f89b29;
+}
+
+/* Media Queries pour améliorer l'affichage sur tablettes et petits écrans */
+@media (min-width: 768px) {
+    .bloc-inscription {
+        width: 60%;
+    }
+
+    .titre {
+        font-size: 2.2em;
+    }
+
+    .description,
+    .liste-avantages {
+        font-size: 1.1em;
+    }
+
+    .bouton-action {
+        font-size: 1.1em;
+    }
+}
+
+@media (min-width: 1024px) {
+    .bloc-inscription {
+        width: 40%;
+    }
+
+    .titre {
+        font-size: 2.5em;
+    }
+
+    .description,
+    .liste-avantages {
+        font-size: 1.2em;
+    }
+
+    .bouton-action {
+        font-size: 1.2em;
+    }
 }
 .icone-rouge {
     position: absolute;
@@ -842,8 +888,10 @@ select, input[type="text"] {
      </div>
 
     <!--de plus a ajouter -->
-    <section class="offres">
+    < class="offres">
+        <div class="offres" >
         <h1>Ce Que Nous Offrons</h1>
+        </div>
         <div class="cartes">
             <div class="carte">
                 <img src="gererargent.jpg" alt="Services Bancaires">
