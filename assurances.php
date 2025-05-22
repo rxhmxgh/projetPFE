@@ -347,7 +347,6 @@ h1 {
     font-size: 18px;
     font-weight: bold;
 }
-
 /* Zone de discussion */
 .chat-body {
     background: white;
@@ -366,12 +365,13 @@ h1 {
 }
 .from-user {
     background: #e0e0e0;
-    align-self: flex-start;
+     align-self: flex-end;
+    text-align: right !important ;
 }
 .from-admin {
     background: #c8e6c9;
-    align-self: flex-end;
-    text-align: right;
+    align-self: flex-start;
+    text-align: left !important; 
 }
 
 /* Pied du chatbot */
@@ -592,7 +592,7 @@ select, input[type="text"] {
 <div class="chatbot-container" id="chat-container">
     <div class="chat-header">Chatbot</div>
     <div class="chat-body" id="chat">
-    <div class="message from-user">Bonjour 👋 ! Comment puis-je vous aider aujourd’hui ?</div>
+    <div class="message from-admin">Bonjour 👋 ! Comment puis-je vous aider aujourd’hui ?</div>
     <?php
     if (isset($questions)) {
         while ($row = $questions->fetch_assoc()) {
