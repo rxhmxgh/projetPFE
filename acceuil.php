@@ -75,6 +75,7 @@ $questions = $conn->query("SELECT user_question, admin_response FROM questions O
 
 /* header */
         header {
+            font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -90,6 +91,12 @@ $questions = $conn->query("SELECT user_question, admin_response FROM questions O
         nav ul {
             list-style: none;
             display: flex;
+              gap: 20px;
+        }
+              nav a {
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s;
         }
         nav ul li {
             margin: 0 15px;
@@ -98,6 +105,9 @@ $questions = $conn->query("SELECT user_question, admin_response FROM questions O
             color: white;
             text-decoration: none;
         }
+    
+        
+
         .hero {
             display: flex;
             justify-content: center;
@@ -836,7 +846,7 @@ select, input[type="text"] {
     
     <section class="hero">
         <div class="hero-content">
-            <h1><strong>Bienvenue chez banque BADRLINE .</strong></h1>
+            <h1><strong>Bienvenue chez banque BADRLINE</strong></h1>
             
             <center><p>Nous sommes votre partenaire financier de confiance.<br/>
              Nous mettons à votre disposition des services bancaires modernes et accessibles pour accompagner vos projets et faciliter votre gestion financière.<br/>
