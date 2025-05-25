@@ -1,4 +1,10 @@
 <?php
+// Connexion à la base de données
+$host = 'localhost';
+$dbname = 'banquemoderne';
+$user = 'root';
+$pass = '';
+
 include 'rendezvous.php';
 
 
@@ -20,12 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
   }
 
-  $insert = $pdo->prepare("INSERT INTO rendezvous (nom, email, telephone, type_rdv, date_rdv, heure_rdv) VALUES (?, ?, ?, ?, ?, ?)");
-  if ($insert->execute([$nom, $email, $telephone, $type, $date, $heure])) {
-    echo "success";
-  } else {
-    echo "Erreur lors de l’enregistrement.";
-  }
+  
 }
 
     // 1. Enregistrement en base de données

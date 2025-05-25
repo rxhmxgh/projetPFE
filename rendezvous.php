@@ -502,11 +502,11 @@ Un conseiller vous accueillera avec attention pour répondre à vos besoins banc
   alert("Votre demande de rendez-vous a été envoyée avec succès !");
   
   // Après la notification, on peut soumettre le formulaire
-  this.submit();
+
   const form = this;
   const formData = new FormData(form);
 
-  fetch(form.getAttribute('action'),  {
+   fetch(form.getAttribute('action'), {
     method: 'POST',
     body: formData
   })
@@ -703,6 +703,8 @@ try {
         }
     }
 </script>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
