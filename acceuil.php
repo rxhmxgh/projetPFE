@@ -747,11 +747,14 @@ footer {
     border-radius: 20px;
     max-width: 80%;
     word-wrap: break-word;
+    direction: ltr;
 }
 .from-user {
     background: #e0e0e0;
      align-self: flex-end;
     text-align: right !important ;
+    direction: ltr;
+
 }
 .from-admin {
     background: #c8e6c9;
@@ -939,7 +942,7 @@ select, input[type="text"] {
 
         Notre mission est de vous offrir un accès fluide, sécurisé et intuitif aux services bancaires, où que vous soyez. Grâce à une interface moderne et des outils intelligents, nous mettons à votre disposition : <br/>
         <strong>Consultation des services bancaires :</strong> Découvrez nos offres de comptes, crédits et solutions d’épargne adaptées à vos besoins. <br/>
-       <strong>Chatbot intelligent :</strong>  Obtenez des réponses instantanées à vos questions et une assistance personnalisée en temps réel.<br/>
+       <strong>Chatbot :</strong>  Obtenez des réponses instantanées à vos questions et une assistance personnalisée en temps réel.<br/>
         <strong>Simulateur de prêt :</strong> Évaluez vos options de financement en quelques clics. <br/>
         <strong>Localisation des agences et GAB :</strong> Trouvez rapidement une agence ou un guichet automatique à proximité.<br/>
         Chez BADRLINE , nous nous engageons à innover pour vous offrir des services bancaires modernes, accessibles et sécurisés. Rejoignez-nous dès aujourd’hui et découvrez une nouvelle façon de gérer vos finances en toute simplicité !
@@ -951,7 +954,7 @@ select, input[type="text"] {
   <div class="section" id="why-choose">
       <h2><strong>Pourquoi nous choisir ?</strong> </h2>
       <p> <strong>banque, accessible partout et à tout moment.<br/></strong> 
-        Avec notre plateforme digitale, gérez vos comptes et services bancaires en ligne 24/7 en toute simplicité et sécurité. Nous mettons à votre disposition des outils innovants tels qu’un chatbot intelligent,
+        Avec notre plateforme digitale, gérez vos comptes et services bancaires en ligne 24/7 en toute simplicité et sécurité. Nous mettons à votre disposition des outils innovants tels qu’un chatbot ,
        un simulateur de prêt et un système de gestion financière avancé pour vous accompagner dans vos décisions.<br/>
        <strong>Un réseau étendu et un accompagnement personnalisé.<br/></strong>
        Trouvez rapidement une agence ou un guichet grâce à notre outil de géolocalisation et bénéficiez de conseils sur mesure adaptés à vos besoins.<br/>

@@ -48,35 +48,43 @@ body {
 
 nav {
         background-color: #333;
-        padding: 10px;
-        text-align: center;
+       background-color: #333;
+  padding: 10px 20px;
     }
     
-    nav ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+   nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap; /* Pour s'adapter sur petits écrans */
+}
     
     nav ul li {
-        display: inline;
-        margin-right: 20px;
+        display: inline-block;
+      
     }
     
     nav ul li a {
         color: white;
         text-decoration: none;
         font-size: 18px;
+       transition: color 0.3s ease;
     }
     
     nav ul li a:hover {
         text-decoration: underline;
+          color: #b0e57c;
     }
-h2 {
+
+
+h2, h3 {
+  color: #34495e;
   text-align: center;
-    color: #34495e;
-    margin-bottom: 25px;
-    font-size: 24px;
+  
 }
 
 .container {
@@ -157,44 +165,61 @@ a:hover {
 </nav>
 
 
-
 <body class="bg-light">
 
+<div class="container mt-5">
     <div class="text-center mb-4 text-primary"> 
 
-    <?php if (count($rendezvous) > 0): ?>
-      
- <h2> Liste rendez-vous planifiés</h2>
- 
-      <table class="table table-bordered table-hover bg-white shadow">
-        <thead class="table-success">
-          <tr>
-            <th>Nom</th>
-            <th>Email</th>
-            <th>Téléphone</th>
-            <th>Type</th>
-            <th>Date</th>
-            <th>Heure</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($rendezvous as $r): ?>
-            <tr>
-              <td><?= htmlspecialchars($r['nom']) ?></td>
-              <td><?= htmlspecialchars($r['email']) ?></td>
-              <td><?= htmlspecialchars($r['telephone']) ?></td>
-              <td><?= htmlspecialchars($r['type_rdv']) ?></td>
-              <td><?= htmlspecialchars($r['date_rdv']) ?></td>
-              <td><?= htmlspecialchars($r['heure_rdv']) ?></td>
+        <?php if (count($rendezvous) > 0): ?>
+        
+        <h2>Liste des rendez-vous planifiés</h2>
 
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
+        <table class="table table-bordered table-hover bg-white shadow">
+            <thead class="table-success">
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Heure</th>
+                    <th>Statut</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($rendezvous as $r): ?>
+                <tr>
+                    <td><?= htmlspecialchars($r['nom']) ?></td>
+                    <td><?= htmlspecialchars($r['email']) ?></td>
+                    <td><?= htmlspecialchars($r['telephone']) ?></td>
+                    <td><?= htmlspecialchars($r['type_rdv']) ?></td>
+                    <td><?= htmlspecialchars($r['date_rdv']) ?></td>
+                    <td><?= htmlspecialchars($r['heure_rdv']) ?></td>
+                    <td>
+                        <?php if ($r['statut'] === 'confirme'): ?>
+                            <span class="badge bg-success">Confirmé</span>
+                        <?php else: ?>
+                            <span class="badge bg-warning text-dark">En attente</span>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if ($r['statut'] === 'en_attente'): ?>
+                            <a href="confirmer_rdv.php?id=<?= $r['id'] ?>" class="btn btn-success btn-sm">Confirmer</a>
+                        <?php else: ?>
+                            -
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <?php else: ?>
+            <p class="text-center">Aucun rendez-vous enregistré pour le moment.</p>
+        <?php endif; ?>
     </div>
-    <?php else: ?>
-      <p class="text-center">Aucun rendez-vous enregistré pour le moment.</p>
-    <?php endif; ?>
+</div>
 
 </body>
 </html>

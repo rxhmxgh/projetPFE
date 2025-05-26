@@ -41,32 +41,40 @@ body {
 
 nav {
         background-color: #333;
-        padding: 10px;
-        text-align: center;
+       background-color: #333;
+  padding: 10px 20px;
     }
     
-    nav ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+   nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap; /* Pour s'adapter sur petits écrans */
+}
     
     nav ul li {
-        display: inline;
-        margin-right: 20px;
+        display: inline-block;
+      
     }
     
     nav ul li a {
         color: white;
         text-decoration: none;
         font-size: 18px;
+       transition: color 0.3s ease;
     }
     
     nav ul li a:hover {
         text-decoration: underline;
+          color: #b0e57c;
     }
+
 h2 {
-  text-align: center;
+    text-align: center;
     color: #34495e;
     margin-bottom: 25px;
     font-size: 24px;

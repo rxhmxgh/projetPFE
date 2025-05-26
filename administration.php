@@ -17,29 +17,36 @@ body {
 }
 nav {
         background-color: #333;
-        padding: 10px;
-        text-align: center;
+       background-color: #333;
+  padding: 10px 20px;
     }
     
-    nav ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+   nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap; /* Pour s'adapter sur petits écrans */
+}
     
     nav ul li {
-        display: inline;
-        margin-right: 20px;
+        display: inline-block;
+      
     }
     
     nav ul li a {
         color: white;
         text-decoration: none;
         font-size: 18px;
+       transition: color 0.3s ease;
     }
     
     nav ul li a:hover {
         text-decoration: underline;
+          color: #b0e57c;
     }
 
 
@@ -62,6 +69,10 @@ nav {
   background-color: white;
   border-radius: 10px;
   padding: 20px;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 h2, h3 {
@@ -100,6 +111,7 @@ tr:nth-child(even) {
   color: white;
   cursor: pointer;
   font-size: 14px;
+    transition: background-color 0.3s ease;
 }
 
 .btn-primary {
@@ -117,6 +129,35 @@ tr:nth-child(even) {
 .btn-sm {
   padding: 5px 10px;
   font-size: 13px;
+}
+/* stype pour tableau organisé */
+/* Responsive Table */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  min-width: 600px; /* ou plus, selon ton contenu */
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ccc;
+  white-space: nowrap; /* évite le retour à la ligne dans les cellules */
+}
+
+th {
+  background-color: rgb(52, 125, 34);
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
 /* Formulaires */
@@ -139,6 +180,48 @@ legend {
   font-weight: bold;
   padding: 0 10px;
   color: #34495e;
+}
+
+/* Organisation du formulaire client */
+form .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+form .row > div {
+  flex: 1 1 calc(50% - 20px); /* Deux colonnes responsives */
+  min-width: 250px;
+}
+
+/* Espacement du bouton Ajouter */
+form button[type="submit"] {
+  margin-top: 15px;
+  display: block;
+}
+
+/* Boutons dans le tableau */
+table td:last-child {
+  white-space: nowrap;
+}
+
+.btn-sm {
+  margin-right: 6px;
+  min-width: 80px;
+  text-align: center;
+}
+
+/* Responsive mobile */
+@media (max-width: 600px) {
+  form .row > div {
+    flex: 1 1 100%;
+  }
+
+  .btn-sm {
+    display: block;
+    margin: 5px auto;
+    width: 100%;
+  }
 }
 </style>
 
@@ -188,7 +271,7 @@ legend {
       <input type="tel" class="form-control" id="telephone" name="telephone" required>
     </div>
     <div class="col-md-6 mb-3">
-      <label for="ccp" class="form-label">Numéro CCP</label>
+      <label for="ccp" class="form-label">Numéro RIB</label>
       <input type="text" class="form-control" id="ccp" name="ccp" required>
     </div>
   </div>
@@ -197,40 +280,45 @@ legend {
 
 
                 <!-- Tableau des clients -->
-                <h3 class="text-center mb-4">Liste des clients</h3>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Email</th>
-                            <th>Téléphone</th>
-                            <th>ccp</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        // Connexion à la base de données
-                        $pdo = new PDO("mysql:host=localhost;dbname=BanqueModerne;charset=utf8", "root", "");
-                        $stmt = $pdo->query("SELECT * FROM utilisateurs");
-                        while ($client = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo "<tr>
-                                    <td>{$client['id']}</td>
-                                    <td>{$client['nom']}</td>
-                                    <td>{$client['prenom']}</td>
-                                    <td>{$client['email']}</td>
-                                    <td>{$client['telephone']}</td>
-                                     <td>{$client['ccp']}</td>
-                                    <td>
-                                        <a href='modifier_client.php?id={$client['id']}' class='btn btn-warning btn-sm'>Modifier</a>
-                                        <a href='supprimer_client.php?id={$client['id']}' class='btn btn-danger btn-sm' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer ce client ?\");'>Supprimer</a>
-                                    </td>
-                                  </tr>";
-                        }
-                        ?>
-                    </tbody>
-                </table>
+<h3 class="text-center mb-4">Liste des clients</h3>
+<div class="table-responsive">
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>RIB</th>
+            <th>Actions</th> <!-- Ajouté -->
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        // Connexion à la base de données
+        $pdo = new PDO("mysql:host=localhost;dbname=BanqueModerne;charset=utf8", "root", "");
+        $stmt = $pdo->query("SELECT * FROM utilisateurs");
+        while ($client = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<tr>
+                    <td>{$client['id']}</td>
+                    <td>{$client['nom']}</td>
+                    <td>{$client['prenom']}</td>
+                    <td>{$client['email']}</td>
+                    <td>{$client['telephone']}</td>
+                    <td>{$client['ccp']}</td>
+                    <td>
+                        <div style='display: flex; justify-content: center; gap: 10px;'>
+                            <a href='modifier_client.php?id={$client['id']}' class='btn btn-warning btn-sm'>Modifier</a>
+                            <a href='supprimer_client.php?id={$client['id']}' class='btn btn-danger btn-sm' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer ce client ?\");'>Supprimer</a>
+                        </div>
+                    </td>
+                  </tr>";
+        }
+        ?>
+    </tbody>
+</table>
+</div>
             </div>
         </div>
     </section>
@@ -255,7 +343,7 @@ if (isset($_POST['ajouter_client'])) {
         $check->execute(['ccp' => $ccp]);
 
         if ($check->rowCount() > 0) {
-            echo "<script>alert('⚠️ Ce numéro CCP existe déjà !');</script>";
+            echo "<script>alert('⚠️ Ce numéro RIB existe déjà !');</script>";
         } else {
             $sql = "INSERT INTO utilisateurs (nom, prenom, email, telephone, ccp) 
                     VALUES (:nom, :prenom, :email, :telephone, :ccp)";
