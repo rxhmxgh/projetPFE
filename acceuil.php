@@ -1212,7 +1212,7 @@ L.marker([35.9312, 0.0895]).addTo(map)
       <p><strong>+213 (0)21 989 323</strong></p>
       <p>badrlinebanque-dz@gmail.com</p>
     </div>
-    <form action="send.php" method="post"></form>
+   <!--  <form action="send.php" method="post"></form>   -->
 <div class="contact-form">
   <form action="send.php" method="post" id="contact-form">
     <div class="form-group">
