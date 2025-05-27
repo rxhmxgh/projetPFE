@@ -547,7 +547,7 @@ select, input[type="text"] {
                 <legend>Informations du Compte</legend>
                 <p><strong>Nom :</strong> <?= htmlspecialchars($user['nom']); ?></p>
                 <p><strong>Prénom :</strong> <?= htmlspecialchars($user['prenom']); ?></p>
-                <p><strong>Numéro CCP :</strong> <?= htmlspecialchars($user['ccp']); ?></p>
+                <p><strong>Numéro RIB :</strong> <?= htmlspecialchars($user['ccp']); ?></p>
                 <p><strong>Solde :</strong> <?= number_format($user['solde'], 2, ',', ' '); ?> DA</p>
             </fieldset>
         </div>

@@ -7,6 +7,7 @@ $dbname = "banquemoderne";
 $username = "root";
 $password = "";
 
+
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -25,6 +26,7 @@ $stmt = $pdo->prepare("SELECT ccp FROM utilisateurs WHERE id = :id");
 $stmt->execute(["id" => $_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 $ccpSource = $user ? $user["ccp"] : "";
+
 
 // Traitement du formulaire de virement
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["virement"])) {
@@ -47,11 +49,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["virement"])) {
             if ($source && $dest) {
                 if ($source["solde"] >= $montant) {
                     // Effectuer le virement
-                    $updateSrc = $pdo->prepare("UPDATE utilisateurs SET solde = solde - :montant WHERE id = :id");
-                    $updateSrc->execute(["montant" => $montant, "id" => $source["id"]]);
+                    $newSoldeSource = $source["solde"] - $montant;
+                    $newSoldeDest = $dest["solde"] + $montant;
 
-                    $updateDest = $pdo->prepare("UPDATE utilisateurs SET solde = solde + :montant WHERE id = :id");
-                    $updateDest->execute(["montant" => $montant, "id" => $dest["id"]]);
+                    $updateSrc = $pdo->prepare("UPDATE utilisateurs SET solde = :solde WHERE id = :id");
+                    $updateSrc->execute(["solde" => $newSoldeSource, "id" => $source["id"]]);
+
+                    $updateDest = $pdo->prepare("UPDATE utilisateurs SET solde = :solde WHERE id = :id");
+                    $updateDest->execute(["solde" => $newSoldeDest, "id" => $dest["id"]]);
 
                     // Enregistrer les transactions
                     $transactionStmt = $pdo->prepare("INSERT INTO transactions (utilisateur_id, type, montant) VALUES (:utilisateur_id, 'virement_envoye', :montant)");
@@ -545,14 +550,14 @@ select, input[type="text"] {
     <section class="transfer-section">
       
         <form method="post" action="">
-            <label>Numéro CCP Source :</label>
+            <label>Numéro RIB Source :</label>
             <input type="text" name="ccp_source" value="<?= htmlspecialchars($ccpSource); ?>" readonly>
 
-            <label>Numéro CCP Destinataire :</label>
+            <label>Numéro RIB Destinataire :</label>
             <input type="text" name="ccp_dest" required>
 
             <label>Montant :</label>
-            <input type="number" name="montant" step="1" required>
+            <input type="number" name="montant" step="0.01" required>
 
             <button type="submit" name="virement" class="btn-transfer">Effectuer le Virement</button>
         </form>
