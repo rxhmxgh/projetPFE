@@ -25,7 +25,7 @@ $questions = $conn->query("SELECT * FROM questions ORDER BY created_at DESC");
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Chatbot BADR LINE</title>
+    <title>Employé Chatbot BADR LINE</title>
     <style>
 
     /* Reset simple */
@@ -185,7 +185,7 @@ nav {
 </nav>
 <div class="content" >
 <div class="container">
-    <h2>🤖 Réponses aux Clients - Admin Chat</h2>
+    <h2>🤖 Réponses aux Clients - Employé Chat</h2>
 
     <?php while ($row = $questions->fetch_assoc()): ?>
         <div class="message-block">
