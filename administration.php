@@ -40,7 +40,7 @@ nav {
     nav ul li a {
         color: white;
         text-decoration: none;
-        font-size: 18px;
+        font-size: 17.5px;
        transition: color 0.3s ease;
     }
     
@@ -237,6 +237,7 @@ table td:last-child {
         <li><a href="admin_demandes.php">Carte et Chèques</a></li>
         <li><a href="administration.php">Gestion des clients</a></li>
          <li><a href="admin_message.php">Gestion des messages</a></li>
+        <li><a href="solde.php">La gestion des soldes</a></li>
           <li><a href="chatbot_admin.php">Les messages du chatbot</a></li>
         <li><a href="logout.php">Déconnecter</a></li>
       

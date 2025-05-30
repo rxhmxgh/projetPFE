@@ -64,7 +64,7 @@ nav {
     nav ul li a {
         color: white;
         text-decoration: none;
-        font-size: 18px;
+        font-size: 17.5px;
        transition: color 0.3s ease;
     }
     
@@ -87,6 +87,11 @@ h2 {
     padding: 25px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.balance-section {
+    padding: 20px;
+    background-color: #f9f9f9;
 }
 
 table {
@@ -155,12 +160,16 @@ a:hover {
         <li><a href="admin_demandes.php">Carte et Chèques</a></li>
         <li><a href="administration.php">Gestion des clients</a></li>
          <li><a href="admin_message.php">Gestion des messages</a></li>
+         <li><a href="solde.php">La gestion des soldes</a></li>
           <li><a href="chatbot_admin.php">Les messages du chatbot</a></li>
         <li><a href="logout.php">Déconnecter</a></li>
       
     </ul>
 </nav>
+   <section class="balance-section">
    <center><h1>Gestion des Messages</h1></center> 
+   </section>
+
     <table>
         <tr>
             <th>ID</th>

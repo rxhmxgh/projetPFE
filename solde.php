@@ -55,6 +55,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -62,134 +66,162 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gérer les Soldes - Banque Moderne</title>
     <style>
-        body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
+        
+    /* Reset simple */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    margin: 0;
+    padding: 20px;
+    color: #2c3e50;
+}
+nav {
+        background-color: #333;
+       background-color: #333;
+  padding: 10px 20px;
+    }
+    
+   nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap; /* Pour s'adapter sur petits écrans */
+}
+    
+      
+    nav ul li {
+        display: inline-block;
+      
+    }
+    
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 17.5px;
+       transition: color 0.3s ease;
+    }
+    
+    nav ul li a:hover {
+        text-decoration: underline;
+          color: #b0e57c;
+    }
+
+h2, h3 {
+  color: #34495e;
+  text-align: center;
+}
+
+/* Contenu principal */
+.content {
+     max-width: 1200px;
+    margin: auto;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+/* partie tableau */ 
+
 .balance-section {
-    text-align: center;
-    padding: 50px 20px;
-    background-color: white;
-    max-width: 800px;
-    margin: 50px auto;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #f9f9f9;
 }
 
 .balance-section h2 {
-    color: #004080;
+
+    margin-bottom: 20px;
 }
 
 .users-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
-}
-
-.users-table th,
-.users-table td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
 }
 
 .users-table th {
-    background-color: #004080;
+    background-color: #2c662d;
     color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.users-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
 .users-table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
+.users-table input[type="number"] {
+    padding: 5px;
+    width: 100px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
 .btn-credit {
-    background-color: #28a745;
+    background-color: green;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 6px 10px;
     border-radius: 5px;
     cursor: pointer;
+    margin-right: 5px;
 }
 
 .btn-debit {
-    background-color: #dc3545;
+    background-color: #d9534f;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 6px 10px;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .btn-credit:hover {
-    background-color: #218838;
+    background-color:rgb(25, 87, 26);
 }
 
 .btn-debit:hover {
-    background-color: #c82333;
+    background-color: #c9302c;
 }
-
-input[type="number"] {
-    width: 80px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-/* Media Queries pour rendre la page responsive */
-@media (max-width: 768px) {
-            .balance-section {
-                padding: 30px 10px;
-                margin: 20px;
-            }
-
-            .users-table th,
-            .users-table td {
-                padding: 8px;
-                font-size: 14px;
-            }
-
-            .users-table {
-                font-size: 14px;
-            }
-
-            .btn-credit, .btn-debit {
-                padding: 8px 16px;
-                font-size: 14px;
-            }
-
-            .balance-section h2 {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .balance-section {
-                padding: 20px 10px;
-                margin: 10px;
-            }
-
-            .users-table th,
-            .users-table td {
-                padding: 6px;
-                font-size: 12px;
-            }
-
-            .btn-credit, .btn-debit {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-
-            .balance-section h2 {
-                font-size: 1.2rem;
-            }
-        }
 
     </style>
 </head>
 <body>
+
+<!-- Menu de navigation -->
+<nav>
+    <ul>
+    <li><a href="admin_rendezvous.php">Rendez-vous</a></li>
+        <li><a href="admin_demandeouvrircompteb.php">Compte bancaire</a></li>
+        <li><a href="admin_demandes.php">Carte et Chèques</a></li>
+        <li><a href="administration.php">Gestion des clients</a></li>
+         <li><a href="admin_message.php">Gestion des messages</a></li>
+       <li><a href="solde.php">La gestion des soldes</a></li>
+          <li><a href="chatbot_admin.php">Les messages du chatbot</a></li>
+        <li><a href="logout.php">Déconnecter</a></li>
+      
+    </ul>
+</nav>
+
+<!-- Contenu -->
+ <div class="content">
     <section class="balance-section">
         <h2>Gestion des Soldes</h2>
         <table class="users-table">
@@ -226,6 +258,7 @@ input[type="number"] {
             </tbody>
         </table>
     </section>
-    
+  </div>
+
 </body>
 </html>
