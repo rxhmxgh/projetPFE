@@ -201,6 +201,35 @@ h2, h3 {
     background-color: #c9302c;
 }
 
+/*recherche */
+.search-form {
+    margin-bottom: 20px;
+    text-align: right;
+    padding: 20px;
+}
+
+.search-form input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 250px;
+    margin-right: 10px;
+}
+
+.search-form button {
+    background-color: #2c662d;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #245123;
+}
+
+
     </style>
 </head>
 <body>
@@ -220,6 +249,10 @@ h2, h3 {
     </ul>
 </nav>
 
+<form method="get" class="search-form">
+    <input type="text" name="rib" placeholder="Rechercher par RIB..." value="<?php echo isset($_GET['rib']) ? htmlspecialchars($_GET['rib']) : ''; ?>">
+    <button type="submit">Rechercher</button>
+</form>
 <!-- Contenu -->
  <div class="content">
     <section class="balance-section">
@@ -229,7 +262,7 @@ h2, h3 {
                 <tr>
                     <th>Nom</th>
                     <th>Prénom</th>
-                    <th>Numéro CCP</th>
+                    <th>Numéro RIB</th>
                     <th>Solde (DA)</th>
                     <th>Action</th>
                 </tr>
@@ -237,7 +270,13 @@ h2, h3 {
             <tbody>
                 <?php
                 // Récupérer tous les utilisateurs
-                $stmt = $pdo->query("SELECT * FROM utilisateurs");
+               if (isset($_GET['rib']) && !empty(trim($_GET['rib']))) {
+    $rib = trim($_GET['rib']);
+    $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE ccp LIKE ?");
+    $stmt->execute(["%$rib%"]);
+} else {
+    $stmt = $pdo->query("SELECT * FROM utilisateurs");
+}
                 while ($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>
                             <td>" . htmlspecialchars($user['nom']) . "</td>
