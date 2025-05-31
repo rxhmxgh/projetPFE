@@ -137,6 +137,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
       margin-bottom: 15px;
       text-align: center;
     }
+
+  .forgot-password {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.forgot-password a {
+  color:#58bc82;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
   </style>
 </head>
 <body>
@@ -160,6 +176,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
         <label for="password">Mot de passe</label>
         <input type="password" id="password" name="password" required />
       </div>
+       <!-- Lien mot de passe oublié -->
+    <div class="forgot-password">
+      <a href="mot_de_passe_oublie.php">Mot de passe oublié ?</a>
+    </div>
       <button type="submit" class="submit" name="login">Se connecter</button>
       <div class="signup-link">Pas encore de compte ? <a href="inscription.php">Inscrivez-vous</a></div>
     </form>
