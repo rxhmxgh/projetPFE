@@ -575,13 +575,7 @@ select, input[type="text"] {
       Bienvenue sur votre compte, <?= htmlspecialchars($user['nom']) ?> !
     </h2>
 
-  <?php if (isset($_SESSION['success_message'])): ?>
-    <div class="alert alert-success">
-        <?= htmlspecialchars($_SESSION['success_message']) ?>
-    </div>
-    <?php unset($_SESSION['success_message']); ?>
-<?php endif; ?>
-
+ 
     <div class="card shadow card-glass mx-auto" style="max-width: 700px;">
       <div class="card-body">
       <div class="row align-items-center">
