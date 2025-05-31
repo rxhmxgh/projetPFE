@@ -7,6 +7,8 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+
+
 // Connexion à la base via PDO (pour récupérer l'utilisateur)
 try {
     $pdo = new PDO("mysql:host=localhost;dbname=banquemoderne;charset=utf8", "root", "");
@@ -573,6 +575,13 @@ select, input[type="text"] {
       Bienvenue sur votre compte, <?= htmlspecialchars($user['nom']) ?> !
     </h2>
 
+  <?php if (isset($_SESSION['success_message'])): ?>
+    <div class="alert alert-success">
+        <?= htmlspecialchars($_SESSION['success_message']) ?>
+    </div>
+    <?php unset($_SESSION['success_message']); ?>
+<?php endif; ?>
+
     <div class="card shadow card-glass mx-auto" style="max-width: 700px;">
       <div class="card-body">
       <div class="row align-items-center">
@@ -595,6 +604,9 @@ select, input[type="text"] {
          
           <a href="relev.php" class="btn btn-outline-primary px-4 py-2 rounded-pill">
             📜 Relevé de compte
+          </a>
+          <a href="modifiercompte.php" class="btn btn-outline-primary px-4 py-2 rounded-pill">
+            modifier mon compte
           </a>
 
           </a>
