@@ -38,6 +38,10 @@ try {
     $transactionStmt = $pdo->prepare("INSERT INTO transactions (utilisateur_id, type, montant) VALUES (:utilisateur_id, 'debit', 10)");
     $transactionStmt->execute(["utilisateur_id" => $userId]);
 
+    $transactionStmt = $pdo->prepare("INSERT INTO transactions (utilisateur_id, type, montant) VALUES (:utilisateur_id, 'credit', :montant)");
+    $transactionStmt->execute(["utilisateur_id" => $userId]);
+
+    
     $pdo->commit();
 
 } catch (PDOException $e) {

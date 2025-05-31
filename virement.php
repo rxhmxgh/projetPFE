@@ -1,6 +1,13 @@
 <?php // Démarrer la session
 session_start();
 
+
+// Afficher les erreurs PHP (important pour déboguer)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 // Connexion à la base de données (PDO pour toutes les opérations)
 $host = "localhost";
 $dbname = "banquemoderne";
@@ -58,15 +65,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["virement"])) {
                     $updateDest = $pdo->prepare("UPDATE utilisateurs SET solde = :solde WHERE id = :id");
                     $updateDest->execute(["solde" => $newSoldeDest, "id" => $dest["id"]]);
 
-                    // Enregistrer les transactions
-                    $transactionStmt = $pdo->prepare("INSERT INTO transactions (utilisateur_id, type, montant) VALUES (:utilisateur_id, 'virement_envoye', :montant)");
+                    
+                                        // Enregistrement des transactions
+                   // Nouveau code, conforme à l'enum
+                    $transactionStmt = $pdo->prepare("INSERT INTO transactions (utilisateur_id, type, montant) VALUES (:utilisateur_id, 'debit', :montant)");
                     $transactionStmt->execute(["utilisateur_id" => $source["id"], "montant" => $montant]);
 
-                    $transactionStmt = $pdo->prepare("INSERT INTO transactions (utilisateur_id, type, montant) VALUES (:utilisateur_id, 'virement_recu', :montant)");
+                    $transactionStmt = $pdo->prepare("INSERT INTO transactions (utilisateur_id, type, montant) VALUES (:utilisateur_id, 'credit', :montant)");
                     $transactionStmt->execute(["utilisateur_id" => $dest["id"], "montant" => $montant]);
 
-                    $pdo->commit();
-                    echo "✅ Virement effectué avec succès.";
+                    if ($result1 && $result2) {
+                        $pdo->commit();
+                        echo "✅ Virement effectué avec succès.";
+                    } else {
+                        $pdo->rollBack();
+                        echo "❌ Échec lors de l'enregistrement des transactions.";
+                    }
                 } else {
                     echo "❌ Solde insuffisant.";
                 }
