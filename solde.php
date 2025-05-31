@@ -1,7 +1,7 @@
 <?php
 // Connexion à la base de données
 $host = "localhost";
-$dbname = "BanqueModerne";
+$dbname = "banquemoderne";
 $username = "root";
 $password = "";
 
