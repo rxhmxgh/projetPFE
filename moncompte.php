@@ -518,7 +518,18 @@ select, input[type="text"] {
   <div class="container-fluid">
     <a class="navbar-brand" href="#">BADR LINE</a>
     
- 
+
+
+   <!-- partie de notification -->
+
+
+
+
+
+
+
+
+
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
@@ -599,8 +610,9 @@ select, input[type="text"] {
           <a href="relev.php" class="btn btn-outline-primary px-4 py-2 rounded-pill">
             📜 Relevé de compte
           </a>
-          <a href="modifiercompte.php" class="btn btn-outline-primary px-4 py-2 rounded-pill">
+          <a href="modifier_client.php" class="btn btn-outline-primary px-4 py-2 rounded-pill">
             modifier mon compte
+            
           </a>
 
           </a>
@@ -609,6 +621,7 @@ select, input[type="text"] {
     </div>
   </div>
 </div>
+       
 
 
 <!-- partie chatbot -->

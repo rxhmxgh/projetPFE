@@ -298,7 +298,7 @@ table td:last-child {
     <tbody>
         <?php
         // Connexion à la base de données
-        $pdo = new PDO("mysql:host=localhost;dbname=BanqueModerne;charset=utf8", "root", "");
+        $pdo = new PDO("mysql:host=localhost;dbname=banquemoderne;charset=utf8", "root", "");
         $stmt = $pdo->query("SELECT * FROM utilisateurs");
         while ($client = $stmt->fetch(PDO::FETCH_ASSOC)) {
             echo "<tr>
@@ -329,7 +329,7 @@ table td:last-child {
 <?php
 
 
-$pdo = new PDO("mysql:host=localhost;dbname=BanqueModerne;charset=utf8", "root", "");
+$pdo = new PDO("mysql:host=localhost;dbname=banquemoderne;charset=utf8", "root", "");
 
 if (isset($_POST['ajouter_client'])) {
     $nom = htmlspecialchars($_POST['nom']);
