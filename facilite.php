@@ -21,6 +21,82 @@
             color: #333;
         }
         
+
+.contenu {
+    margin: 70px  1px;
+    min-height: 100vh;
+
+}
+/* navbar style */
+.navbar {
+    background-color: #0f2d0f !important; /* Vert foncé */
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    font-size: 1rem;
+    margin-right: 15px;
+}
+
+.navbar-nav .nav-link:hover {
+    text-decoration: underline;
+    transform: scale(1.1);
+}
+
+/* Animation du menu latéral (offcanvas) */
+.offcanvas {
+    background-color: #0f2d0f !important;
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-in-out;
+}
+
+.offcanvas.show {
+    transform: translateX(0);
+}
+
+/* Styles des éléments du menu latéral */
+.offcanvas-body .nav-item {
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.offcanvas-body .nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+/* Éléments actifs */
+.offcanvas-body .nav-item.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+/* Menu déroulant */
+.dropdown-menu {
+    background-color: #0c1f0c;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.dropdown-menu .dropdown-item {
+    color: white;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #1a3d1a;
+}
+
+
         .header {
             background: linear-gradient(135deg, var(--primary-color), #1a3d1a);
             color: white;
@@ -522,15 +598,72 @@
     </style>
 </head>
 <body>
+
+
+
+<!-- partie menu  -->
+
+<nav class="navbar navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">BADR LINE</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">MENU</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="acceuil.php">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="simulateur.php" onclick="loadPage('simulateur')">Simulation des crédits</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="produit.php" onclick="loadPage('produits')">Produits bancaires</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="rendezvous.php" onclick="loadPage('rendez-vous')">Rendez-Vous</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="relev.php">Relever</a>
+          </li>
+         
+          <li class="nav-item">
+            <a class="nav-link" href="services.php">Les services bancaire</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="map.php" onclick="loadPage('map')">Map</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="moncompte.php" onclick="loadPage('compte')">Mon compte</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="logout.php">Se déconnecter</a>
+          </li>
+             
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+
+  <!-- partie principal -->
+<div class="contenu">
+
     <div class="promo-banner">
         <i class="fas fa-gift"></i> OFFRE EXCEPTIONNELLE : Assurance gratuite pendant 1 an pour tout crédit souscrit avant le 31/12/2025
     </div>
     
     <div class="header">
         <div class="header-content">
-            <div class="bank-logo">
-                <img src="https://via.placeholder.com/250x80?text=BADR+LINE" alt="BADR LINE Bank Logo">
-            </div>
+
             <h1>CRÉDIT AUTO 0% FRAIS DE DOSSIER</h1>
             <p>Conduisez la voiture de vos rêves avec des mensualités adaptées à votre budget</p>
             
@@ -557,7 +690,7 @@
             <!-- Fiat 500 -->
             <div class="car-card">
                 <div class="special-offer">-15%</div>
-                <div class="car-image" style="background-image: url('https://www.fiat.fr/content/dam/fiat/com/models/500/500-hybrid/overview/500-hybrid-gallery-01.jpg');">
+                <div class="car-image" style="background-image: url('fiat500.jpg');">
                     <span class="car-badge">BEST-SELLER</span>
                 </div>
                 <div class="car-details">
@@ -597,7 +730,7 @@
             
             <!-- Fiat Tipo -->
             <div class="car-card">
-                <div class="car-image" style="background-image: url('https://www.fiat.fr/content/dam/fiat/com/models/tipo/tipo-gallery-01.jpg');">
+               <div class="car-image" style="background-image: url('fiattipo.png');">
                     <span class="car-badge">NOUVEAU</span>
                 </div>
                 <div class="car-details">
@@ -634,7 +767,7 @@
             <!-- Fiat 500X -->
             <div class="car-card">
                 <div class="special-offer">OFFRE FLASH</div>
-                <div class="car-image" style="background-image: url('https://www.fiat.fr/content/dam/fiat/com/models/500x/500x-gallery-01.jpg');">
+               <div class="car-image" style="background-image: url('fiat500x.jpg');">
                     <span class="car-badge">SUV URBAIN</span>
                 </div>
                 <div class="car-details">
@@ -674,7 +807,7 @@
             
             <!-- Fiat Doblo Commercial -->
             <div class="car-card">
-                <div class="car-image" style="background-image: url('https://www.fiat.fr/content/dam/fiat/com/models/doblo-commercial/doblo-commercial-gallery-01.jpg');">
+                    <div class="car-image" style="background-image: url('fiatdoblotourisqtique.jpg');">
                     <span class="car-badge">UTILITAIRE</span>
                 </div>
                 <div class="car-details">
@@ -710,7 +843,7 @@
             
             <!-- Fiat Doblo Touristique -->
             <div class="car-card">
-                <div class="car-image" style="background-image: url('https://www.fiat.fr/content/dam/fiat/com/models/doblo/doblo-gallery-01.jpg');">
+             <div class="car-image" style="background-image: url('fiatdoblo.png');">
                     <span class="car-badge">FAMILIAL</span>
                 </div>
                 <div class="car-details">
@@ -746,7 +879,7 @@
             
             <!-- Fiat Panda -->
             <div class="car-card">
-                <div class="car-image" style="background-image: url('https://www.fiat.fr/content/dam/fiat/com/models/panda/panda-gallery-01.jpg');">
+                <div class="car-image" style="background-image: url('fiatpanda.jpg');">
                     <span class="car-badge">ÉCONOMIQUE</span>
                 </div>
                 <div class="car-details">
@@ -950,14 +1083,7 @@
             </table>
         </div>
     </div>
-    
-    <div class="offer-container">
-        <h2 class="section-title">Découvrez la Fiat 500X en vidéo</h2>
-        
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-    </div>
+
     
     <div class="offer-container">
         <h2 class="section-title">Ils nous ont fait confiance</h2>
@@ -1024,7 +1150,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="https://www.fiat.fr/content/dam/fiat/com/models/500/500-hybrid/overview/500-hybrid-gallery-01.jpg" class="img-fluid rounded mb-3" alt="Fiat 500">
+                            <img src="fiat500.jpg" class="img-fluid rounded mb-3" alt="Fiat 500">
                             <div class="alert alert-info">
                                 <i class="fas fa-gift me-2"></i> Offre spéciale : Assurance 1 an offerte
                             </div>
@@ -1106,7 +1232,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="https://www.fiat.fr/content/dam/fiat/com/models/tipo/tipo-gallery-01.jpg" class="img-fluid rounded mb-3" alt="Fiat Tipo">
+                            <img src="fiattipo.png" class="img-fluid rounded mb-3" alt="Fiat Tipo">
                             <div class="alert alert-info">
                                 <i class="fas fa-gift me-2"></i> Offre spéciale : Entretien 2 ans offert
                             </div>
@@ -1188,7 +1314,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="https://www.fiat.fr/content/dam/fiat/com/models/500x/500x-gallery-01.jpg" class="img-fluid rounded mb-3" alt="Fiat 500X">
+                            <img src="fiat500x.jpg" class="img-fluid rounded mb-3" alt="Fiat 500X">
                             <div class="alert alert-info">
                                 <i class="fas fa-gift me-2"></i> Offre spéciale : Pack hiver offert
                             </div>
@@ -1258,7 +1384,8 @@
             </div>
         </div>
     </div>
-    
+
+</div>
     <!-- Autres modals (Doblo Commercial, Doblo Touristique, Panda) -->
     <!-- ... (similaires aux modals précédents) ... -->
 
