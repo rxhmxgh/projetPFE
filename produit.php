@@ -485,7 +485,7 @@ select, input[type="text"] {
   </div>
   <!-- fonctionnel -->
    
-  <a href="sayarati.php" class="btn btn-success mt-3">Savoir plus</a>      
+  <a href="facilite.php" class="btn btn-success mt-3">Savoir plus</a>      
 </section>
 
 <section class="badr-section py-5 px-4">

@@ -1,7 +1,9 @@
 <?php
+session_start();
+
 // Connexion à la base de données
 $host = "localhost";
-$dbname = "banquemoderne";
+$dbname = "BanqueModerne";
 $username = "root";
 $password = "";
 
@@ -21,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($montant > 0) {
         try {
             // Récupérer le solde actuel
-            $stmt = $pdo->prepare("SELECT solde FROM utilisateurs WHERE id = :id");
+            $stmt = $pdo->prepare("SELECT solde, nom, prenom FROM utilisateurs WHERE id = :id");
             $stmt->execute(["id" => $userId]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -32,7 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $nouveauSolde = $soldeActuel + $montant;
                 } elseif ($action == "debiter") {
                     if ($montant > $soldeActuel) {
-                        echo "⚠️ Solde insuffisant pour débiter ce montant.";
+                        $_SESSION['flash_message'] = "⚠️ Solde insuffisant pour débiter ce montant.";
+                        header("Location: solde.php");
                         exit;
                     }
                     $nouveauSolde = $soldeActuel - $montant;
@@ -42,18 +45,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $updateStmt = $pdo->prepare("UPDATE utilisateurs SET solde = :solde WHERE id = :id");
                 $updateStmt->execute(["solde" => $nouveauSolde, "id" => $userId]);
 
-                echo "✅ Solde mis à jour avec succès.";
+                // Créer la notification
+                $message = "Cher client, votre solde a été " . ($action == "crediter" ? "crédité" : "débité") . 
+                          " de $montant DA. Nouveau solde: $nouveauSolde DA";
+                
+                $notifStmt = $pdo->prepare("INSERT INTO notifications (user_id, message, is_read) 
+                                          VALUES (:user_id, :message, 0)");
+                $notifStmt->execute([
+                    "user_id" => $userId,
+                    "message" => $message
+                ]);
+
+                $_SESSION['flash_message'] = "✅ Solde mis à jour avec succès.";
+                header("Location: solde.php");
+                exit;
             } else {
-                echo "❌ Utilisateur introuvable.";
+                $_SESSION['flash_message'] = "❌ Utilisateur introuvable.";
+                header("Location: solde.php");
+                exit;
             }
         } catch (PDOException $e) {
-            echo "❌ Erreur : " . $e->getMessage();
+            $_SESSION['flash_message'] = "❌ Erreur : " . $e->getMessage();
+            header("Location: solde.php");
+            exit;
         }
     } else {
-        echo "⚠️ Le montant doit être supérieur à zéro.";
+        $_SESSION['flash_message'] = "⚠️ Le montant doit être supérieur à zéro.";
+        header("Location: solde.php");
+        exit;
     }
 }
 ?>
+
 
 
 
@@ -253,51 +276,56 @@ h2, h3 {
     <input type="text" name="rib" placeholder="Rechercher par RIB..." value="<?php echo isset($_GET['rib']) ? htmlspecialchars($_GET['rib']) : ''; ?>">
     <button type="submit">Rechercher</button>
 </form>
-<!-- Contenu -->
- <div class="content">
-    <section class="balance-section">
-        <h2>Gestion des Soldes</h2>
-        <table class="users-table">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Numéro RIB</th>
-                    <th>Solde (DA)</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                // Récupérer tous les utilisateurs
-               if (isset($_GET['rib']) && !empty(trim($_GET['rib']))) {
-    $rib = trim($_GET['rib']);
-    $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE ccp LIKE ?");
-    $stmt->execute(["%$rib%"]);
-} else {
-    $stmt = $pdo->query("SELECT * FROM utilisateurs");
-}
-                while ($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<tr>
-                            <td>" . htmlspecialchars($user['nom']) . "</td>
-                            <td>" . htmlspecialchars($user['prenom']) . "</td>
-                            <td>" . htmlspecialchars($user['ccp']) . "</td>
-                            <td>" . htmlspecialchars($user['solde']) . " DA</td>
-                            <td>
-                                <form method='post' action=''>
-                                    <input type='hidden' name='id' value='" . $user['id'] . "'>
-                                    <input type='number' name='montant' placeholder='Montant' required>
-                                    <button type='submit' name='action' value='crediter' class='btn-credit'>Créditer</button>
-                                    <button type='submit' name='action' value='debiter' class='btn-debit'>Débiter</button>
-                                </form>
-                            </td>
-                          </tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-    </section>
-  </div>
+    <div class="container">
+        <?php if (isset($_SESSION['flash_message'])): ?>
+            <div class="alert alert-info flash-message">
+                <?= $_SESSION['flash_message'] ?>
+                <?php unset($_SESSION['flash_message']); ?>
+            </div>
+        <?php endif; ?>
+        
+        <section class="balance-section mt-5">
+            <h2 class="text-center mb-4">Gestion des Soldes</h2>
+            <div class="table-responsive">
+                <table class="table table-striped users-table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Numéro CCP</th>
+                            <th>Solde (DA)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $stmt = $pdo->query("SELECT * FROM utilisateurs");
+                        while ($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo "<tr>
+                                    <td>".htmlspecialchars($user['nom'])."</td>
+                                    <td>".htmlspecialchars($user['prenom'])."</td>
+                                    <td>".htmlspecialchars($user['ccp'])."</td>
+                                    <td>".number_format($user['solde'], 2, ',', ' ')." DA</td>
+                                    <td>
+                                        <form method='post' class='d-flex gap-2'>
+                                            <input type='hidden' name='id' value='".$user['id']."'>
+                                            <input type='number' name='montant' class='form-control' placeholder='Montant' required style='width: 100px;'>
+                                            <button type='submit' name='action' value='crediter' class='btn btn-credit'>
+                                                <i class='fas fa-plus-circle'></i> Créditer
+                                            </button>
+                                            <button type='submit' name='action' value='debiter' class='btn btn-debit'>
+                                                <i class='fas fa-minus-circle'></i> Débiter
+                                            </button>
+                                        </form>
+                                    </td>
+                                  </tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
 
 </body>
 </html>

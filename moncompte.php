@@ -7,8 +7,6 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-
-
 // Connexion à la base via PDO (pour récupérer l'utilisateur)
 try {
     $pdo = new PDO("mysql:host=localhost;dbname=banquemoderne;charset=utf8", "root", "");
@@ -24,6 +22,18 @@ try {
     }
 } catch (PDOException $e) {
     die("Erreur de connexion à la base de données (PDO) : " . $e->getMessage());
+}
+// Récupérer les notifications non lues
+$notifStmt = $pdo->prepare("SELECT * FROM notifications WHERE user_id = :user_id AND is_read = 0 ORDER BY created_at DESC");
+$notifStmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+$notifStmt->execute();
+$notifications = $notifStmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Marquer comme lues après affichage
+if (!empty($notifications)) {
+    $updateStmt = $pdo->prepare("UPDATE notifications SET is_read = 1 WHERE user_id = :user_id");
+    $updateStmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+    $updateStmt->execute();
 }
 
 // Connexion à la base via MySQLi (pour gestion des questions)
@@ -53,6 +63,7 @@ $questions = $conn->query("SELECT user_question, admin_response FROM questions O
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
  <style>
   body {
@@ -256,6 +267,27 @@ strong {
     background-color: #1a3d1a;
 }
 
+/* Notification badge */
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff4444;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-icon {
+    position: relative;
+    margin-right: 15px;
+    cursor: pointer;
+}
 
 /* Animation de fondu */
 @keyframes fadeIn {
@@ -503,6 +535,206 @@ select, input[type="text"] {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.list-group-item {
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0,0,0,0.1);
+    transition: all 0.3s;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+}
+/* Styles pour le dropdown des notifications */
+.dropdown-notifications {
+    width: 350px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.dropdown-notifications .dropdown-header {
+    background-color: #0f2d0f;
+    color: white;
+    padding: 10px 15px;
+}
+
+.notification-item {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s;
+    white-space: normal;
+}
+
+.notification-item:hover {
+    background-color: #f8f9fa;
+}
+
+.unread-notification {
+    background-color: #f0f8ff;
+}
+
+.notification-time {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+/* Animation pour le badge */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff4444;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 1s infinite;
+}
+
+.notification-icon {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.notification-icon:hover {
+    transform: scale(1.1);
+}
+/* Styles pour le système de notifications */
+.notification-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.notification-icon {
+    position: relative;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.notification-icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.notification-panel {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 350px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: none;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.notification-panel.show {
+    display: block;
+    animation: fadeIn 0.3s;
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #0f2d0f;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.notification-header h5 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.notification-close {
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+}
+
+.notification-close:hover {
+    transform: rotate(90deg);
+}
+
+.notification-content {
+    padding: 10px;
+}
+
+.notification-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s;
+}
+
+.notification-item:hover {
+    background-color: #f8f9fa;
+}
+
+.unread-notification {
+    background-color: #f0f8ff;
+    border-left: 3px solid #1abc9c;
+}
+
+.notification-message {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.notification-time {
+    font-size: 0.8rem;
+    color: #6c757d;
+    text-align: right;
+}
+
+.notification-empty {
+    padding: 20px;
+    text-align: center;
+    color: #6c757d;
+}
+
+.notification-footer {
+    padding: 10px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.view-all {
+    color: #0f2d0f;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.view-all:hover {
+    text-decoration: underline;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 /* Animation */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -517,25 +749,45 @@ select, input[type="text"] {
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">BADR LINE</a>
+    <div class="d-flex align-items-center">
+        <!-- Icône de notification -->
+        <!-- Remplacez cette partie -->
+<!-- Notification Bell Icon -->
+<div class="notification-wrapper me-3">
+    <div class="notification-icon" id="notificationToggle">
+        <i class="fas fa-bell text-white" style="font-size: 1.2rem;"></i>
+           <?php if (!empty($notifications)): ?> 
+            <span class="notification-badge"><?= count($notifications) ?></span>
+        <?php endif; ?> 
+    </div>
     
-
-
-   <!-- partie de notification -->
-
-
-
-
-
-
-
-
-
-
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
+    <!-- Notification Panel -->
+    <div class="notification-panel" id="notificationPanel">
+        <div class="notification-header">
+            <h5>Notifications</h5>
+            <span class="notification-close" id="notificationClose">&times;</span>
+        </div>
+        <div class="notification-content">
+            <?php if (!empty($notifications)): ?>
+                <?php foreach ($notifications as $notif): ?>
+                    <div class="notification-item <?= $notif['is_read'] ? '' : 'unread-notification' ?>">
+                        <div class="notification-message"><?= htmlspecialchars($notif['message']) ?></div>
+                        <div class="notification-time"><?= date('H:i - d/m/Y', strtotime($notif['created_at'])) ?></div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="notification-empty">Aucune notification</div>
+            <?php endif; ?>
+        </div>
+        <div class="notification-footer">
+            <a href="historique_notifications.php" class="view-all">Voir toutes les notifications</a>
+        </div>
+    </div>
+</div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">MENU</h5>
@@ -586,7 +838,6 @@ select, input[type="text"] {
       Bienvenue sur votre compte, <?= htmlspecialchars($user['nom']) ?> !
     </h2>
 
- 
     <div class="card shadow card-glass mx-auto" style="max-width: 700px;">
       <div class="card-body">
       <div class="row align-items-center">
@@ -610,10 +861,6 @@ select, input[type="text"] {
           <a href="relev.php" class="btn btn-outline-primary px-4 py-2 rounded-pill">
             📜 Relevé de compte
           </a>
-          <a href="modifier_client.php" class="btn btn-outline-primary px-4 py-2 rounded-pill">
-            modifier mon compte
-            
-          </a>
 
           </a>
         </div>
@@ -621,7 +868,6 @@ select, input[type="text"] {
     </div>
   </div>
 </div>
-       
 
 
 <!-- partie chatbot -->
@@ -689,7 +935,7 @@ select, input[type="text"] {
 
 <!-- ✅ Script JavaScript -->
 <script>
-    // ✅ Masquer le message d’accueil après 5s
+    // ✅ Masquer le message d'accueil après 5s
     setTimeout(() => {
         document.getElementById("chat-tooltip").style.display = "none";
     }, 5000);
@@ -750,9 +996,44 @@ select, input[type="text"] {
             document.querySelector('input[name="user_question"]').value = "";
         }
     }
+
+   
+    
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+<script>
+    // Gestion du panneau de notifications
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.getElementById('notificationToggle');
+        const closeBtn = document.getElementById('notificationClose');
+        const panel = document.getElementById('notificationPanel');
+        
+        // Toggle panel
+        toggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            panel.classList.toggle('show');
+        });
+        
+        // Close panel
+        closeBtn.addEventListener('click', function() {
+            panel.classList.remove('show');
+        });
+        
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!panel.contains(e.target) && e.target !== toggleBtn) {
+                panel.classList.remove('show');
+            }
+        });
+        
+        // Animation for new notifications
+        const badge = document.querySelector('.notification-badge');
+        if (badge) {
+            badge.style.animation = 'pulse 1s 3';
+        }
+    });
+</script>
 </body>
 </html>
