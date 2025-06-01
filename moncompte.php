@@ -29,6 +29,7 @@ $notifStmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
 $notifStmt->execute();
 $notifications = $notifStmt->fetchAll(PDO::FETCH_ASSOC);
 
+
 // Marquer comme lues après affichage
 if (!empty($notifications)) {
     $updateStmt = $pdo->prepare("UPDATE notifications SET is_read = 1 WHERE user_id = :user_id");
@@ -850,17 +851,31 @@ select, input[type="text"] {
         <h5 class="card-title mb-4">Informations du compte</h5>
 
         <p><strong>Nom :</strong> <?= htmlspecialchars($user['nom']) ?></p>
+        <p><strong>Prénom :</strong> <?= htmlspecialchars($user['prenom']) ?></p>
+
         <p><strong>Email :</strong> <?= htmlspecialchars($user['email']) ?></p>
         <p><strong>Téléphone :</strong> <?= htmlspecialchars($user['telephone']) ?></p>
         <p><strong>Adresse :</strong> <?= htmlspecialchars($user['adresse']) ?></p>
 
         <hr class="my-4">
 
+
         <div class="d-flex flex-wrap justify-content-center gap-3">
          
+    <?php
+
+$client_id = $_SESSION['user_id'];
+
+?>
+
           <a href="relev.php" class="btn btn-outline-primary px-4 py-2 rounded-pill">
             📜 Relevé de compte
           </a>
+<a href="modifier_client.php?id=<?= $client_id ?>&from=client" class="btn btn-outline-primary px-4 py-2 rounded-pill">
+  Modifier mon compte
+</a>
+
+
 
           </a>
         </div>

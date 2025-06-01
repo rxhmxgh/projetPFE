@@ -5,7 +5,9 @@ if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
     $stmt = $pdo->prepare("UPDATE rendezvous SET statut = 'confirme' WHERE id = ?");
     $stmt->execute([$id]);
+    $r = $stmt->fetch();
 
+    
     echo "<script>alert('Rendez-vous confirmé.'); window.location.href='admin_rendezvous.php';</script>";
 }
 

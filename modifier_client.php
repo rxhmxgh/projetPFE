@@ -78,6 +78,18 @@ if (isset($_GET['id'])) {
     }
 }
 
+
+
+// Vérifie si l'ID est passé dans l'URL
+if (isset($_GET['id'])) {
+    $id = intval($_GET['id']);
+    // Récupère les données du client
+    $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE id = ?");
+    $stmt->execute([$id]);
+    $client = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+
 // Mise à jour après soumission
 if (isset($_POST['modifier'])) {
     $nom = htmlspecialchars($_POST['nom']);
@@ -95,7 +107,14 @@ if (isset($_POST['modifier'])) {
         'id' => $id
     ]);
 
+    $origine = $_GET['from'] ?? 'admin'; // valeur par défaut : admin
+
+if ($origine === 'client') {
+    echo "<script>alert('Vos informations ont été mises à jour.'); window.location.href='moncompte.php';</script>";
+} else {
     echo "<script>alert('Client modifié avec succès.'); window.location.href='administration.php';</script>";
+}
+
 }
 ?>
 

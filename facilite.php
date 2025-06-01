@@ -523,7 +523,7 @@
 </head>
 <body>
     <div class="promo-banner">
-        <i class="fas fa-gift"></i> OFFRE EXCEPTIONNELLE : Assurance gratuite pendant 1 an pour tout crédit souscrit avant le 31/12/2023
+        <i class="fas fa-gift"></i> OFFRE EXCEPTIONNELLE : Assurance gratuite pendant 1 an pour tout crédit souscrit avant le 31/12/2025
     </div>
     
     <div class="header">

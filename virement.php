@@ -61,19 +61,90 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["virement"])) {
                     $transactionStmt->execute(["utilisateur_id" => $dest["id"], "montant" => $montant]);
 
                     $pdo->commit();
-                    echo "✅ Virement effectué avec succès.";
+                  echo '<div style="
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: green;
+    background-color: #e6ffe6;
+    border: 2px solid green;
+    border-radius: 8px;
+    padding: 15px 25px;
+    text-align: center;
+    width: fit-content;
+    margin: 40px auto 20px auto; /* 100px du haut pour éloigner de la navbar */
+    box-shadow: 0 4px 12px rgba(0, 128, 0, 0.2);
+">
+✅ Virement effectué avec succès.
+</div>';
+
+
                 } else {
-                    echo "❌ Solde insuffisant.";
+                  echo '<div style="
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: green;
+    background-color: #e6ffe6;
+    border: 2px solid green;
+    border-radius: 8px;
+    padding: 15px 25px;
+    text-align: center;
+    width: fit-content;
+       margin: 40px auto 20px auto; /* 100px du haut pour éloigner de la navbar */
+    box-shadow: 0 4px 12px rgba(0, 128, 0, 0.2);
+">
+❌ Solde insuffisant.</div>';
                 }
             } else {
-                echo "❌ Numéro CCP introuvable.";
+             echo '<div style="
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: green;
+    background-color: #e6ffe6;
+    border: 2px solid green;
+    border-radius: 8px;
+    padding: 15px 25px;
+    text-align: center;
+    width: fit-content;
+    margin: 40px auto 20px auto; /* 100px du haut pour éloigner de la navbar */
+    box-shadow: 0 4px 12px rgba(0, 128, 0, 0.2);
+">
+❌ Numéro RIB introuvable.</div>';
+
             }
         } catch (PDOException $e) {
             $pdo->rollBack();
-            echo "❌ Erreur de virement : " . $e->getMessage();
+            echo '<div style="
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: green;
+    background-color: #e6ffe6;
+    border: 2px solid green;
+    border-radius: 8px;
+    padding: 15px 25px;
+    text-align: center;
+    width: fit-content;
+       margin: 40px auto 20px auto; /* 100px du haut pour éloigner de la navbar */
+    box-shadow: 0 4px 12px rgba(0, 128, 0, 0.2);
+">
+❌ Erreur de virement : ' . $e->getMessage() . '</div>';
+
+// Montant invalide
         }
     } else {
-        echo "⚠️ Le montant doit être supérieur à zéro.";
+     echo '<div style="
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: green;
+    background-color: #e6ffe6;
+    border: 2px solid green;
+    border-radius: 8px;
+    padding: 15px 25px;
+    text-align: center;
+    width: fit-content;
+        margin: 40px auto 20px auto; /* 100px du haut pour éloigner de la navbar */
+    box-shadow: 0 4px 12px rgba(0, 128, 0, 0.2);
+">
+⚠️ Le montant doit être supérieur à zéro.</div>';
     }
 }
 

@@ -3,7 +3,7 @@ session_start();
 
 // Connexion à la base de données
 $host = "localhost";
-$dbname = "BanqueModerne";
+$dbname = "banquemoderne";
 $username = "root";
 $password = "";
 
@@ -276,6 +276,7 @@ h2, h3 {
     <input type="text" name="rib" placeholder="Rechercher par RIB..." value="<?php echo isset($_GET['rib']) ? htmlspecialchars($_GET['rib']) : ''; ?>">
     <button type="submit">Rechercher</button>
 </form>
+
     <div class="container">
         <?php if (isset($_SESSION['flash_message'])): ?>
             <div class="alert alert-info flash-message">
@@ -299,7 +300,20 @@ h2, h3 {
                     </thead>
                     <tbody>
                         <?php
-                        $stmt = $pdo->query("SELECT * FROM utilisateurs");
+
+
+
+                        if (!empty($_GET['rib'])) {
+    $rib = trim($_GET['rib']);
+    $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE ccp LIKE ?");
+    $stmt->execute(["%$rib%"]);
+} else {
+    $stmt = $pdo->query("SELECT * FROM utilisateurs");
+}
+
+
+
+
                         while ($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
                             echo "<tr>
                                     <td>".htmlspecialchars($user['nom'])."</td>
