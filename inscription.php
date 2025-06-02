@@ -251,11 +251,15 @@ legend {
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="ccp" class="form-label">Numéro RIB</label>
-              <input type="text" class="form-control" id="ccp" name="ccp" placeholder="Numéro RIB" required>
+             <input type="text" class="form-control" id="ccp" name="ccp" placeholder="Numéro RIB" 
+       pattern="^(878|866|867|872|874|879)[0-9]{7}$"
+       title="Le numéro RIB doit commencer par 878, 866, 867, 872, 874 ou 879 et contenir exactement 10 chiffres"
+       required>
+
             </div>
             <div class="col-md-6 mb-3">
               <label for="cle-ccp" class="form-label">Clé RIB</label>
-              <input type="text" class="form-control" id="cle-ccp" name="cle-ccp" placeholder="Clé RIB" required>
+              <input type="text" class="form-control" id="cle_ccp" name="cle_ccp" placeholder="Clé RIB" required>
             </div>
           </div>
         </fieldset>
@@ -332,6 +336,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "⚠️ Cet email ou numéro RIB est déjà utilisé.";
             exit;
         }
+        // ... après avoir récupéré $ccp
+if (!preg_match('/^(878|866|867|872|874|879)[0-9]{7}$/', $ccp)) {
+    echo "❌ Le numéro RIB doit commencer par 878, 866, 867, 872, 874 ou 879 et contenir exactement 10 chiffres.";
+    exit;
+}
+
 
         // Insérer les données
         $sql = "INSERT INTO utilisateurs (nom, prenom, adresse, ccp, cle_ccp, telephone, email, mot_de_passe) 

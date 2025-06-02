@@ -842,7 +842,7 @@ select, input[type="text"] {
             <ul>
                 <li><a href="inscription.php">S'inscrire</a></li>   
                 <li><a href="#about">Plus infos</a></li>
-                <li><a href="#contacte">Contacte</a></li>
+                <li><a href="#contacte">Contact</a></li>
             </ul>
         </nav>
     </header>
