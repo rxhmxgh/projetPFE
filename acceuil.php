@@ -28,6 +28,7 @@ $questions = $conn->query("SELECT user_question, admin_response FROM questions O
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
     <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -43,6 +44,103 @@ $questions = $conn->query("SELECT user_question, admin_response FROM questions O
             background: #f3e8d3;
             font-family: 'Poppins', sans-serif;
         }
+        /* Styles pour mobiles (écrans < 600px) */
+@media (max-width: 600px) {
+    /* Header */
+    header {
+        flex-direction: column;
+        padding: 15px;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0;
+        margin-top: 15px;
+    }
+    
+    /* Hero section */
+    .hero {
+        height: auto;
+        padding: 50px 20px;
+    }
+    
+    .hero-content p {
+        font-size: 0.9rem;
+    }
+    
+    /* Cards container */
+    .cards-container {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .card {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    /* Cartes offres */
+    .cartes {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .carte {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+    
+    /* Section contact */
+    .contact-container {
+        flex-direction: column;
+        width: 95%;
+    }
+    
+    .contact-info, .contact-form {
+        width: 100%;
+    }
+    
+    /* Chatbot */
+    .chatbot-container {
+        width: 90%;
+        right: 5%;
+        bottom: 80px;
+    }
+    
+    .chat-icon {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    /* Map */
+    #map {
+        width: 100%;
+        height: 250px;
+    }
+    
+    /* Services */
+    .services {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .service {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+    
+    /* Bloc inscription */
+    .bloc-inscription {
+        width: 90%;
+        padding: 20px;
+    }
+    
+    /* CTA section */
+    .cta-text {
+        font-size: 1.5rem;
+    }
+}
 /* Smartphones */
 @media (max-width: 600px) {
     .container {
@@ -816,6 +914,49 @@ button img {
     align-items: center;
     flex-wrap: nowrap;
 }
+@media (max-width: 600px) {
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    nav ul li {
+        margin: 5px 10px;
+    }
+}
+@media (max-width: 600px) {
+    body {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    
+    h1, h2, h3 {
+        font-size: 1.5rem;
+    }
+    
+    .section p {
+        font-size: 0.9rem;
+    }
+}
+@media (max-width: 600px) {
+    button, .btn, .bouton-action {
+        padding: 12px 24px;
+        min-width: 120px;
+        font-size: 1rem;
+    }
+    
+    /* Augmenter la taille des zones cliquables */
+    a, button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+@media (max-width: 600px) {
+    .contact-form input, 
+    .contact-form textarea {
+        font-size: 16px; /* Empêche le zoom sur iOS */
+    }
+}
 select, input[type="text"] {
     flex: 1;
     padding: 8px;
@@ -1139,6 +1280,7 @@ L.marker([35.9312, 0.0895]).addTo(map)
 
 <!-- ✅ Script JavaScript -->
 <script>
+    
     // ✅ Masquer le message d’accueil après 5s
     setTimeout(() => {
         document.getElementById("chat-tooltip").style.display = "none";
@@ -1182,6 +1324,7 @@ L.marker([35.9312, 0.0895]).addTo(map)
             document.querySelector('input[name="user_question"]').value = question;
         }
     }
+
 
     // ✅ Lorsqu'on clique sur le bouton d'envoi du menu déroulant
     function sendFAQ() {
