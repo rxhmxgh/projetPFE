@@ -21,6 +21,10 @@ try {
 $stmt = $pdo->query("SELECT * FROM rendezvous ORDER BY date_rdv, heure_rdv");
 
 $rendezvous = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
 ?>
 
 <!DOCTYPE html>

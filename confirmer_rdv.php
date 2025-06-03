@@ -16,4 +16,6 @@ $message = "Votre rendez-vous du {$r['date_rdv']} à {$r['heure_rdv']} a été c
 
 $stmt = $pdo->prepare("INSERT INTO notifications (utilisateur_id, message) VALUES (?, ?)");
 $stmt->execute([$utilisateur_id, $message]);
+
+
 ?>
