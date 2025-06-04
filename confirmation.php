@@ -35,6 +35,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
      if ($insert->execute([$nom, $email, $telephone, $type, $date, $heure])) {
          
+
+
+
+
+
+
+
+  
          // Envoyer un email de notification
          $destinataire = "rahmaghomari26@gmail.com"; // <-- à modifier si nécessaire
          $sujet = "Nouvelle demande de rendez-vous";

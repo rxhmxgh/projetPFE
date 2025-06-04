@@ -37,6 +37,11 @@ if (!empty($notifications)) {
     $updateStmt->execute();
 }
 
+
+
+
+
+
 // Connexion à la base via MySQLi (pour gestion des questions)
 $conn = new mysqli("localhost", "root", "", "banquemoderne");
 if ($conn->connect_error) {
