@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <h2>Mot de passe oublié</h2>
         <!-- ✅ Message informatif ajouté ici -->
     <p class="info-message">
-      Un code de confirmation vous sera envoyé sur votre adresse e-mail. Veuillez le récupérer pour accéder à la suite du processus de réinitialisation.
+      Un code de confirmation sera envoyé sur votre adresse e-mail. Veuillez le récupérer pour accéder à la suite du processus de réinitialisation.
     </p>
     <?php if ($erreur): ?>
       <div class="error"><?= $erreur ?></div>

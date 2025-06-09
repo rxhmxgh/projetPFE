@@ -106,6 +106,7 @@ $questions = $conn->query("SELECT user_question, admin_response FROM questions O
         width: 90%;
         right: 5%;
         bottom: 80px;
+        
     }
     
     .chat-icon {
@@ -818,6 +819,7 @@ footer {
     min-width: 300px;
     max-width: 400px;
     width: 100%;
+    
 }
 
 /* En-tête */
@@ -855,7 +857,7 @@ footer {
 
 }
 .from-admin {
-    background: #c8e6c9;
+    background:rgb(139, 192, 141);
     align-self: flex-start;
     text-align: left !important; 
 }
@@ -1043,7 +1045,7 @@ select, input[type="text"] {
      </div>
 
     <!--de plus a ajouter -->
-    < class="offres">
+    
         <div class="offres" >
         <h1>Ce Que Nous Offrons</h1>
         </div>
