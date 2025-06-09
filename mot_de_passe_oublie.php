@@ -44,11 +44,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     .error { color: red; margin-bottom: 10px; }
     .success { color: green; margin-bottom: 10px; }
     a { display: block; margin-top: 20px; text-align: center; }
+    .info-message {
+  background-color: #e7f3fe;
+  color: #0c5460;
+  padding: 10px;
+  border-left: 5px solid #17a2b8;
+  margin-bottom: 15px;
+  border-radius: 4px;
+}
   </style>
 </head>
 <body>
   <div class="container">
     <h2>Mot de passe oublié</h2>
+        <!-- ✅ Message informatif ajouté ici -->
+    <p class="info-message">
+      Un code de confirmation vous sera envoyé sur votre adresse e-mail. Veuillez le récupérer pour accéder à la suite du processus de réinitialisation.
+    </p>
     <?php if ($erreur): ?>
       <div class="error"><?= $erreur ?></div>
     <?php endif; ?>

@@ -145,14 +145,27 @@ input[type="file"] {
         <label for="dob">Date de naissance :</label>
         <input type="date" id="dob" name="dob" required>
         
-        <label for="phone">Numéro de téléphone :</label>
-        <input type="tel" id="phone" name="phone" required>
+        <script>
+  // Calcul de la date maximale autorisée (18 ans en arrière)
+  const today = new Date();
+  const year = today.getFullYear() - 18;
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  const maxDate = `${year}-${month}-${day}`;
+
+  // On fixe cette date comme limite maximale dans le champ
+  document.getElementById("dob").max = maxDate;
+</script>
+
+       <input type="tel" id="phone" name="phone" required 
+       pattern="^0[5-7][0-9]{8}$"
+       oninvalid="this.setCustomValidity('Le numéro doit commencer par 05, 06 ou 07 et contenir 10 chiffres.')"
+       oninput="this.setCustomValidity('')"
+       placeholder="Ex: 06XXXXXXXX">
         
         <label for="email">Email :</label>
         <input type="email" id="email" name="email" required>
         
-        <label for="address">Adresse :</label>
-        <textarea id="address" name="address" required></textarea>
 
 
 
