@@ -457,7 +457,7 @@ select, input[type="text"] {
     }).addTo(map);
 // les agences a proximité
 const agences = [
-        { nom: "Mostaganem", coords: [35.9312, 0.0895], description: "Agence Mostaganem Centre" },
+        { nom: "Mostaganem", coords: [35.9312, 0.0895], description: "Agence Mostaganem Centre " },
         { nom: "Sidi Lakhdar", coords: [36.1056, 0.2790], description: "Agence Sidi Lakhdar" },
         { nom: "Mesra", coords: [35.8833, 0.2000], description: "Agence Mesra" },
         { nom: "Aïn Tédelès", coords: [35.9761, 0.2392], description: "Agence Aïn Tédelès" },
@@ -469,7 +469,7 @@ const agences = [
     agences.forEach(agence => {
         //sidi lakhdar
     L.marker([36.1056, 0.2790]).addTo(map)
-        .bindPopup('<b>Agence</b><br>Sidi Lakhdar, Mostaganem')
+        .bindPopup('<b>Agence</b><br>Sidi Lakhdar, Mostaganem ')
         .openPopup(); 
         
 

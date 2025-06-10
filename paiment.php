@@ -643,7 +643,8 @@ select, input[type="text"] {
             </label>
 
             <label>Identifiant / N° Téléphonique :
-                <input type="text" name="identifiant" required>
+                <input type="text" name="numero" id="numero" maxlength="10"  required>
+
             </label>
 
             <label>Montant (DA) :
