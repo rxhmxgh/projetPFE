@@ -293,7 +293,7 @@ h2, h3 {
                         <tr>
                             <th>Nom</th>
                             <th>Prénom</th>
-                            <th>Numéro CCP</th>
+                            <th>Numéro RIB</th>
                             <th>Solde (DA)</th>
                             <th>Action</th>
                         </tr>
