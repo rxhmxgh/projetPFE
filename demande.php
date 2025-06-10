@@ -127,6 +127,30 @@ input[type="file"] {
 }
 
 
+
+
+.simple-notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color:rgb(241, 248, 215);
+    color: #721c24;
+    padding: 15px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    border-bottom: 1px solid #f5c6cb;
+    z-index: 1000;
+    animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
+
+
 </style>
 </head>
 <body>
@@ -247,8 +271,8 @@ try {
         $residence_proof['name'] ?? '',
         $consent
     ]);
-
-    echo "<br>✅ Les données ont été enregistrées avec succès dans la base.";
+    
+      echo '<div class="simple-notification">✅ Les données ont été enregistrées avec succès dans la base</div>';
 } catch (PDOException $e) {
     echo "❌ Erreur de base de données : " . $e->getMessage();
 }
@@ -335,11 +359,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Vous devez accepter les termes et conditions pour soumettre votre demande.";
     }
 } else {
-    echo "Aucune donnée soumise.";
+   echo '<div class="simple-notification">Aucune donnée soumise.</div>';
 }
 ?>
 
-
+<script>
+// Faire disparaître la notification après 5 secondes
+setTimeout(() => {
+    const notification = document.querySelector('.simple-notification');
+    if (notification) {
+        notification.style.transform = 'translateY(-100%)';
+        setTimeout(() => notification.remove(), 500);
+    }
+}, 5000);
+</script>
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
