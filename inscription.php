@@ -269,7 +269,18 @@ legend {
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="telephone" class="form-label">Numéro de téléphone</label>
-              <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="Votre numéro" required>
+             <input type="tel" class="form-control" id="telephone" name="telephone" 
+       maxlength="10" placeholder="Votre numéro" required>
+<script>
+document.getElementById('telephone').addEventListener('input', function(e) {
+    if (!/^0[567]/.test(e.target.value)) {
+        this.setCustomValidity("Le numéro doit commencer par 05, 06 ou 07");
+    } else {
+        this.setCustomValidity("");
+    }
+});
+</script>
+          
             </div>
             <div class="col-md-6 mb-3">
               <label for="email" class="form-label">Adresse e-mail</label>
@@ -280,16 +291,33 @@ legend {
 
         <fieldset class="border p-3 mb-3 rounded">
           <legend class="float-none w-auto px-3">Mot de passe</legend>
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="password" class="form-label">Mot de passe</label>
-              <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="confirm-password" class="form-label">Confirmer le mot de passe</label>
-              <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirmer le mot de passe" required>
-            </div>
-          </div>
+ <div class="row">
+  <div class="col-md-6 mb-3">
+    <label for="password" class="form-label">Mot de passe</label>
+    <input type="password" class="form-control" id="password" name="password"
+           placeholder="Mot de passe" required
+           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
+           title="Minimum 8 caractères, avec au moins une majuscule, une minuscule et un chiffre">
+  </div>
+  <div class="col-md-6 mb-3">
+    <label for="confirm-password" class="form-label">Confirmer le mot de passe</label>
+    <input type="password" class="form-control" id="confirm-password" name="confirm-password"
+           placeholder="Confirmer le mot de passe" required
+           title="Les mots de passe doivent correspondre.">
+  </div>
+</div>
+<script>
+document.querySelector('form').addEventListener('submit', function (e) {
+  const password = document.getElementById('password').value;
+  const confirm = document.getElementById('confirm-password').value;
+
+  if (password !== confirm) {
+    e.preventDefault();
+    alert("Les mots de passe ne correspondent pas.");
+  }
+});
+</script>
+
         </fieldset>
 
         <p class="text-center">Vous avez déjà un compte ? <a href="connex.php">Connectez-vous ici</a></p>

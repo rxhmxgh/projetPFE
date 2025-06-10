@@ -10,12 +10,12 @@ body {
 h2 {
     text-align: center;
     font-size: 28px;
-    color: #007bff;
+    color:rgb(32, 112, 26);
     margin-bottom: 30px;
 }
 
 h3 {
-    color: #007bff;
+    color:rgb(32, 112, 26);
     margin-top: 30px;
     font-size: 20px;
 }
@@ -52,13 +52,13 @@ input[type="password"] {
 input[type="text"]:focus, 
 input[type="email"]:focus,
 input[type="password"]:focus {
-    border-color: #007bff;
+    border-color:rgb(32, 112, 26);
     outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 5px rgb(32, 112, 26);
 }
 
 button {
-    background-color: #007bff;
+    background-color:rgb(32, 112, 26);
     color: white;
     border: none;
     padding: 12px 20px;
@@ -71,7 +71,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color:rgb(32, 112, 26);
 }
 
 .small-text {

@@ -616,10 +616,10 @@ select, input[type="text"] {
     <section class="transfer-section">
       
         <form method="post" action="">
-            <label>Numéro CCP Source :</label>
+            <label>Numéro RIB Source :</label>
             <input type="text" name="ccp_source" value="<?= htmlspecialchars($ccpSource); ?>" readonly>
 
-            <label>Numéro CCP Destinataire :</label>
+            <label>Numéro RIB Destinataire :</label>
             <input type="text" name="ccp_dest" required>
 
             <label>Montant :</label>
